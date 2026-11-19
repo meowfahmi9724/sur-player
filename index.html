@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="bn"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>সুর প্লেয়ার</title>
+<link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg">
+<meta name="theme-color" content="#14213d">
+<style>
+:root{--bg:#14213d;--pn:#1d2d52;--ln:#2c3f6b;--tx:#f1f3f9;--mu:#9fabc8;--ac:#f2b84b}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{background:var(--bg);color:var(--tx);font:16px/1.5 "Noto Sans Bengali","Hind Siliguri",system-ui,sans-serif;padding:env(safe-area-inset-top) 0 0}
+button,input{font:inherit;color:inherit}
+button{background:none;border:0;cursor:pointer}
+nav{display:flex;border-bottom:1px solid var(--ln)}
+nav button{flex:1;padding:12px 4px;color:var(--mu)}
+nav button.on{color:var(--ac);box-shadow:inset 0 -3px var(--ac)}
+main{padding:14px 14px 170px}
+section{display:none}section.on{display:block}
+.row{display:flex;gap:8px;align-items:center}
+input[type=search]{flex:1;min-width:0;background:var(--pn);border:1px solid var(--ln);border-radius:10px;padding:10px 12px}
+.btn{background:var(--ac);color:#14213d;border-radius:10px;padding:10px 14px;font-weight:700}
+.btn.g{background:var(--pn);color:var(--tx);border:1px solid var(--ln)}
+.tr{display:flex;gap:12px;align-items:center;width:100%;text-align:left;padding:8px 0;border-bottom:1px solid var(--ln)}
+.tr img,.art{width:48px;height:48px;border-radius:8px;background:var(--pn);object-fit:cover;flex:none}
+.tr b,.tr small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tr div{min-width:0}small{color:var(--mu)}
+.tr.cur b{color:var(--ac)}
+#bar{position:fixed;left:0;right:0;bottom:0;background:var(--pn);border-top:1px solid var(--ln);padding:10px 14px calc(10px + env(safe-area-inset-bottom))}
+#bar .row{justify-content:space-between}
+#bar .info{display:flex;gap:10px;align-items:center;min-width:0;flex:1}
+#bar .info div{min-width:0}
+.ctl button{font-size:22px;padding:4px 9px}
+#pp{background:var(--ac);color:#14213d;border-radius:50%;width:46px;height:46px;padding:0!important}
+input[type=range]{width:100%;accent-color:var(--ac)}
+.tm{display:flex;justify-content:space-between;color:var(--mu);font-size:12px}
+.card{background:var(--pn);border:1px solid var(--ln);border-radius:14px;padding:14px;margin-bottom:12px}
+.card h3{font-size:15px;margin-bottom:8px;color:var(--mu);font-weight:500}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chips button{border:1px solid var(--ln);border-radius:20px;padding:6px 14px;color:var(--mu)}
+.chips button.on{background:var(--ac);color:#14213d;border-color:var(--ac)}
+.big{font-size:38px;font-weight:700;line-height:1.2}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.bars{display:flex;align-items:flex-end;gap:3px;height:90px;margin-top:10px}
+.bars i{flex:1;background:var(--ac);border-radius:3px 3px 0 0;min-height:2px}
+video{width:100%;border-radius:12px;background:#000;max-height:60vh}
+.lbl{display:flex;justify-content:space-between;margin:10px 0 2px}
+#msg{color:var(--mu);padding:12px 0}
+</style></head><body>
+<nav><button data-t="home" class="on">গান</button><button data-t="vid">ভিডিও</button><button data-t="prog">প্রগ্রেস</button><button data-t="set">কন্ট্রোল</button></nav>
+<main>
+<section id="home" class="on">
+ <div class="row"><input id="q" type="search" placeholder="গান বা শিল্পীর নাম খুঁজুন"><button class="btn" id="go">খুঁজুন</button></div>
+ <div class="row" style="margin:10px 0"><label class="btn g">নিজের ফাইল<input id="lf" type="file" accept="audio/*" multiple hidden></label><button class="btn g" id="pop">জনপ্রিয়</button></div>
+ <div id="msg"></div><div id="res"></div>
+</section>
+<section id="vid">
+ <label class="btn" style="display:inline-block;margin-bottom:10px">ভিডিও ফাইল খুলুন<input id="vf" type="file" accept="video/*" hidden></label>
+ <video id="v" controls playsinline></video>
+ <div class="chips" style="margin-top:10px" id="vsp"></div>
+ <p style="color:var(--mu);margin-top:10px">জেসচার, সাবটাইটেল, PiP, A-B লুপ আসছে পরের ধাপে।</p>
+</section>
+<section id="prog">
+ <div class="chips" id="pr" style="margin-bottom:12px"><button data-p="1" class="on">আজ</button><button data-p="7">সপ্তাহ</button><button data-p="30">মাস</button></div>
+ <div class="card"><h3>মোট শোনা</h3><div class="big" id="pt">০</div>
+  <div class="grid"><div><small>গান শোনা হয়েছে</small><div id="pc" class="big" style="font-size:24px"></div></div><div><small>ধারাবাহিক দিন</small><div id="ps" class="big" style="font-size:24px"></div></div>
+  <div><small>সক্রিয় দিন</small><div id="pd" class="big" style="font-size:24px"></div></div><div><small>প্রিয় শিল্পী</small><div id="pa" style="font-weight:700"></div></div></div>
+  <div class="bars" id="pb"></div></div>
+ <div class="card"><h3>সবচেয়ে বেশি শোনা</h3><div id="ptop"></div></div>
+ <div class="row"><button class="btn" id="sh" style="flex:1">শেয়ার করুন</button><button class="btn g" id="sv" style="flex:1">গ্যালারিতে সেভ</button></div>
+ <div class="row" style="margin-top:8px"><a class="btn g" id="wa" target="_blank" rel="noopener" style="flex:1;text-align:center;text-decoration:none">WhatsApp</a><a class="btn g" id="tg" target="_blank" rel="noopener" style="flex:1;text-align:center;text-decoration:none">Telegram</a></div>
+ <p style="color:var(--mu);margin-top:8px;font-size:13px">ফেসবুক, ইন্সটা, মেসেঞ্জারে পাঠাতে “শেয়ার করুন” চেপে অ্যাপ বেছে নিন।</p>
+</section>
+<section id="set">
+ <div class="card"><h3>ভলিউম</h3><input id="vol" type="range" min="0" max="1" step=".01" value="1">
+  <div class="lbl"><span>গতি</span><span id="spv">1x</span></div><input id="sp" type="range" min=".5" max="2" step=".05" value="1"></div>
+ <div class="card"><div class="lbl" style="margin:0 0 6px"><h3 style="margin:0">ইকুয়ালাইজার</h3><button class="btn g" id="eqb">চালু করুন</button></div>
+  <div class="lbl"><span>বেস</span></div><input class="eq" data-k="0" type="range" min="-12" max="12" value="0">
+  <div class="lbl"><span>মিড</span></div><input class="eq" data-k="1" type="range" min="-12" max="12" value="0">
+  <div class="lbl"><span>ট্রেবল</span></div><input class="eq" data-k="2" type="range" min="-12" max="12" value="0"></div>
+ <div class="card"><h3>স্লিপ টাইমার</h3><div class="chips" id="sl"><button data-m="0" class="on">বন্ধ</button><button data-m="15">১৫ মি.</button><button data-m="30">৩০ মি.</button><button data-m="60">১ ঘণ্টা</button></div></div>
+ <div class="card"><h3>Jamendo Client ID</h3><div class="row"><input id="cid" type="search" placeholder="এখানে বসান"><button class="btn" id="cs">সেভ</button></div></div>
+ <button class="btn" id="inst" style="width:100%">অ্যাপ ডাউনলোড করুন</button>
+</section>
+</main>
+<div id="bar">
+ <div class="row"><div class="info"><img id="ar" class="art" alt=""><div><b id="tt" style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">কিছু বাজছে না</b><small id="ta"></small></div></div>
+ <div class="ctl row" style="gap:0"><button id="lp" title="রিপিট">🔁</button><button id="pv">⏮</button><button id="pp">▶</button><button id="nx">⏭</button></div></div>
+ <input id="sk" type="range" min="0" max="1" step="1" value="0"><div class="tm"><span id="c">0:00</span><span id="d">0:00</span></div>
+</div>
+<audio id="a" crossorigin="anonymous" preload="auto"></audio>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],a=$('#a');
+const bn=n=>Number(n).toLocaleString('bn-BD');
+const L=(k,d)=>{try{return JSON.parse(localStorage[k])??d}catch{return d}},S=(k,v)=>{try{localStorage[k]=JSON.stringify(v)}catch{}};
+let cid=localStorage.cid||'43ad711a',list=[],q=[],i=-1,cur=null,st=L('st',{d:{},m:{}}),per=1,card=null;
+const day=t=>new Date(t).toLocaleDateString('sv');
+const fm=s=>isFinite(s)?Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0'):'0:00';
+const ft=s=>{const h=Math.floor(s/3600),m=Math.floor(s%3600/60);return h?`${bn(h)} ঘণ্টা ${bn(m)} মিনিট`:`${bn(m)} মিনিট`};
+const msg=t=>$('#msg').textContent=t||'';
+/* ট্যাব */
+function show(t){$$('section').forEach(s=>s.classList.toggle('on',s.id===t));$$('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t===t));if(t==='prog')prog()}
+$$('nav button').forEach(b=>b.onclick=()=>show(b.dataset.t));
+/* সার্চ */
+async function load(s){
+ if(cid.startsWith('YOUR'))return msg('“কন্ট্রোল” ট্যাবে Jamendo Client ID বসিয়ে সেভ করুন।');
+ msg('লোড হচ্ছে…');
+ try{const j=await(await fetch(`https://api.jamendo.com/v3.0/tracks/?client_id=${cid}&format=json&limit=30&audioformat=mp32&imagesize=200&`+(s?`search=${encodeURIComponent(s)}`:'order=popularity_week'))).json();
+  if(j.headers&&j.headers.status!=='success')return msg('সমস্যা: '+j.headers.error_message);
+  list=j.results.map(t=>({id:'j'+t.id,n:t.name,ar:t.artist_name,im:t.image,u:t.audio}));
+  msg(list.length?'':'কিছু পাওয়া যায়নি।');draw()}catch{msg('ইন্টারনেট বা Client ID চেক করুন।')}}
+function draw(){$('#res').innerHTML=list.map((t,k)=>`<button class="tr${cur&&cur.id===t.id?' cur':''}" data-k="${k}"><img src="${t.im||''}" alt=""><div><b></b><small></small></div></button>`).join('');
+ $$('#res .tr').forEach((b,k)=>{b.querySelector('b').textContent=list[k].n;b.querySelector('small').textContent=list[k].ar;b.onclick=()=>{q=list.slice();play(k)}})}
+$('#go').onclick=()=>load($('#q').value.trim());$('#q').onkeydown=e=>e.key==='Enter'&&$('#go').click();$('#pop').onclick=()=>load('');
+$('#lf').onchange=e=>{list=[...e.target.files].map(f=>({id:'l'+f.name,n:f.name.replace(/\.[^.]+$/,''),ar:'নিজের ফাইল',im:'',u:URL.createObjectURL(f)}));msg('');draw()};
+/* প্লে */
+function play(n){if(!q[n])return;i=n;cur=q[n];cur.p=0;a.src=cur.u;a.play().catch(()=>{});
+ $('#tt').textContent=cur.n;$('#ta').textContent=cur.ar;$('#ar').src=cur.im||'icon.svg';draw();
+ if('mediaSession' in navigator)navigator.mediaSession.metadata=new MediaMetadata({title:cur.n,artist:cur.ar,artwork:cur.im?[{src:cur.im,sizes:'200x200'}]:[]})}
+const nx=()=>q.length&&play((i+1)%q.length),pv=()=>a.currentTime>3?a.currentTime=0:q.length&&play((i-1+q.length)%q.length);
+$('#pp').onclick=()=>a.paused?a.play():a.pause();$('#nx').onclick=nx;$('#pv').onclick=pv;
+$('#lp').onclick=e=>{a.loop=!a.loop;e.target.style.opacity=a.loop?1:.5};$('#lp').style.opacity=.5;
+a.onplay=()=>{$('#pp').textContent='⏸';ms('playing')};a.onpause=()=>{$('#pp').textContent='▶';ms('paused')};a.onended=nx;
+const ms=s=>{if('mediaSession' in navigator)navigator.mediaSession.playbackState=s};
+a.ontimeupdate=()=>{$('#sk').max=a.duration||1;$('#sk').value=a.currentTime;$('#c').textContent=fm(a.currentTime);$('#d').textContent=fm(a.duration);
+ try{navigator.mediaSession.setPositionState({duration:a.duration||0,position:a.currentTime,playbackRate:a.playbackRate})}catch{}};
+$('#sk').oninput=e=>a.currentTime=e.target.value;
+a.onerror=()=>{if(a.crossOrigin){a.removeAttribute('crossorigin');const t=a.currentTime;a.src=cur.u;a.play();msg('ইকুয়ালাইজার এই গানে কাজ করবে না।')}};
+if('mediaSession' in navigator){const h=(n,f)=>{try{navigator.mediaSession.setActionHandler(n,f)}catch{}};
+ h('play',()=>a.play());h('pause',()=>a.pause());h('previoustrack',pv);h('nexttrack',nx);
+ h('seekto',d=>a.currentTime=d.seekTime);h('seekbackward',()=>a.currentTime-=10);h('seekforward',()=>a.currentTime+=10)}
+/* কন্ট্রোল */
+$('#vol').oninput=e=>a.volume=e.target.value;
+$('#sp').oninput=e=>{a.playbackRate=+e.target.value;$('#spv').textContent=e.target.value+'x'};
+let ctx,fl=[];
+$('#eqb').onclick=()=>{if(ctx)return;if(!a.crossOrigin)return msg('এই গানে ইকুয়ালাইজার চলবে না।');
+ ctx=new AudioContext();const s=ctx.createMediaElementSource(a);
+ fl=[['lowshelf',200],['peaking',1000],['highshelf',4000]].map(([t,f])=>{const n=ctx.createBiquadFilter();n.type=t;n.frequency.value=f;return n});
+ [s,...fl,ctx.destination].reduce((x,y)=>(x.connect(y),y));$('#eqb').textContent='চালু আছে'};
+$$('.eq').forEach(r=>r.oninput=()=>{if(!ctx)$('#eqb').click();if(fl[r.dataset.k])fl[r.dataset.k].gain.value=+r.value});
+let tm;$$('#sl button').forEach(b=>b.onclick=()=>{$$('#sl button').forEach(x=>x.classList.toggle('on',x===b));clearTimeout(tm);if(+b.dataset.m)tm=setTimeout(()=>a.pause(),b.dataset.m*6e4)});
+$('#cid').value=cid.startsWith('YOUR')?'':cid;
+$('#cs').onclick=()=>{cid=$('#cid').value.trim()||'43ad711a';localStorage.cid=cid;show('home');load('')};
+let dp;addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e});
+$('#inst').onclick=()=>dp?dp.prompt():alert('ব্রাউজার মেনু (⋮ বা শেয়ার) থেকে “Add to Home screen” বা “হোম স্ক্রিনে যোগ করুন” চাপুন।');
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+/* ভিডিও */
+const v=$('#v');$('#vf').onchange=e=>{a.pause();v.src=URL.createObjectURL(e.target.files[0]);v.play()};
+$('#vsp').innerHTML=[.5,.75,1,1.25,1.5,2,3].map(x=>`<button data-s="${x}"${x==1?' class="on"':''}>${x}x</button>`).join('');
+$$('#vsp button').forEach(b=>b.onclick=()=>{v.playbackRate=+b.dataset.s;$$('#vsp button').forEach(x=>x.classList.toggle('on',x===b))});
+v.onplay=()=>a.pause();a.addEventListener('play',()=>v.pause());
+/* শোনার হিসাব: প্রতি সেকেন্ডে */
+let sv=0;setInterval(()=>{if(a.paused||a.ended||!cur)return;
+ const k=day(Date.now()),d=st.d[k]=st.d[k]||{s:0,t:{}},t=d.t[cur.id]=d.t[cur.id]||[0,0];
+ st.m[cur.id]={n:cur.n,ar:cur.ar};d.s++;t[0]++;if(++cur.p===30)t[1]++;if(++sv%5===0)S('st',st)},1000);
+addEventListener('pagehide',()=>S('st',st));
+/* প্রগ্রেস */
+function stats(){let tot=0,cnt=0,act=0,tr={},ar={},bars=[];
+ for(let k=0;k<per;k++){const d=st.d[day(Date.now()-k*864e5)];bars.unshift(d?d.s:0);if(!d)continue;tot+=d.s;if(d.s)act++;
+  for(const id in d.t){const m=st.m[id]||{n:'?',ar:'?'},x=tr[id]=tr[id]||{n:m.n,ar:m.ar,s:0,c:0};x.s+=d.t[id][0];x.c+=d.t[id][1];cnt+=d.t[id][1];ar[m.ar]=(ar[m.ar]||0)+d.t[id][0]}}
+ let sk=0;for(let k=0;k<400;k++){const d=st.d[day(Date.now()-k*864e5)];if(d&&d.s>0)sk++;else if(k>0)break}
+ const top=Object.values(tr).sort((x,y)=>y.c-x.c||y.s-x.s).slice(0,5),best=Object.entries(ar).sort((x,y)=>y[1]-x[1])[0];
+ return{tot,cnt,act,sk,top,bars,best:best?best[0]:'—'}}
+function prog(){const s=stats(),mx=Math.max(...s.bars,1);
+ $('#pt').textContent=ft(s.tot);$('#pc').textContent=bn(s.cnt)+' বার';$('#ps').textContent=bn(s.sk)+' দিন';$('#pd').textContent=bn(s.act)+' দিন';$('#pa').textContent=s.best;
+ $('#pb').innerHTML=s.bars.map(x=>`<i style="height:${Math.max(x/mx*100,2)}%"></i>`).join('');
+ $('#ptop').innerHTML=s.top.length?'':'<small>এখনো কিছু শোনা হয়নি।</small>';
+ s.top.forEach((t,k)=>{const r=document.createElement('div');r.className='tr';r.innerHTML='<div style="flex:1"><b></b><small></small></div><small></small>';
+  r.querySelector('b').textContent=bn(k+1)+'. '+t.n;r.querySelector('small').textContent=t.ar;r.lastChild.textContent=bn(t.c)+' বার';$('#ptop').append(r)});
+ const lb=['আজকের','সপ্তাহের','মাসের'][[1,7,30].indexOf(per)];
+ const tx=`🎧 আমার ${lb} শোনা: ${ft(s.tot)}, ${bn(s.cnt)}টি গান।\nপ্রিয় শিল্পী: ${s.best}\n— সুর প্লেয়ার`;
+ $('#wa').href='https://wa.me/?text='+encodeURIComponent(tx);$('#tg').href='https://t.me/share/url?url='+encodeURIComponent(location.href)+'&text='+encodeURIComponent(tx);
+ card={s,lb,tx}}
+$$('#pr button').forEach(b=>b.onclick=()=>{per=+b.dataset.p;$$('#pr button').forEach(x=>x.classList.toggle('on',x===b));prog()});
+function blob(){return new Promise(r=>{const{s,lb}=card,c=document.createElement('canvas');c.width=1080;c.height=1350;const g=c.getContext('2d');
+ const gr=g.createLinearGradient(0,0,1080,1350);gr.addColorStop(0,'#14213d');gr.addColorStop(1,'#2c3f6b');g.fillStyle=gr;g.fillRect(0,0,1080,1350);
+ g.fillStyle='#f2b84b';g.beginPath();g.arc(900,200,110,0,7);g.fill();g.fillStyle='#fff';g.textBaseline='top';
+ const F='"Noto Sans Bengali","Hind Siliguri",sans-serif';
+ g.font='500 48px '+F;g.fillStyle='#9fabc8';g.fillText('আমার '+lb+' শোনা',80,120);
+ g.font='700 120px '+F;g.fillStyle='#f2b84b';g.fillText(ft(s.tot),80,200);
+ g.font='500 52px '+F;g.fillStyle='#fff';g.fillText(bn(s.cnt)+'টি গান  •  '+bn(s.sk)+' দিনের ধারা',80,380);
+ g.fillStyle='#9fabc8';g.font='500 44px '+F;g.fillText('প্রিয় শিল্পী: '+s.best,80,470);
+ g.fillStyle='#fff';g.font='700 52px '+F;g.fillText('সবচেয়ে বেশি শোনা',80,600);
+ s.top.forEach((t,k)=>{g.font='500 46px '+F;g.fillStyle='#fff';g.fillText((bn(k+1)+'. '+t.n).slice(0,26),80,690+k*100);g.fillStyle='#9fabc8';g.font='400 36px '+F;g.fillText(t.ar.slice(0,28)+'  •  '+bn(t.c)+' বার',80,742+k*100)});
+ const mx=Math.max(...s.bars,1),w=920/s.bars.length;g.fillStyle='#f2b84b';s.bars.forEach((x,k)=>{const h=Math.max(x/mx*110,4);g.fillRect(80+k*w,1270-h,w-4,h)});
+ c.toBlob(r,'image/png')})}
+async function file(){card||prog();return new File([await blob()],'sur-progress.png',{type:'image/png'})}
+$('#sh').onclick=async()=>{prog();const f=await file();try{if(navigator.canShare&&navigator.canShare({files:[f]}))await navigator.share({files:[f],text:card.tx});else if(navigator.share)await navigator.share({text:card.tx})}catch{}};
+$('#sv').onclick=async()=>{prog();const f=await file(),u=URL.createObjectURL(f),l=document.createElement('a');l.href=u;l.download=f.name;l.click()};
+load('');
+</script></body></html>
