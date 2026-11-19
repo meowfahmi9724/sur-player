@@ -145,6 +145,11 @@ header{display:flex;align-items:center;justify-content:space-between}.hr{display
 .du{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px;text-align:center}.du small{display:block;color:var(--mu)}.du b{font-size:17px}
 .tr[data-s=রেডিও] em{color:#ff9f5a;border-color:#ff9f5a66}.tr[data-s=পডকাস্ট] em{color:#5ad1c8;border-color:#5ad1c866}
 #modes{flex-wrap:nowrap;overflow-x:auto;margin:12px -14px 0;padding:0 14px;scrollbar-width:none}#modes button{flex:none;background:var(--pn)}
+#sheet{position:fixed;inset:0;z-index:30;background:rgba(0,0,0,.5);display:none;align-items:flex-end}#sheet.on{display:flex}
+.shp{width:100%;max-height:80vh;overflow:auto;background:var(--bg);border:1px solid var(--ln);border-radius:22px 22px 0 0;padding:16px 16px calc(16px + env(safe-area-inset-bottom));display:grid;gap:8px}
+.shp h3{font-size:15px;margin-bottom:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mo{padding:4px 10px;font-size:22px;color:var(--mu);line-height:1}
+.qr{display:flex;align-items:center;gap:4px;padding:6px 0;border-bottom:1px solid var(--ln)}.qr b{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:400;text-align:left;cursor:pointer}.qr.cur b{color:var(--ac);font-weight:700}.qr button{padding:4px 9px;color:var(--mu)}
 </style></head><body>
 <header><h1>সুর<span>.</span></h1><span class="hr"><button id="inst" class="ibs" hidden>📲 অ্যাপ ইনস্টল</button><button class="ib" data-t="set" aria-label="সেটিং"><svg viewBox="0 0 24 24"><path d="M19.4 13a7.5 7.5 0 0 0 0-2l2-1.6-2-3.4-2.4 1a7 7 0 0 0-1.7-1L15 3h-4l-.4 3a7 7 0 0 0-1.7 1l-2.4-1-2 3.4L6.6 11a7.5 7.5 0 0 0 0 2l-2 1.6 2 3.4 2.4-1a7 7 0 0 0 1.7 1l.4 3h4l.4-3a7 7 0 0 0 1.7-1l2.4 1 2-3.4zM12 15.500a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z"/></svg></button></span></header>
 <nav><button data-t="home" class="on">গান</button><button data-t="vid">ভিডিও</button><button data-t="prog">প্রগ্রেস</button></nav>
@@ -154,6 +159,7 @@ header{display:flex;align-items:center;justify-content:space-between}.hr{display
  <div class="sbar"><svg viewBox="0 0 24 24"><path d="M10 4a6 6 0 1 0 3.700 10.700l4.800 4.800 1.400-1.400-4.800-4.800A6 6 0 0 0 10 4zm0 2a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/></svg><input id="q" type="search" placeholder="গান বা শিল্পীর নাম"><button class="btn" id="go">খুঁজুন</button></div>
  <div id="sg"></div>
  <div class="quick"><button class="tile" id="pop"><i>🔥</i><div><b>জনপ্রিয়</b><small>এখন যা চলছে</small></div></button><button class="tile b" id="myph"><i>📱</i><div><b>নিজের ফোন</b><small>ডাউনলোড করা গান</small></div></button><input id="lf" type="file" accept=".mp3,.m4a,.aac,.wav,.ogg,.opus,.flac,.wma" multiple hidden></div>
+ <div class="chips" id="mylib"><button id="bfv">❤️ ফেভারিট</button><button id="bpl">🎼 প্লেলিস্ট</button></div>
  <div class="chips" id="modes"><button data-m="all" class="on">🎵 সব গান</button><button data-m="radio">📻 রেডিও</button><button data-m="pod">🎙️ পডকাস্ট</button><button data-m="live">🎤 লাইভ কনসার্ট</button><button data-m="rec">📀 পুরনো রেকর্ড</button><button data-m="book">📚 অডিওবুক</button></div>
  <div class="chips" id="gen"><button>বাংলা গান</button><button>বাংলা ব্যান্ড</button><button>হিন্দি গান</button><button>English pop</button><button>লো-ফাই</button><button>ইসলামিক গজল</button><button>রবীন্দ্রসংগীত</button></div>
  <div class="sec"><h3>গান</h3><span class="row"><small id="cnt"></small><button class="btn g mini" id="lib">➕ গান যোগ</button><button class="btn g mini" id="shf">🔀 শাফল</button></span></div>
@@ -191,7 +197,8 @@ header{display:flex;align-items:center;justify-content:space-between}.hr{display
  <div class="row" style="justify-content:space-between"><button class="ib" id="fc" aria-label="বন্ধ"><svg viewBox="0 0 24 24"><path d="M7.400 8.600 12 13.200l4.600-4.600L18 10l-6 6-6-6z"/></svg></button><small>এখন বাজছে</small><span style="width:40px"></span></div>
  <img class="cov big" alt=""><h2 id="ft"></h2><small id="fa"></small>
  <input id="sk" type="range" min="0" max="1" step="1" value="0" style="margin-top:18px"><div class="tm"><span id="c">0:00</span><span id="d">0:00</span></div>
- <div class="fc2"><button class="lp cb"></button><button class="pv sk cb"></button><button class="pp"></button><button class="nx sk cb"></button><span style="width:40px"></span></div>
+ <div class="fc2"><button class="lp cb"></button><button class="pv sk cb"></button><button class="pp"></button><button class="nx sk cb"></button><button class="cb" id="fh" aria-label="ফেভারিট" style="font-size:22px;width:40px">🤍</button></div>
+ <div class="card"><h3>কিউ <small id="qc"></small></h3><div id="ql"></div></div>
  <div class="card"><h3>সাউন্ড</h3>
   <div class="lbl"><span>ভলিউম</span></div><input id="vol" type="range" min="0" max="1" step=".01" value="1">
   <div class="lbl"><span>গতি</span><span id="spv">1x</span></div><input id="sp" type="range" min=".5" max="2" step=".05" value="1">
@@ -202,7 +209,7 @@ header{display:flex;align-items:center;justify-content:space-between}.hr{display
 </div></div>
 <div id="ytw"><button id="ytx" aria-label="লুকান">✕</button><div id="ytp"></div></div>
 <div id="ytn"><span>⚠️ <b>YouTube গান ব্যাকগ্রাউন্ডে চলবে না।</b><br>ব্যাকগ্রাউন্ডে চালাতে হলে ফোনে সেভ করা গান (➕ গান যোগ) প্লে করুন।</span><button id="ytnx" aria-label="বন্ধ">✕</button></div>
-<div id="toast"></div>
+<div id="sheet"></div><div id="toast"></div>
 <audio id="a" crossorigin="anonymous" preload="auto"></audio>
 <script>
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],a=$('#a'),B=document.body;
@@ -213,6 +220,29 @@ const IC={play:sv_('M8 5v14l11-7z'),pause:sv_('M6 5h4v14H6zm8 0h4v14h-4z'),pv:sv
 $$('.pv').forEach(b=>b.innerHTML=IC.pv);$$('.nx').forEach(b=>b.innerHTML=IC.nx);$$('.lp').forEach(b=>{b.innerHTML=IC.lp;b.style.opacity=.5});$$('.pp').forEach(b=>b.innerHTML=IC.play);
 const WORKER='https://sur-yt.customboss08.workers.dev',de=h=>{const t=document.createElement('textarea');t.innerHTML=h;return t.value};
 let cid='43ad711a',list=[],q=[],i=-1,cur=null,st=L('st',{d:{},m:{}}),per=1,card=null;
+/* ফেভারিট · প্লেলিস্ট · কিউ */
+let FV=L('fv',[]),PLS=L('pls',{}),view=null;
+const cl=t=>{const o=JSON.parse(JSON.stringify(t));delete o.p;return o},isFv=t=>FV.some(x=>x.id===t.id);
+function hrt(){const h=$('#fh');if(h)h.textContent=cur&&isFv(cur)?'❤️':'🤍'}
+function sh(title,items){const e=$('#sheet');e.innerHTML='';const p=document.createElement('div');p.className='shp';const h=document.createElement('h3');h.textContent=title;p.append(h);
+ items.forEach(([l,f])=>{const b=document.createElement('button');b.className='btn g';b.textContent=l;b.onclick=()=>{e.classList.remove('on');f&&f()};p.append(b)});e.append(p);e.classList.add('on');e.onclick=ev=>{if(ev.target===e)e.classList.remove('on')}}
+const noLoc=t=>t.fn?(toast('ফোনের গান এখানে সেভ হবে না'),1):0;
+function togFv(t){if(noLoc(t))return;if(isFv(t)){FV=FV.filter(x=>x.id!==t.id);toast('ফেভারিট থেকে সরানো হলো')}else{FV.unshift(cl(t));toast('ফেভারিটে যোগ হলো ❤️')}S('fv',FV);hrt();if(view&&view.t==='fv')showView()}
+const newName=()=>(prompt('প্লেলিস্টের নাম')||'').trim().slice(0,40);
+function addPl(t,n){if(!n||n==='__proto__')return;const l=PLS[n]=Object.hasOwn(PLS,n)?PLS[n]:[];if(l.some(x=>x.id===t.id))return toast('আগেই আছে');l.push(cl(t));S('pls',PLS);toast('“'+n+'”-এ যোগ হলো ✓')}
+function pickPl(t){if(noLoc(t))return;sh('কোন প্লেলিস্টে?',[...Object.keys(PLS).map(n=>[n+' ('+bn(PLS[n].length)+')',()=>addPl(t,n)]),['➕ নতুন প্লেলিস্ট',()=>addPl(t,newName())],['বন্ধ']])}
+function menu(t){const it=[[isFv(t)?'💔 ফেভারিট থেকে সরাও':'❤️ ফেভারিটে যোগ',()=>togFv(t)],['⏭ পরে বাজাও',()=>{const c=cl(t);if(!q.length||!cur){q=[c];play(0)}else{q.splice(i+1,0,c);rq();toast('পরের গান হিসেবে যোগ হলো')}}],['🎼 প্লেলিস্টে যোগ',()=>pickPl(t)]];
+ if(view)it.push(['🗑 এখান থেকে সরাও',()=>{const l=view.t==='fv'?FV:PLS[view.n],k=l.findIndex(x=>x.id===t.id);if(k>=0){l.splice(k,1);S(view.t==='fv'?'fv':'pls',view.t==='fv'?FV:PLS);showView()}}]);
+ it.push(['বন্ধ']);sh(t.n,it)}
+function showView(){const l=view.t==='fv'?FV:(PLS[view.n]||[]);list=l.slice();msg(l.length?'গানের পাশে ⋯ চেপে সরাতে পারবেন':'এখানে এখনো কিছু নেই। যেকোনো গানের পাশে ⋯ চেপে যোগ করুন।');draw()}
+function delPl(){sh('কোনটা মুছবেন?',[...Object.keys(PLS).map(n=>[n,()=>{if(confirm('“'+n+'” মুছবেন?')){delete PLS[n];S('pls',PLS);if(view&&view.n===n){view=null;list=[];draw()}toast('মুছে ফেলা হলো')}}]),['বন্ধ']])}
+function rq(){const e=$('#ql');if(!e)return;$('#qc').textContent=q.length?bn(q.length)+'টি':'';e.innerHTML='';
+ q.forEach((t,k)=>{const r=document.createElement('div');r.className='qr'+(k===i?' cur':'');const b=document.createElement('b');b.textContent=t.n;b.onclick=()=>play(k);
+  const mk=(l,f)=>{const x=document.createElement('button');x.textContent=l;x.onclick=f;return x};
+  r.append(b,mk('↑',()=>mvq(k,-1)),mk('↓',()=>mvq(k,1)));if(k!==i)r.append(mk('✕',()=>{q.splice(k,1);if(k<i)i--;rq()}));e.append(r)});
+ if(!q.length)e.innerHTML='<small>কিউ খালি</small>'}
+function mvq(k,d){const j=k+d;if(j<0||j>=q.length)return;[q[k],q[j]]=[q[j],q[k]];if(i===k)i=j;else if(i===j)i=k;rq()}
+
 const day=t=>new Date(t).toLocaleDateString('sv');
 const fm=s=>isFinite(s)?Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0'):'0:00';
 const ft=s=>{const h=Math.floor(s/3600),m=Math.floor(s%3600/60);return h?`${bn(h)} ঘণ্টা ${bn(m)} মিনিট`:`${bn(m)} মিনিট`};
@@ -246,12 +276,12 @@ const CL={live:'collection:etree',rec:'collection:(78rpm OR georgeblood)',book:'
 const MODES={all:s=>[jam(s),aud(s),arc(s),yt(s)],radio:s=>[rad(s)],pod:s=>[pod(s)],live:s=>[arc(s,CL.live,CL.live)],rec:s=>[arc(s,CL.rec,CL.rec)],book:s=>[arc(s,CL.book,CL.book)]};
 const PH={all:'গান বা শিল্পীর নাম',radio:'রেডিও স্টেশনের নাম',pod:'পডকাস্টের নাম',live:'শিল্পী বা ব্যান্ডের নাম',rec:'পুরনো গানের নাম',book:'বইয়ের নাম'};
 async function yt(s){if(!WORKER)return[];const j=await(await fetch(WORKER+'/?q='+encodeURIComponent(s))).json();return j.map(t=>({id:'y'+t.id,vid:t.id,n:de(t.n),ar:de(t.ar),im:t.im,src:'YouTube'}))}
-async function load(s){msg('লোড হচ্ছে…');
+async function load(s){view=null;msg('লোড হচ্ছে…');
  const r=(await Promise.allSettled(MODES[mode](s))).map(x=>x.status==='fulfilled'?x.value:[]);list=[];
  for(let k=0;k<Math.max(...r.map(x=>x.length));k++)r.forEach(x=>x[k]&&list.push(x[k]));
  msg(list.length?'':'কিছু পাওয়া যায়নি। অন্য নাম লিখে খুঁজুন বা ইন্টারনেট সংযোগ দেখুন।');draw()}
-function draw(){$('#cnt').textContent=list.length?bn(list.length)+'টি':'';$('#res').innerHTML=list.map((t,k)=>`<button class="tr${cur&&cur.id===t.id?' cur':''}" data-k="${k}"><img loading="lazy" alt=""><div><b></b><small></small></div><em></em></button>`).join('');
- $$('#res .tr').forEach((b,k)=>{const t=list[k];b.querySelector('img').src=t.im||'icon.svg';b.querySelector('b').textContent=t.n;b.querySelector('small').textContent=t.ar;b.querySelector('em').textContent=t.src;b.dataset.s=t.src;if(t.fn)b.oncontextmenu=e=>{e.preventDefault();if(confirm('“'+t.n+'” লাইব্রেরি থেকে মুছবেন?'))dbx('del',t.fn).then(loadLib)};b.onclick=()=>{q=list.slice();play(k)}})}
+function draw(){hrt();rq();$('#cnt').textContent=list.length?bn(list.length)+'টি':'';$('#res').innerHTML=list.map((t,k)=>`<button class="tr${cur&&cur.id===t.id?' cur':''}" data-k="${k}"><img loading="lazy" alt=""><div><b></b><small></small></div><em></em><span class="mo">⋯</span></button>`).join('');
+ $$('#res .tr').forEach((b,k)=>{const t=list[k];b.querySelector('img').src=t.im||'icon.svg';b.querySelector('b').textContent=t.n;b.querySelector('small').textContent=t.ar;b.querySelector('em').textContent=t.src;b.dataset.s=t.src;b.querySelector('.mo').onclick=e=>{e.stopPropagation();menu(t)};if(t.fn)b.oncontextmenu=e=>{e.preventDefault();if(confirm('“'+t.n+'” লাইব্রেরি থেকে মুছবেন?'))dbx('del',t.fn).then(loadLib)};b.onclick=()=>{q=list.slice();play(k)}})}
 const sg=$('#sg'),hideSg=()=>sg.classList.remove('on');
 function hist(t){if(!t)return;let h=L('qh',[]).filter(x=>x!==t);h.unshift(t);S('qh',h.slice(0,12))}
 function ysug(t){return new Promise(r=>{const cb='_ys'+Date.now(),sc=document.createElement('script');
@@ -268,11 +298,15 @@ function sugg(){const t=$('#q').value.trim(),h=L('qh',[]);const hh=h.filter(x=>x
  sgt=setTimeout(async()=>{let r=await ysug(t);if(!r.length)r=await isug(t);if(n!==sgn)return;const seen=new Set(hh.map(x=>x[1]));showSg([...hh,...r.filter(x=>!seen.has(x)).map(x=>['🔍',x])])},250)}
 $('#q').oninput=sugg;$('#q').onfocus=sugg;$('#q').onblur=()=>setTimeout(hideSg,150);
 $('#go').onclick=()=>{const t=$('#q').value.trim();sgn++;hideSg();hist(t);load(t)};$('#q').onkeydown=e=>e.key==='Enter'&&($('#q').blur(),$('#go').click());$('#pop').onclick=()=>load('');
+$('#fh').onclick=()=>cur&&togFv(cur);
+$('#bfv').onclick=()=>{view={t:'fv'};show('home');showView()};
+$('#bpl').onclick=()=>sh('প্লেলিস্ট',[...Object.keys(PLS).map(n=>[n+' ('+bn(PLS[n].length)+')',()=>{view={t:'pl',n};show('home');showView()}]),['➕ নতুন প্লেলিস্ট',()=>{const n=newName();if(n&&n!=='__proto__'&&!Object.hasOwn(PLS,n)){PLS[n]=[];S('pls',PLS);view={t:'pl',n};show('home');showView()}}],...(Object.keys(PLS).length?[['🗑 প্লেলিস্ট মুছুন',delPl]]:[]),['বন্ধ']]);
+
 $$('#modes button').forEach(b=>b.onclick=()=>{mode=b.dataset.m;$$('#modes button').forEach(x=>x.classList.toggle('on',x===b));$('#q').placeholder=PH[mode];$('#gen').style.display=mode==='all'?'':'none';load($('#q').value.trim())});
 /* নিজের লাইব্রেরি: ফাইল ফোনের ব্রাউজারে সেভ থাকে */
 const DB=new Promise(r=>{try{const o=indexedDB.open('sur',1);o.onupgradeneeded=()=>o.result.createObjectStore('f',{keyPath:'name'});o.onsuccess=()=>r(o.result);o.onerror=()=>r(null)}catch{r(null)}});
 const dbx=async(m,v)=>{const d=await DB;if(!d)return[];return new Promise(r=>{const s=d.transaction('f',m==='get'?'readonly':'readwrite').objectStore('f'),o=m==='get'?s.getAll():m==='put'?s.put(v):s.delete(v);o.onsuccess=()=>r(o.result||[]);o.onerror=()=>r([])})};
-async function loadLib(){const r=(await dbx('get')).sort((x,y)=>y.t-x.t);
+async function loadLib(){view=null;const r=(await dbx('get')).sort((x,y)=>y.t-x.t);
  list=r.map(f=>({id:'l'+f.name,fn:f.name,n:f.name.replace(/\.[^.]+$/,''),ar:'নিজের ফোন',im:'',u:URL.createObjectURL(f.file),src:'ফোন'}));
  msg(list.length?'গান মুছতে চেপে ধরে রাখুন':'এখনো গান নেই। “গান যোগ” চেপে ডাউনলোড ফোল্ডার থেকে গান বাছুন।');draw()}
 $('#lf').onchange=async e=>{const fs=[...e.target.files];for(const f of fs)await dbx('put',{name:f.name,file:f,t:f.lastModified});e.target.value='';await loadLib();toast(bn(fs.length)+'টি গান লাইব্রেরিতে যোগ হলো ✓')};
