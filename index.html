@@ -87,8 +87,6 @@ video{width:100%;border-radius:18px;background:#000;max-height:60vh}
 .sw button.on{border-color:var(--tx)}
 .sw button::after{content:attr(data-n);position:absolute;top:100%;left:50%;transform:translateX(-50%);font-size:11px;color:var(--mu);white-space:nowrap;margin-top:3px}
 #tsw{margin-bottom:22px}
-#instc{display:none;align-items:center;gap:10px;margin:2px 0 12px;padding:10px 12px}
-#instc.on{display:flex}#instc span{flex:1}#instc .btn{padding:8px 14px}
 /* প্রিমিয়াম লুক */
 header{padding:20px 18px 6px}header h1{font-size:30px;font-weight:800;background:linear-gradient(120deg,var(--tx),var(--ac));-webkit-background-clip:text;background-clip:text;color:transparent}header h1 span{-webkit-text-fill-color:var(--ac)}
 .ib{backdrop-filter:blur(14px);box-shadow:0 4px 18px rgba(0,0,0,.18)}
@@ -133,15 +131,17 @@ header h1{font-size:36px;letter-spacing:-.5px}
 .tr em{text-transform:none;letter-spacing:0;font-size:11px;font-weight:600}
 .tr[data-s=YouTube] em{color:#ff7b7b;border-color:#ff7b7b66}
 .tr[data-s=Jamendo] em{color:#3ecf8e;border-color:#3ecf8e66}
+.tr[data-s=Archive] em{color:#6ec1ff;border-color:#6ec1ff66}
 .tr[data-s=Audius] em{color:#b794ff;border-color:#b794ff66}
 .tr[data-s=ফোন] em{color:var(--ac);border-color:var(--ac)}
-#instc{position:fixed;top:calc(66px + env(safe-area-inset-top));right:12px;width:min(310px,calc(100% - 24px));margin:0;z-index:15;display:flex!important;align-items:center;gap:10px;padding:12px 12px 12px 16px;border-radius:24px 24px 8px 24px;background:var(--mb);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);box-shadow:0 20px 50px rgba(0,0,0,.45);transform:translateX(125%);opacity:0;visibility:hidden;transition:transform .5s cubic-bezier(.2,.9,.3,1.2),opacity .3s,visibility .5s}
-#instc.on{transform:none;opacity:1;visibility:visible}
-#instc span{flex:1;font-weight:700;line-height:1.3}#instc span small{display:block;font-weight:400;font-size:12px}
-.tr[data-s=iTunes] em{color:#ff6fa3;border-color:#ff6fa366}
 .mini{padding:6px 12px;font-size:13px;border-radius:14px}.sec .row{gap:6px}#shf.on{background:var(--ac);color:var(--on)}
+
+header{display:flex;align-items:center;justify-content:space-between}.hr{display:flex;align-items:center;gap:8px}
+.ibs{padding:7px 12px;border-radius:20px;font-size:13px;font-weight:700;background:var(--ac);color:var(--on);white-space:nowrap}.ibs[hidden]{display:none}
+#ytn{position:fixed;top:calc(66px + env(safe-area-inset-top));right:12px;width:min(290px,calc(100% - 24px));z-index:15;display:flex;gap:10px;align-items:flex-start;padding:12px 12px 12px 14px;border-radius:20px 20px 6px 20px;background:var(--mb);border:1px solid var(--ln);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);box-shadow:0 20px 50px rgba(0,0,0,.45);font-size:13px;line-height:1.45;transform:translateX(125%);opacity:0;visibility:hidden;transition:transform .5s cubic-bezier(.2,.9,.3,1.2),opacity .3s,visibility .5s}
+#ytn.on{transform:none;opacity:1;visibility:visible}#ytn span{flex:1}#ytn b{color:var(--ac)}#ytn button{width:26px;height:26px;border-radius:50%;background:var(--pn);flex:none}
 </style></head><body>
-<header><h1>সুর<span>.</span></h1><button class="ib" data-t="set" aria-label="সেটিং"><svg viewBox="0 0 24 24"><path d="M19.4 13a7.5 7.5 0 0 0 0-2l2-1.6-2-3.4-2.4 1a7 7 0 0 0-1.7-1L15 3h-4l-.4 3a7 7 0 0 0-1.7 1l-2.4-1-2 3.4L6.6 11a7.5 7.5 0 0 0 0 2l-2 1.6 2 3.4 2.4-1a7 7 0 0 0 1.7 1l.4 3h4l.4-3a7 7 0 0 0 1.7-1l2.4 1 2-3.4zM12 15.500a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z"/></svg></button></header>
+<header><h1>সুর<span>.</span></h1><span class="hr"><button id="inst" class="ibs" hidden>📲 অ্যাপ ইনস্টল</button><button class="ib" data-t="set" aria-label="সেটিং"><svg viewBox="0 0 24 24"><path d="M19.4 13a7.5 7.5 0 0 0 0-2l2-1.6-2-3.4-2.4 1a7 7 0 0 0-1.7-1L15 3h-4l-.4 3a7 7 0 0 0-1.7 1l-2.4-1-2 3.4L6.6 11a7.5 7.5 0 0 0 0 2l-2 1.6 2 3.4 2.4-1a7 7 0 0 0 1.7 1l.4 3h4l.4-3a7 7 0 0 0 1.7-1l2.4 1 2-3.4zM12 15.500a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z"/></svg></button></span></header>
 <nav><button data-t="home" class="on">গান</button><button data-t="vid">ভিডিও</button><button data-t="prog">প্রগ্রেস</button></nav>
 <main>
 <section id="home" class="on">
@@ -191,7 +191,7 @@ header h1{font-size:36px;letter-spacing:-.5px}
   <div class="lbl"><span>স্লিপ টাইমার</span></div><div class="chips" id="sl"><button data-m="0" class="on">বন্ধ</button><button data-m="15">১৫ মি.</button><button data-m="30">৩০ মি.</button><button data-m="60">১ ঘণ্টা</button></div></div>
 </div></div>
 <div id="ytw"><button id="ytx" aria-label="লুকান">✕</button><div id="ytp"></div></div>
-<div class="card" id="instc"><span>অ্যাপ হিসেবে রাখুন<small>হোম স্ক্রিন থেকে এক ট্যাপে খুলুন</small></span><button class="btn" id="inst">ইনস্টল</button><button class="cb" id="instx" aria-label="বন্ধ">✕</button></div>
+<div id="ytn"><span>⚠️ <b>YouTube গান ব্যাকগ্রাউন্ডে চলবে না।</b><br>ব্যাকগ্রাউন্ডে চালাতে হলে ফোনে সেভ করা গান (➕ গান যোগ) প্লে করুন।</span><button id="ytnx" aria-label="বন্ধ">✕</button></div>
 <div id="toast"></div>
 <audio id="a" crossorigin="anonymous" preload="auto"></audio>
 <script>
@@ -207,21 +207,24 @@ const day=t=>new Date(t).toLocaleDateString('sv');
 const fm=s=>isFinite(s)?Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0'):'0:00';
 const ft=s=>{const h=Math.floor(s/3600),m=Math.floor(s%3600/60);return h?`${bn(h)} ঘণ্টা ${bn(m)} মিনিট`:`${bn(m)} মিনিট`};
 const msg=t=>$('#msg').textContent=t||'';
+let ytt;const ytn=()=>{const e=$('#ytn');e.classList.add('on');clearTimeout(ytt);ytt=setTimeout(()=>e.classList.remove('on'),7000)};
 let tt_;const toast=t=>{const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(tt_);tt_=setTimeout(()=>e.classList.remove('on'),2500)};
 const rv=r=>r.style.setProperty('--v',(r.value-r.min)/(r.max-r.min)*100+'%');
 $$('input[type=range]').forEach(r=>{r.addEventListener('input',()=>rv(r));rv(r)});
 function show(t){$$('section').forEach(s=>s.classList.toggle('on',s.id===t));$$('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t===t));if(t==='prog')prog()}
 $$('[data-t]').forEach(b=>b.onclick=()=>show(b.dataset.t));
-/* সার্চ: Jamendo + Audius একসাথে */
+/* সার্চ: Jamendo + Audius + Internet Archive + YouTube */
 async function jam(s){if(cid.startsWith('YOUR'))throw 0;const j=await(await fetch(`https://api.jamendo.com/v3.0/tracks/?client_id=${cid}&format=json&limit=40&audioformat=mp32&imagesize=300&`+(s?`search=${encodeURIComponent(s)}`:'order=popularity_week'))).json();
  if(j.headers.status!=='success')throw 0;return j.results.map(t=>({id:'j'+t.id,n:t.name,ar:t.artist_name,im:t.image,u:t.audio,src:'Jamendo'}))}
 async function aud(s){const b='https://discoveryprovider.audius.co/v1/tracks/',j=await(await fetch(s?`${b}search?query=${encodeURIComponent(s)}&app_name=sur&limit=40`:`${b}trending?app_name=sur&limit=30`)).json();
  return j.data.filter(t=>t.is_streamable!==false).map(t=>({id:'a'+t.id,n:t.title,ar:t.user.name,im:(t.artwork&&(t.artwork['480x480']||t.artwork['150x150']))||'',u:`${b}${t.id}/stream?app_name=sur`,src:'Audius'}))}
-async function itu(s){const j=await(await fetch('https://itunes.apple.com/search?media=music&entity=song&limit=40&country=IN&term='+encodeURIComponent(s||'top hits'))).json();
- return j.results.filter(t=>t.previewUrl).map(t=>({id:'i'+t.trackId,n:t.trackName,ar:t.artistName,im:(t.artworkUrl100||'').replace('100x100','300x300'),u:t.previewUrl,src:'iTunes'}))}
+async function arc(s){const qq=s?`(${s}) AND mediatype:audio`:'mediatype:audio AND collection:audio_music',j=await(await fetch('https://archive.org/advancedsearch.php?q='+encodeURIComponent(qq)+'&fl[]=identifier&fl[]=title&fl[]=creator&sort[]=downloads+desc&rows=30&output=json')).json();
+ return j.response.docs.map(t=>({id:'r'+t.identifier,ia:t.identifier,n:Array.isArray(t.title)?t.title[0]:(t.title||t.identifier),ar:Array.isArray(t.creator)?t.creator[0]:(t.creator||'Internet Archive'),im:'https://archive.org/services/img/'+t.identifier,src:'Archive'}))}
+async function arcTracks(c){const m=await(await fetch('https://archive.org/metadata/'+c.ia)).json(),fs=(m.files||[]).filter(f=>/\.mp3$/i.test(f.name)&&!/sample/i.test(f.name));
+ return fs.map((f,k)=>({id:k?'r'+c.ia+'/'+f.name:c.id,n:f.title||f.name.replace(/\.[^.]+$/,''),ar:c.ar,im:c.im,u:'https://archive.org/download/'+c.ia+'/'+encodeURIComponent(f.name),src:'Archive'}))}
 async function yt(s){if(!WORKER)return[];const j=await(await fetch(WORKER+'/?q='+encodeURIComponent(s))).json();return j.map(t=>({id:'y'+t.id,vid:t.id,n:de(t.n),ar:de(t.ar),im:t.im,src:'YouTube'}))}
 async function load(s){msg('লোড হচ্ছে…');
- const r=(await Promise.allSettled([itu(s),jam(s),aud(s),yt(s)])).map(x=>x.status==='fulfilled'?x.value:[]);list=[];
+ const r=(await Promise.allSettled([jam(s),aud(s),arc(s),yt(s)])).map(x=>x.status==='fulfilled'?x.value:[]);list=[];
  for(let k=0;k<Math.max(...r.map(x=>x.length));k++)r.forEach(x=>x[k]&&list.push(x[k]));
  msg(list.length?'':'কিছু পাওয়া যায়নি। অন্য নাম লিখে খুঁজুন বা ইন্টারনেট সংযোগ দেখুন।');draw()}
 function draw(){$('#cnt').textContent=list.length?bn(list.length)+'টি':'';$('#res').innerHTML=list.map((t,k)=>`<button class="tr${cur&&cur.id===t.id?' cur':''}" data-k="${k}"><img loading="lazy" alt=""><div><b></b><small></small></div><em></em></button>`).join('');
@@ -244,8 +247,9 @@ function ytPlay(id){yq=id;if(ytp&&ytp.loadVideoById)return ytp.loadVideoById(id)
 function mk(){ytp=new YT.Player('ytp',{width:'100%',height:'100%',videoId:yq,playerVars:{playsinline:1,autoplay:1,rel:0},events:{onStateChange:e=>{const s=e.data;if(s===0)nx();if(s===1||s===2){B.classList.toggle('pl',s===1);$$('.pp').forEach(b=>b.innerHTML=s===1?IC.pause:IC.play)}}}})}
 setInterval(()=>{if(!(cur&&cur.vid&&ytp&&ytp.getDuration))return;const d=ytp.getDuration()||1,t=ytp.getCurrentTime();$('#sk').max=d;$('#sk').value=t;rv($('#sk'));$('#mp i').style.width=t/d*100+'%';$('#c').textContent=fm(t);$('#d').textContent=fm(d)},500);
 $$('#gen button').forEach(b=>b.onclick=()=>{$('#q').value=b.textContent;load(b.textContent)});
-function play(n){if(!q[n])return;i=n;cur=q[n];cur.p=0;B.classList.toggle('yt',!!cur.vid);ytw.classList.remove('hid');
- if(cur.vid){a.pause();a.removeAttribute('src');ytPlay(cur.vid)}else{ytp&&ytp.pauseVideo&&ytp.pauseVideo();a.src=cur.u;a.play().catch(()=>{})}B.classList.add('has');
+function play(n){if(!q[n])return;if(q[n].ia&&!q[n].u){const c=q[n];toast('গান লোড হচ্ছে…');arcTracks(c).then(t=>{const k=q.indexOf(c);if(k<0)return;if(!t.length){toast('এই আইটেমে গান পাওয়া যায়নি');return nx()}q.splice(k,1,...t);play(k)}).catch(()=>toast('গান লোড করা গেল না'));return}
+ i=n;cur=q[n];cur.p=0;B.classList.toggle('yt',!!cur.vid);ytw.classList.remove('hid');
+ if(cur.vid){a.pause();a.removeAttribute('src');ytPlay(cur.vid);ytn()}else{$('#ytn').classList.remove('on');ytp&&ytp.pauseVideo&&ytp.pauseVideo();a.src=cur.u;a.play().catch(()=>{})}B.classList.add('has');
  $('#tt').textContent=$('#ft').textContent=cur.n;$('#ta').textContent=$('#fa').textContent=cur.ar;
  $$('.cov').forEach(x=>x.src=cur.im||'icon.svg');$('#fbg').style.backgroundImage=cur.im?`url("${cur.im}")`:'none';draw();
  if('mediaSession' in navigator)navigator.mediaSession.metadata=new MediaMetadata({title:cur.n,artist:cur.ar,artwork:cur.im?[{src:cur.im,sizes:'300x300'}]:[]})}
@@ -263,6 +267,7 @@ if('mediaSession' in navigator){const h=(n,f)=>{try{navigator.mediaSession.setAc
  h('play',()=>a.play());h('pause',()=>a.pause());h('previoustrack',pv);h('nexttrack',nx);h('seekto',d=>a.currentTime=d.seekTime);h('seekbackward',()=>a.currentTime-=10);h('seekforward',()=>a.currentTime+=10)}
 /* ফুল স্ক্রিন */
 $('#mini').onclick=e=>{if(!e.target.closest('button')){ytw.classList.remove('hid');$('#full').classList.add('open')}};
+$('#ytnx').onclick=()=>$('#ytn').classList.remove('on');
 $('#fc').onclick=()=>$('#full').classList.remove('open');
 /* সাউন্ড */
 $('#vol').oninput=e=>a.volume=e.target.value;
@@ -274,13 +279,12 @@ function eqOn(){if(ctx)return 1;if(!a.crossOrigin){toast('এই গানে �
  [s,...fl,ctx.destination].reduce((x,y)=>(x.connect(y),y));return 1}
 $$('.eq').forEach(r=>r.oninput=()=>{if(eqOn())fl[r.dataset.k].gain.value=+r.value});
 let tm;$$('#sl button').forEach(b=>b.onclick=()=>{$$('#sl button').forEach(x=>x.classList.toggle('on',x===b));clearTimeout(tm);if(+b.dataset.m){tm=setTimeout(()=>{a.pause();ytp&&ytp.pauseVideo&&ytp.pauseVideo()},b.dataset.m*6e4);toast(bn(b.dataset.m)+' মিনিট পর বন্ধ হবে')}});
-/* ইনস্টল ব্যানার (হোমে) */
+/* ইনস্টল বাটন (হেডারে ছোট) */
 let dp;const stand=()=>matchMedia('(display-mode: standalone)').matches||navigator.standalone;
-const ib=$('#instc'),ibShow=()=>{if(!stand()&&!L('instx',0))ib.classList.add('on')};
+const ib=$('#inst'),ibShow=()=>{ib.hidden=!!stand()};
 addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e;ibShow()});
-addEventListener('appinstalled',()=>ib.classList.remove('on'));ibShow();
+addEventListener('appinstalled',()=>{ib.hidden=true});ibShow();
 $('#inst').onclick=async()=>{if(dp){dp.prompt();await dp.userChoice.catch(()=>{});dp=null}else alert('ব্রাউজার মেনু (⋮ বা শেয়ার) থেকে “Add to Home screen” বা “হোম স্ক্রিনে যোগ করুন” চাপুন।')};
-$('#instx').onclick=()=>{ib.classList.remove('on');S('instx',1)};
 /* থিম */
 const T={gold:['সোনালি','#f2b84b',['#2f4585','#3a2a5c','#0f1830'],['#dbe6ff','#f1e0ff','#f4f6fb']],
 rose:['গোলাপি','#f472a8',['#6b2a58','#2f2a6b','#1a1028'],['#ffe0ef','#e6e0ff','#fbf3f8']],
