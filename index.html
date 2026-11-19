@@ -140,6 +140,11 @@ header{display:flex;align-items:center;justify-content:space-between}.hr{display
 .ibs{padding:7px 12px;border-radius:20px;font-size:13px;font-weight:700;background:var(--ac);color:var(--on);white-space:nowrap}.ibs[hidden]{display:none}
 #ytn{position:fixed;top:calc(66px + env(safe-area-inset-top));right:12px;width:min(290px,calc(100% - 24px));z-index:15;display:flex;gap:10px;align-items:flex-start;padding:12px 12px 12px 14px;border-radius:20px 20px 6px 20px;background:var(--mb);border:1px solid var(--ln);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);box-shadow:0 20px 50px rgba(0,0,0,.45);font-size:13px;line-height:1.45;transform:translateX(125%);opacity:0;visibility:hidden;transition:transform .5s cubic-bezier(.2,.9,.3,1.2),opacity .3s,visibility .5s}
 #ytn.on{transform:none;opacity:1;visibility:visible}#ytn span{flex:1}#ytn b{color:var(--ac)}#ytn button{width:26px;height:26px;border-radius:50%;background:var(--pn);flex:none}
+#sg{display:none;margin:8px 0 0;padding:6px;border-radius:20px;background:var(--pn);border:1px solid var(--ln);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+#sg.on{display:block}#sg button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:10px 12px;border-radius:14px}#sg button:active{background:var(--ln)}#sg button span{opacity:.6;flex:none}
+.du{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px;text-align:center}.du small{display:block;color:var(--mu)}.du b{font-size:17px}
+.tr[data-s=রেডিও] em{color:#ff9f5a;border-color:#ff9f5a66}.tr[data-s=পডকাস্ট] em{color:#5ad1c8;border-color:#5ad1c866}
+#modes{flex-wrap:nowrap;overflow-x:auto;margin:12px -14px 0;padding:0 14px;scrollbar-width:none}#modes button{flex:none;background:var(--pn)}
 </style></head><body>
 <header><h1>সুর<span>.</span></h1><span class="hr"><button id="inst" class="ibs" hidden>📲 অ্যাপ ইনস্টল</button><button class="ib" data-t="set" aria-label="সেটিং"><svg viewBox="0 0 24 24"><path d="M19.4 13a7.5 7.5 0 0 0 0-2l2-1.6-2-3.4-2.4 1a7 7 0 0 0-1.7-1L15 3h-4l-.4 3a7 7 0 0 0-1.7 1l-2.4-1-2 3.4L6.6 11a7.5 7.5 0 0 0 0 2l-2 1.6 2 3.4 2.4-1a7 7 0 0 0 1.7 1l.4 3h4l.4-3a7 7 0 0 0 1.7-1l2.4 1 2-3.4zM12 15.500a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z"/></svg></button></span></header>
 <nav><button data-t="home" class="on">গান</button><button data-t="vid">ভিডিও</button><button data-t="prog">প্রগ্রেস</button></nav>
@@ -147,7 +152,9 @@ header{display:flex;align-items:center;justify-content:space-between}.hr{display
 <section id="home" class="on">
  <h2 class="hero">আজ কী শুনবেন?</h2>
  <div class="sbar"><svg viewBox="0 0 24 24"><path d="M10 4a6 6 0 1 0 3.700 10.700l4.800 4.800 1.400-1.400-4.800-4.800A6 6 0 0 0 10 4zm0 2a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/></svg><input id="q" type="search" placeholder="গান বা শিল্পীর নাম"><button class="btn" id="go">খুঁজুন</button></div>
+ <div id="sg"></div>
  <div class="quick"><button class="tile" id="pop"><i>🔥</i><div><b>জনপ্রিয়</b><small>এখন যা চলছে</small></div></button><button class="tile b" id="myph"><i>📱</i><div><b>নিজের ফোন</b><small>ডাউনলোড করা গান</small></div></button><input id="lf" type="file" accept=".mp3,.m4a,.aac,.wav,.ogg,.opus,.flac,.wma" multiple hidden></div>
+ <div class="chips" id="modes"><button data-m="all" class="on">🎵 সব গান</button><button data-m="radio">📻 রেডিও</button><button data-m="pod">🎙️ পডকাস্ট</button><button data-m="live">🎤 লাইভ কনসার্ট</button><button data-m="rec">📀 পুরনো রেকর্ড</button><button data-m="book">📚 অডিওবুক</button></div>
  <div class="chips" id="gen"><button>বাংলা গান</button><button>বাংলা ব্যান্ড</button><button>হিন্দি গান</button><button>English pop</button><button>লো-ফাই</button><button>ইসলামিক গজল</button><button>রবীন্দ্রসংগীত</button></div>
  <div class="sec"><h3>গান</h3><span class="row"><small id="cnt"></small><button class="btn g mini" id="lib">➕ গান যোগ</button><button class="btn g mini" id="shf">🔀 শাফল</button></span></div>
  <div id="msg"></div><div id="res"></div>
@@ -159,7 +166,10 @@ header{display:flex;align-items:center;justify-content:space-between}.hr{display
 </section>
 <section id="prog">
  <div class="chips" id="pr" style="margin:0 0 12px"><button data-p="1" class="on">আজ</button><button data-p="7">সপ্তাহ</button><button data-p="30">মাস</button></div>
- <div class="card" style="margin-top:0"><h3>মোট শোনা</h3><div class="big2" id="pt">০</div>
+ <div class="card" style="margin-top:0"><h3>ডাটা ব্যবহার <small style="font-weight:400">(আনুমানিক)</small></h3><div class="big2" id="dt">০ MB</div>
+  <div class="du"><div><small>Wi-Fi</small><b id="dw">০</b></div><div><small>মোবাইল ডাটা</small><b id="dc">০</b></div><div><small>অজানা</small><b id="do">০</b></div></div>
+  <small style="color:var(--mu);display:block;margin-top:8px">ফোনের সেভ করা গানে ডাটা লাগে না। এটা শোনার সময় × বিট-রেট ধরে হিসাব, তাই সামান্য কম-বেশি হতে পারে।</small></div>
+ <div class="card"><h3>মোট শোনা</h3><div class="big2" id="pt">০</div>
   <div class="grid"><div><small>গান শোনা</small><div id="pc" class="big2"></div></div><div><small>ধারাবাহিক দিন</small><div id="ps" class="big2"></div></div>
   <div><small>সক্রিয় দিন</small><div id="pd" class="big2"></div></div><div><small>প্রিয় শিল্পী</small><div id="pa" style="font-weight:700"></div></div></div>
   <div class="bars" id="pb"></div></div>
@@ -218,18 +228,47 @@ async function jam(s){if(cid.startsWith('YOUR'))throw 0;const j=await(await fetc
  if(j.headers.status!=='success')throw 0;return j.results.map(t=>({id:'j'+t.id,n:t.name,ar:t.artist_name,im:t.image,u:t.audio,src:'Jamendo'}))}
 async function aud(s){const b='https://discoveryprovider.audius.co/v1/tracks/',j=await(await fetch(s?`${b}search?query=${encodeURIComponent(s)}&app_name=sur&limit=40`:`${b}trending?app_name=sur&limit=30`)).json();
  return j.data.filter(t=>t.is_streamable!==false).map(t=>({id:'a'+t.id,n:t.title,ar:t.user.name,im:(t.artwork&&(t.artwork['480x480']||t.artwork['150x150']))||'',u:`${b}${t.id}/stream?app_name=sur`,src:'Audius'}))}
-async function arc(s){const qq=s?`(${s}) AND mediatype:audio`:'mediatype:audio AND collection:audio_music',j=await(await fetch('https://archive.org/advancedsearch.php?q='+encodeURIComponent(qq)+'&fl[]=identifier&fl[]=title&fl[]=creator&sort[]=downloads+desc&rows=30&output=json')).json();
+async function arc(s,b='mediatype:audio',d='mediatype:audio AND collection:audio_music'){const qq=s?`(${s}) AND ${b}`:d,j=await(await fetch('https://archive.org/advancedsearch.php?q='+encodeURIComponent(qq)+'&fl[]=identifier&fl[]=title&fl[]=creator&sort[]=downloads+desc&rows=30&output=json')).json();
  return j.response.docs.map(t=>({id:'r'+t.identifier,ia:t.identifier,n:Array.isArray(t.title)?t.title[0]:(t.title||t.identifier),ar:Array.isArray(t.creator)?t.creator[0]:(t.creator||'Internet Archive'),im:'https://archive.org/services/img/'+t.identifier,src:'Archive'}))}
 async function arcTracks(c){const m=await(await fetch('https://archive.org/metadata/'+c.ia)).json(),fs=(m.files||[]).filter(f=>/\.mp3$/i.test(f.name)&&!/sample/i.test(f.name));
- return fs.map((f,k)=>({id:k?'r'+c.ia+'/'+f.name:c.id,n:f.title||f.name.replace(/\.[^.]+$/,''),ar:c.ar,im:c.im,u:'https://archive.org/download/'+c.ia+'/'+encodeURIComponent(f.name),src:'Archive'}))}
+ return fs.map((f,k)=>({id:k?'r'+c.ia+'/'+f.name:c.id,n:f.title||f.name.replace(/\.[^.]+$/,''),ar:c.ar,im:c.im,u:'https://archive.org/download/'+c.ia+'/'+encodeURIComponent(f.name),kb:(+f.size&&+f.length)?Math.round(f.size*8/f.length/1000):128,src:'Archive'}))}
+const RB=['https://de1.api.radio-browser.info','https://at1.api.radio-browser.info','https://nl1.api.radio-browser.info'];
+async function rad(s){const p=s?'name='+encodeURIComponent(s):'language=bengali';
+ for(const h of RB){try{const j=await(await fetch(h+'/json/stations/search?'+p+'&limit=80&hidebroken=true&order=clickcount&reverse=true')).json();
+  const r=j.filter(t=>(t.url_resolved||'').startsWith('https')).slice(0,40).map(t=>({id:'rd'+t.stationuuid,n:(t.name||'').trim()||'রেডিও',ar:[t.country,(t.tags||'').split(',')[0]].filter(Boolean).join(' · ')||'লাইভ রেডিও',im:(t.favicon||'').startsWith('https')?t.favicon:'',u:t.url_resolved,kb:+t.bitrate||64,src:'রেডিও'}));
+  if(r.length||!j.length)return r}catch{}}return[]}
+async function pod(s){const j=await(await fetch('https://itunes.apple.com/search?media=podcast&entity=podcast&limit=30&term='+encodeURIComponent(s||'bangla'))).json();
+ return j.results.filter(t=>t.collectionId).map(t=>({id:'p'+t.collectionId,pod:t.collectionId,n:t.collectionName,ar:t.artistName,im:t.artworkUrl600||t.artworkUrl100||'',src:'পডকাস্ট'}))}
+async function podEps(c){const j=await(await fetch('https://itunes.apple.com/lookup?id='+c.pod+'&media=podcast&entity=podcastEpisode&limit=40')).json();
+ return j.results.filter(x=>x.wrapperType==='podcastEpisode'&&x.episodeUrl).map((x,k)=>({id:k?'p'+c.pod+'/'+x.trackId:c.id,n:x.trackName,ar:c.n,im:x.artworkUrl600||x.artworkUrl160||c.im,u:x.episodeUrl.replace(/^http:/,'https:'),kb:64,src:'পডকাস্ট'}))}
+let mode='all';
+const CL={live:'collection:etree',rec:'collection:(78rpm OR georgeblood)',book:'collection:librivoxaudio'};
+const MODES={all:s=>[jam(s),aud(s),arc(s),yt(s)],radio:s=>[rad(s)],pod:s=>[pod(s)],live:s=>[arc(s,CL.live,CL.live)],rec:s=>[arc(s,CL.rec,CL.rec)],book:s=>[arc(s,CL.book,CL.book)]};
+const PH={all:'গান বা শিল্পীর নাম',radio:'রেডিও স্টেশনের নাম',pod:'পডকাস্টের নাম',live:'শিল্পী বা ব্যান্ডের নাম',rec:'পুরনো গানের নাম',book:'বইয়ের নাম'};
 async function yt(s){if(!WORKER)return[];const j=await(await fetch(WORKER+'/?q='+encodeURIComponent(s))).json();return j.map(t=>({id:'y'+t.id,vid:t.id,n:de(t.n),ar:de(t.ar),im:t.im,src:'YouTube'}))}
 async function load(s){msg('লোড হচ্ছে…');
- const r=(await Promise.allSettled([jam(s),aud(s),arc(s),yt(s)])).map(x=>x.status==='fulfilled'?x.value:[]);list=[];
+ const r=(await Promise.allSettled(MODES[mode](s))).map(x=>x.status==='fulfilled'?x.value:[]);list=[];
  for(let k=0;k<Math.max(...r.map(x=>x.length));k++)r.forEach(x=>x[k]&&list.push(x[k]));
  msg(list.length?'':'কিছু পাওয়া যায়নি। অন্য নাম লিখে খুঁজুন বা ইন্টারনেট সংযোগ দেখুন।');draw()}
 function draw(){$('#cnt').textContent=list.length?bn(list.length)+'টি':'';$('#res').innerHTML=list.map((t,k)=>`<button class="tr${cur&&cur.id===t.id?' cur':''}" data-k="${k}"><img loading="lazy" alt=""><div><b></b><small></small></div><em></em></button>`).join('');
  $$('#res .tr').forEach((b,k)=>{const t=list[k];b.querySelector('img').src=t.im||'icon.svg';b.querySelector('b').textContent=t.n;b.querySelector('small').textContent=t.ar;b.querySelector('em').textContent=t.src;b.dataset.s=t.src;if(t.fn)b.oncontextmenu=e=>{e.preventDefault();if(confirm('“'+t.n+'” লাইব্রেরি থেকে মুছবেন?'))dbx('del',t.fn).then(loadLib)};b.onclick=()=>{q=list.slice();play(k)}})}
-$('#go').onclick=()=>load($('#q').value.trim());$('#q').onkeydown=e=>e.key==='Enter'&&$('#go').click();$('#pop').onclick=()=>load('');
+const sg=$('#sg'),hideSg=()=>sg.classList.remove('on');
+function hist(t){if(!t)return;let h=L('qh',[]).filter(x=>x!==t);h.unshift(t);S('qh',h.slice(0,12))}
+function ysug(t){return new Promise(r=>{const cb='_ys'+Date.now(),sc=document.createElement('script');
+ const done=v=>{clearTimeout(to);delete window[cb];sc.remove();r(v)},to=setTimeout(()=>done([]),3500);
+ const h=d=>done(((d&&d[1])||[]).map(x=>Array.isArray(x)?x[0]:x).filter(Boolean));
+ window[cb]=h;window.google=window.google||{};window.google.ac=window.google.ac||{};window.google.ac.h=h;
+ sc.onerror=()=>done([]);sc.src='https://suggestqueries.google.com/complete/search?client=youtube&ds=yt&hl=bn&q='+encodeURIComponent(t)+'&jsonp='+cb+'&callback='+cb;document.head.appendChild(sc)})}
+async function isug(t){try{const j=await(await fetch('https://itunes.apple.com/search?media=music&entity=song&limit=8&term='+encodeURIComponent(t))).json();return[...new Set(j.results.map(x=>x.trackName+' '+x.artistName))]}catch{return[]}}
+function showSg(items){sg.innerHTML='';items.slice(0,7).forEach(([ic,t])=>{const b=document.createElement('button');b.innerHTML='<span>'+ic+'</span><div></div>';b.lastChild.textContent=t;
+ b.onmousedown=e=>e.preventDefault();b.onclick=()=>{$('#q').value=t;hideSg();$('#go').click()};sg.append(b)});sg.classList.toggle('on',!!items.length)}
+let sgt,sgn=0;
+function sugg(){const t=$('#q').value.trim(),h=L('qh',[]);const hh=h.filter(x=>x.toLowerCase().includes(t.toLowerCase())&&x!==t).slice(0,t?2:6).map(x=>['🕘',x]);
+ if(!t){showSg(hh);return}showSg(hh);const n=++sgn;clearTimeout(sgt);
+ sgt=setTimeout(async()=>{let r=await ysug(t);if(!r.length)r=await isug(t);if(n!==sgn)return;const seen=new Set(hh.map(x=>x[1]));showSg([...hh,...r.filter(x=>!seen.has(x)).map(x=>['🔍',x])])},250)}
+$('#q').oninput=sugg;$('#q').onfocus=sugg;$('#q').onblur=()=>setTimeout(hideSg,150);
+$('#go').onclick=()=>{const t=$('#q').value.trim();sgn++;hideSg();hist(t);load(t)};$('#q').onkeydown=e=>e.key==='Enter'&&($('#q').blur(),$('#go').click());$('#pop').onclick=()=>load('');
+$$('#modes button').forEach(b=>b.onclick=()=>{mode=b.dataset.m;$$('#modes button').forEach(x=>x.classList.toggle('on',x===b));$('#q').placeholder=PH[mode];$('#gen').style.display=mode==='all'?'':'none';load($('#q').value.trim())});
 /* নিজের লাইব্রেরি: ফাইল ফোনের ব্রাউজারে সেভ থাকে */
 const DB=new Promise(r=>{try{const o=indexedDB.open('sur',1);o.onupgradeneeded=()=>o.result.createObjectStore('f',{keyPath:'name'});o.onsuccess=()=>r(o.result);o.onerror=()=>r(null)}catch{r(null)}});
 const dbx=async(m,v)=>{const d=await DB;if(!d)return[];return new Promise(r=>{const s=d.transaction('f',m==='get'?'readonly':'readwrite').objectStore('f'),o=m==='get'?s.getAll():m==='put'?s.put(v):s.delete(v);o.onsuccess=()=>r(o.result||[]);o.onerror=()=>r([])})};
@@ -247,7 +286,7 @@ function ytPlay(id){yq=id;if(ytp&&ytp.loadVideoById)return ytp.loadVideoById(id)
 function mk(){ytp=new YT.Player('ytp',{width:'100%',height:'100%',videoId:yq,playerVars:{playsinline:1,autoplay:1,rel:0},events:{onStateChange:e=>{const s=e.data;if(s===0)nx();if(s===1||s===2){B.classList.toggle('pl',s===1);$$('.pp').forEach(b=>b.innerHTML=s===1?IC.pause:IC.play)}}}})}
 setInterval(()=>{if(!(cur&&cur.vid&&ytp&&ytp.getDuration))return;const d=ytp.getDuration()||1,t=ytp.getCurrentTime();$('#sk').max=d;$('#sk').value=t;rv($('#sk'));$('#mp i').style.width=t/d*100+'%';$('#c').textContent=fm(t);$('#d').textContent=fm(d)},500);
 $$('#gen button').forEach(b=>b.onclick=()=>{$('#q').value=b.textContent;load(b.textContent)});
-function play(n){if(!q[n])return;if(q[n].ia&&!q[n].u){const c=q[n];toast('গান লোড হচ্ছে…');arcTracks(c).then(t=>{const k=q.indexOf(c);if(k<0)return;if(!t.length){toast('এই আইটেমে গান পাওয়া যায়নি');return nx()}q.splice(k,1,...t);play(k)}).catch(()=>toast('গান লোড করা গেল না'));return}
+function play(n){if(!q[n])return;if((q[n].ia||q[n].pod)&&!q[n].u){const c=q[n];toast('লোড হচ্ছে…');(c.ia?arcTracks(c):podEps(c)).then(t=>{const k=q.indexOf(c);if(k<0)return;if(!t.length){toast('এই আইটেমে চালানোর মতো অডিও পাওয়া যায়নি');q.splice(k,1);if(q.length)play(Math.min(k,q.length-1));return}q.splice(k,1,...t);play(k)}).catch(()=>toast('গান লোড করা গেল না'));return}
  i=n;cur=q[n];cur.p=0;B.classList.toggle('yt',!!cur.vid);ytw.classList.remove('hid');
  if(cur.vid){a.pause();a.removeAttribute('src');ytPlay(cur.vid);ytn()}else{$('#ytn').classList.remove('on');ytp&&ytp.pauseVideo&&ytp.pauseVideo();a.src=cur.u;a.play().catch(()=>{})}B.classList.add('has');
  $('#tt').textContent=$('#ft').textContent=cur.n;$('#ta').textContent=$('#fa').textContent=cur.ar;
@@ -259,7 +298,7 @@ $$('.lp').forEach(b=>b.onclick=()=>{a.loop=!a.loop;$$('.lp').forEach(x=>x.style.
 const ms=s=>{if('mediaSession' in navigator)navigator.mediaSession.playbackState=s};
 a.onplay=()=>{B.classList.add('pl');$$('.pp').forEach(b=>b.innerHTML=IC.pause);ms('playing')};
 a.onpause=()=>{B.classList.remove('pl');$$('.pp').forEach(b=>b.innerHTML=IC.play);ms('paused')};a.onended=nx;
-a.ontimeupdate=()=>{const d=a.duration||1;$('#sk').max=d;$('#sk').value=a.currentTime;rv($('#sk'));$('#mp i').style.width=a.currentTime/d*100+'%';$('#c').textContent=fm(a.currentTime);$('#d').textContent=fm(a.duration);
+a.ontimeupdate=()=>{const d=a.duration||1;$('#sk').max=d;$('#sk').value=a.currentTime;rv($('#sk'));$('#mp i').style.width=a.currentTime/d*100+'%';$('#c').textContent=fm(a.currentTime);$('#d').textContent=isFinite(a.duration)?fm(a.duration):'লাইভ';
  try{navigator.mediaSession.setPositionState({duration:a.duration||0,position:a.currentTime,playbackRate:a.playbackRate})}catch{}};
 $('#sk').oninput=e=>cur&&cur.vid?ytp.seekTo(+e.target.value,true):a.currentTime=e.target.value;
 a.onerror=()=>{if(a.crossOrigin&&cur){a.removeAttribute('crossorigin');a.src=cur.u;a.play();toast('এই গানে ইকুয়ালাইজার কাজ করবে না')}};
@@ -321,14 +360,23 @@ v.onplay=()=>a.pause();a.addEventListener('play',()=>v.pause());
 let sv=0;setInterval(()=>{if(a.paused||a.ended||!cur)return;
  const k=day(Date.now()),d=st.d[k]=st.d[k]||{s:0,t:{}},t=d.t[cur.id]=d.t[cur.id]||[0,0];
  st.m[cur.id]={n:cur.n,ar:cur.ar};d.s++;t[0]++;if(++cur.p===30)t[1]++;if(++sv%5===0)S('st',st)},1000);
-addEventListener('pagehide',()=>S('st',st));
+addEventListener('pagehide',()=>{S('st',st);S('du',du)});
+/* ডাটা ব্যবহার (আনুমানিক) */
+let du=L('du',{});const KB={Jamendo:200,Audius:320,Archive:128,YouTube:700};
+const net=()=>{const t=(navigator.connection||{}).type;return t==='wifi'||t==='ethernet'?'w':t==='cellular'?'c':'o'};
+let dsv=0;setInterval(()=>{if(!cur||cur.src==='ফোন')return;
+ const on=cur.vid?(ytp&&ytp.getPlayerState&&ytp.getPlayerState()===1):(!a.paused&&!a.ended);if(!on)return;
+ const kb=cur.kb||KB[cur.src]||160,k=day(Date.now()),d=du[k]=du[k]||{w:0,c:0,o:0};d[net()]+=kb*1000/8/1048576;
+ if(++dsv%10===0)S('du',du)},1000);
+function duSum(){const r={w:0,c:0,o:0};for(let k=0;k<per;k++){const d=du[day(Date.now()-k*864e5)];if(d)for(const x in r)r[x]+=d[x]||0}return r}
+const mbf=x=>x>=1024?bn(+(x/1024).toFixed(2))+' GB':bn(+x.toFixed(1))+' MB';
 function stats(){let tot=0,cnt=0,act=0,tr={},ar={},bars=[];
  for(let k=0;k<per;k++){const d=st.d[day(Date.now()-k*864e5)];bars.unshift(d?d.s:0);if(!d)continue;tot+=d.s;if(d.s)act++;
   for(const id in d.t){const m=st.m[id]||{n:'?',ar:'?'},x=tr[id]=tr[id]||{n:m.n,ar:m.ar,s:0,c:0};x.s+=d.t[id][0];x.c+=d.t[id][1];cnt+=d.t[id][1];ar[m.ar]=(ar[m.ar]||0)+d.t[id][0]}}
  let sk=0;for(let k=0;k<400;k++){const d=st.d[day(Date.now()-k*864e5)];if(d&&d.s>0)sk++;else if(k>0)break}
  const top=Object.values(tr).sort((x,y)=>y.c-x.c||y.s-x.s).slice(0,5),best=Object.entries(ar).sort((x,y)=>y[1]-x[1])[0];
  return{tot,cnt,act,sk,top,bars,best:best?best[0]:'—'}}
-function prog(){const s=stats(),mx=Math.max(...s.bars,1);
+function prog(){const s=stats(),mx=Math.max(...s.bars,1),u=duSum();$('#dt').textContent=mbf(u.w+u.c+u.o);$('#dw').textContent=mbf(u.w);$('#dc').textContent=mbf(u.c);$('#do').textContent=mbf(u.o);
  $('#pt').textContent=ft(s.tot);$('#pc').textContent=bn(s.cnt)+' বার';$('#ps').textContent=bn(s.sk)+' দিন';$('#pd').textContent=bn(s.act)+' দিন';$('#pa').textContent=s.best;
  $('#pb').innerHTML=s.bars.map(x=>`<i style="height:${Math.max(x/mx*100,2)}%"></i>`).join('');
  $('#ptop').innerHTML=s.top.length?'':'<small>এখনো কিছু শোনা হয়নি।</small>';
