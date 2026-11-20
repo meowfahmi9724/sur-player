@@ -574,7 +574,7 @@ async function aiFind(qs,src){pend=null;const w=bub('খুঁজছি…');let
  const box=document.createElement('div');r.forEach((t,k)=>{const b=document.createElement('button');b.className='tr';b.innerHTML='<img alt=""><div><b></b><small></small></div><em></em>';b.querySelector('img').src=t.im||'icon.svg';b.querySelector('b').textContent=t.n;b.querySelector('small').textContent=t.ar;b.querySelector('em').textContent=t.src;b.dataset.s=t.src;b.onclick=()=>{q=r.slice();play(k)};box.append(b)});acb.append(box);acb.scrollTop=acb.scrollHeight;
  btns([['🔁 অন্য সোর্সে খুঁজি',()=>ask(qs)],['✅ ধন্যবাদ',()=>bub('আনন্দিত! আরেকটা গান চাইলে বলুন 🎶')]])}
 async function aiSend(fv){vv=fv===true;const t=aci.value.trim();if(!t)return;aci.value='';bub(t,1);if(pend){const p=pend;if(/ইউটিউব|ইউ টিউব|youtube/i.test(t)){pend=null;aiFind(p,'yt');return}if(/ফ্রি|free|জামেন|অডিয়াস|আর্কাইভ|archive|audius|jamendo/i.test(t)){pend=null;aiFind(p,'free');return}pend=null}ach.push({role:'user',content:t});
- if(AI_URL){try{const j=await(await fetch(AI_URL,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({messages:ach,now:cur?cur.n+' — '+(cur.ar||''):''})})).json();ach.push({role:'assistant',content:j.reply||''});if(j.reply)bub(j.reply);if(j.q)ask(j.q);return}catch{bub('এআই সংযোগ পাওয়া যায়নি, সরাসরি খুঁজছি।')}}
+ if(AI_URL){try{const j=await(await fetch(AI_URL,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({messages:ach,now:cur?cur.n+' — '+(cur.ar||''):''})})).json();const bd=$('#ai .hero small');if(bd)bd.textContent=j.via==='gemini'?'🟢 Gemini চলছে':j.via==='llama'?'🟡 ছোট মডেল':'এআই সহকারী';ach.push({role:'assistant',content:j.reply||''});if(j.reply)bub(j.reply);if(j.q)ask(j.q);return}catch{bub('এআই সংযোগ পাওয়া যায়নি, সরাসরি খুঁজছি।')}}
  ask(t)}
 $('#acs').onclick=aiSend;aci.onkeydown=e=>e.key==='Enter'&&aiSend();
 /* সম্প্রতি শোনা · লিরিক্স · খবর */
@@ -669,8 +669,8 @@ async function mvYt(c){dt='#mres';view=null;msg('লোড হচ্ছে…');
 function dsSet(v){DS=v;S('ds',v);$$('.dsq').forEach(b=>b.textContent='📶 ডাটা সেভার: '+(v?'চালু':'বন্ধ'));$$('#dsw button').forEach(b=>b.classList.toggle('on',(b.dataset.v==='1')===v))}
 $$('.dsq').forEach(b=>b.onclick=()=>{dsSet(!DS);toast(DS?'ডাটা সেভার চালু':'ডাটা সেভার বন্ধ')});$$('#dsw button').forEach(b=>b.onclick=()=>dsSet(b.dataset.v==='1'));dsSet(DS);
 /* আপডেট পপআপ */
-const APP_VER='2026-11-21-f';
-const CHG=["🎬 সিনেমা ট্যাবের সব ক্যাটাগরিতে এখন ইউটিউবের সিনেমা ও নাটক (হুমায়ূন আহমেদ, আয়নাবাজি, ক্লাসিক ও আরও)","🆕 নতুন নাটক: জোভান, সাফা, তৌসিফ, অপূর্ব সহ নিয়মিত শিল্পীদের লেটেস্ট নাটক, নতুন আগে","📺 বঙ্গ ও হইচইয়ের ফ্রি কনটেন্ট ইউটিউব থেকে সরাসরি অ্যাপে","📶 নতুন ডাটা সেভার: কম কোয়ালিটিতে চলে, ডাটা বাঁচে"];
+const APP_VER='2026-11-21-g';
+const CHG=["🤖 সুরানির পাশে দেখা যাবে Gemini চলছে নাকি ছোট মডেল (🟢/🟡)","🛠️ এআই ওয়ার্কারে সমস্যা ধরার সুবিধা যোগ"];
 function pop(title,lines,btn,fn,cancel){const o=document.createElement('div');o.className='upd';const c=document.createElement('div');const h=document.createElement('h3');h.textContent=title;c.append(h);lines.forEach(l=>{const p=document.createElement('p');p.textContent=l;c.append(p)});
  const r=document.createElement('div');r.className='row';r.style.cssText='margin-top:14px;gap:8px';const b=document.createElement('button');b.className='btn';b.textContent=btn;b.onclick=()=>{o.remove();fn&&fn()};r.append(b);
  if(cancel){const x=document.createElement('button');x.className='btn g';x.textContent='পরে';x.onclick=()=>o.remove();r.append(x)}c.append(r);o.append(c);document.body.append(o)}
