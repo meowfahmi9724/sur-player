@@ -643,7 +643,7 @@ $('#tfq').oninput=tvDraw;
 tvv.onplay=()=>{a.pause();ytp&&ytp.pauseVideo&&ytp.pauseVideo();v.pause()};a.addEventListener('play',()=>tvv.pause());
 /* এআই অ্যাসিস্ট্যান্ট (AI_URL দিলে কথোপকথন চালু হয়) */
 let vv=false,pend=null,autoMic=false;
-function aiHi(){try{fetch(AI_URL+'/?ping=1',{mode:'no-cors'}).catch(()=>{})}catch{}bub('হ্যালো! আমি সুরানি 🎶 তোমার গানের বন্ধু।\nগান খুঁজে দিতে পারি, গানের লাইন বা শিল্পী নিয়ে গল্পও করতে পারি। মাইক চেপে বললে আমিও ভয়েসেই উত্তর দেব!')}
+function aiHi(){try{fetch(AI_URL+'/?ping=1',{mode:'no-cors'}).catch(()=>{})}catch{}bub('আসসালামু আলাইকুম! আমি সুরানি 🎶 তোমার গানের বন্ধু।\nগান খুঁজে দিতে পারি, গানের লাইন বা শিল্পী নিয়ে গল্পও করতে পারি। মাইক চেপে বললে আমিও ভয়েসেই উত্তর দেব!')}
 const AI_URL='https://sur-ai.customboss08.workers.dev';let aig=0,ach=[];const acb=$('#acb'),aci=$('#aci');
 {const bd=$('#ai .hero small');if(bd)bd.onclick=()=>toast(bd.dataset.err?'কারণ: '+bd.dataset.err:bd.textContent.includes('G')?'Gemini চলছে ✓':'কোনো মেসেজ পাঠালে স্ট্যাটাস দেখা যাবে')}
 function fitChat(){const a=$('#acb'),b=$('#aib');if(!a||!b||!$('#ai').classList.contains('on'))return;const h=b.getBoundingClientRect().top-a.getBoundingClientRect().top-12;a.style.height=Math.max(160,h)+'px';a.scrollTop=a.scrollHeight}
