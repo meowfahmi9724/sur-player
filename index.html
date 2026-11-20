@@ -643,7 +643,7 @@ $('#tfq').oninput=tvDraw;
 tvv.onplay=()=>{a.pause();ytp&&ytp.pauseVideo&&ytp.pauseVideo();v.pause()};a.addEventListener('play',()=>tvv.pause());
 /* এআই অ্যাসিস্ট্যান্ট (AI_URL দিলে কথোপকথন চালু হয়) */
 let vv=false,pend=null,autoMic=false;
-function aiHi(){try{fetch(AI_URL+'/?ping=1',{mode:'no-cors'}).catch(()=>{})}catch{}bub('আসসালামু আলাইকুম! আমি সুরানি 🎶 তোমার গানের বন্ধু।\nগান খুঁজে দিতে পারি, গানের লাইন বা শিল্পী নিয়ে গল্পও করতে পারি। মাইক চেপে বললে আমিও ভয়েসেই উত্তর দেব!')}
+function aiHi(){try{fetch(AI_URL+'/?ping=1',{mode:'no-cors'}).catch(()=>{})}catch{}bub('আসসালামু আলাইকুম! আমি সুরানি 🎶 তোমার গানের বন্ধু।\nগান খুঁজে দিতে পারি, গানের লাইন বা শিল্পী নিয়ে গল্পও করতে পারি। টিভি চ্যানেল, রেডিও, সিনেমা, থিম, সেটিং — যা বলবে নিজেই খুলে দেব, যেমন “মাইটিভি চালু করো”। মাইক চেপে বললে আমিও ভয়েসেই উত্তর দেব!')}
 const AI_URL='https://sur-ai.customboss08.workers.dev';let aig=0,ach=[];const acb=$('#acb'),aci=$('#aci');
 {const bd=$('#ai .hero small');if(bd)bd.onclick=()=>toast(bd.dataset.err?'কারণ: '+bd.dataset.err:bd.textContent.includes('G')?'Gemini চলছে ✓':'কোনো মেসেজ পাঠালে স্ট্যাটাস দেখা যাবে')}
 function fitChat(){const a=$('#acb'),b=$('#aib');if(!a||!b||!$('#ai').classList.contains('on'))return;const h=b.getBoundingClientRect().top-a.getBoundingClientRect().top-12;a.style.height=Math.max(160,h)+'px';a.scrollTop=a.scrollHeight}
@@ -736,10 +736,99 @@ async function pump(){
  }
  busy=false;pumping=false;cancelCur=null;acsRefresh();
  if(autoMic&&!spN){autoMic=false;listen()}}
+/* সুরানির অ্যাপ-নিয়ন্ত্রণ: কথা বা লেখা থেকে সরাসরি অ্যাপের অপশন খোলা/চালানো (এআই-এর অপেক্ষা ছাড়াই) */
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const nz=s=>String(s||'').toLowerCase().replace(/[০-৯]/g,d=>'০১২৩৪৫৬৭৮৯'.indexOf(d)).replace(/[^a-z0-9\u0980-\u09FF]/g,'');
+const en=s=>String(s||'').replace(/[০-৯]/g,d=>'০১২৩৪৫৬৭৮৯'.indexOf(d));
+const CHT=[['mytv',/মাই\s*টিভি|my\s*tv/i,0],['jamuna',/যমুনা|jamuna/i,0],['ntv',/এন\s*টিভি|\bntv\b/i,0],['rtv',/আর\s*টিভি|\brtv\b/i,0],['channeli',/চ্যানেল\s*আই|channel\s*i\b/i,0],['ekattor',/একাত্তর|ekattor/i,0],['somoy',/সময়|somoy/i,1],['deepto',/দীপ্ত|deepto/i,1],['gazi',/গাজী|gazi/i,1],['dbc',/ডি\s*বি\s*সি|\bdbc\b/i,0],['independent',/ইন্ডিপেন্ডেন্ট|independent/i,0],['maasranga',/মাছরাঙা|maasranga/i,0],['atn',/এ\s*টি\s*এন|\batn\b/i,0],['banglavision',/বাংলা\s*ভিশন|banglavision/i,0],['channel9',/চ্যানেল\s*(নাইন|৯|9)|channel\s*9/i,0],['desh',/দেশ\s*টিভি|desh\s*tv/i,0],['nagorik',/নাগরিক|nagorik/i,1],['btv',/বি\s*টি\s*ভি|\bbtv\b/i,0],['channel24',/চ্যানেল\s*(২৪|চব্বিশ|24)|channel\s*24/i,0],['asian',/এশিয়ান|asian/i,1],['boishakhi',/বৈশাখী|boishakhi/i,0],['zeebangla',/জি\s*বাংলা|zee\s*bangla/i,0],['jalsha',/জলসা|jalsha/i,0],['colors',/কালার্স|colors/i,0],['akash',/আকাশ|akash/i,1],['sangsad',/সংসদ|sangsad/i,0],['tv9',/টিভি\s*(নাইন|৯)|tv\s*9/i,0],['republic',/রিপাবলিক|republic/i,0],['ananda',/আনন্দ|ananda/i,1],['mohona',/মোহনা|mohona/i,0],['news24',/নিউজ\s*(২৪|চব্বিশ)|news\s*24/i,0]];
+const THM={gold:/সোনালি/,rose:/গোলাপি/,green:/সবুজ/,blue:/নীল/,violet:/বেগুনি/,sunset:/সূর্যাস্ত/,black:/কালো/};
+const RCH=[['bd',/বাংলাদেশ/],['kol',/কলকাতা/],['isl',/ইসলামিক|ইসলাম/],['en',/ইংরেজি|english/i],['bn',/বাংলা/],['news',/সংবাদ|খবর|নিউজ/]];
+const MCH=[['natok',/নাটক/],['classic',/ক্লাসিক/],['comedy',/কমেডি/],['horror',/হরর/],['scifi',/সায়েন্স\s*ফিকশন/],['english',/ইংরেজি/],['anim',/অ্যানিমেশন|কার্টুন/],['hoichoi',/হইচই/],['bongo',/বঙ্গ/],['arc',/আর্কাইভ|archive|ডাউনলোড/i],['bengali',/বাংলা/]];
+const CMD_STOP=new Set('রেডিও radio মুভি সিনেমা নাটক ফিল্ম movie চালাও চালু করো কর শোনাও বাজাও দেখাও দেখব দেখতে খুঁজো খোঁজো খুঁজে দাও দিন খোলো খুলো খুলুন খুলে ওপেন open যাও চলো লাগাও চালিয়ে একটা একটি স্টেশন চ্যানেল প্লিজ আমাকে আমি আছে কোনো'.split(' '));
+const cmdName=t=>t.split(/\s+/).map(x=>x.replace(/^[,।!.“”"']+|[,।!.“”"']+$/g,'')).filter(x=>x&&!CMD_STOP.has(x.toLowerCase())).join(' ').trim();
+async function waitTv(){show('tv');for(let i=0;i<40&&!tvA.length;i++)await sleep(200)}
+const goTab=k=>{$('#full').classList.remove('open');show(k)};
+async function aiCmd(t){
+ const verb=/চালু|চালাও|চালিয়ে|চালান|দেখাও|দেখব|দেখতে|দেখি|খোলো|খুলো|খুলুন|খুলে|লাগাও|ওপেন|\bopen\b|\bplay\b|\bwatch\b|দাও|দিন|যাও|চলো|শোনাও|বাজাও/i.test(t);
+ const nums=en(t),n=+(nums.match(/\d+/)||[])[0];
+ /* টিভি বন্ধ */
+ if(/টিভি.*(বন্ধ|অফ)|(বন্ধ|অফ).*টিভি/.test(t)&&!/সময়/.test(t)){$('#tvx').click();return 'টিভি বন্ধ করলাম।'}
+ /* টিভি চ্যানেল নাম ধরে */
+ const al=CHT.find(([,re])=>re.test(t)),tvw=/টিভি|চ্যানেল|\btv\b|channel|লাইভ/i.test(t);
+ if(verb&&al&&(!al[2]||tvw)&&!/গান|song|রেডিও|radio|মুভি|সিনেমা|নাটক/i.test(t)){
+  await waitTv();const k=al[0],cs=tvA.filter(c=>nz(c.n).includes(k)&&!c.bad).sort((x,y)=>x.n.length-y.n.length);
+  if(cs.length){tvPlay(cs[0],null);return cs[0].n+' চালু করছি।'}
+  $('#tfq').value=k;tvDraw();return 'এই চ্যানেল এখন তালিকায় পেলাম না। টিভি ট্যাবে খুঁজে রেখেছি, দেখো।'}
+ /* চ্যানেলের ধরন */
+ if(verb&&/চ্যানেল|টিভি/.test(t)){const cat=[[/সব\s*চ্যানেল/,'all'],[/খবর|নিউজ|news/i,'news'],[/বিনোদন/,'ent'],[/মিউজিক|গানের/,'mus'],[/সিনেমা|মুভি/,'mov']].find(([re])=>re.test(t));
+  if(cat){await waitTv();$('#tcat [data-c='+cat[1]+']').click();return 'টিভির চ্যানেলগুলো দেখাচ্ছি, যেটা চাও বলো।'}
+  const lt=t.match(/[a-z0-9]{3,}/gi);if(lt){await waitTv();const c=tvA.find(c=>lt.some(w=>nz(c.n).includes(w.toLowerCase())));if(c){tvPlay(c,null);return c.n+' চালু করছি।'}}}
+ /* ডাটা সেভার */
+ if(/ডাটা\s*সেভার|ডেটা\s*সেভার|data\s*saver/i.test(t)){const off=/বন্ধ|অফ|off/i.test(t);dsSet(!off);return 'ডাটা সেভার '+(off?'বন্ধ':'চালু')+' করলাম।'}
+ /* মোড ও থিম */
+ if(/মোড|থিম|ডার্ক|লাইট|dark|light/i.test(t)&&/করো|কর|দাও|চালু|বদলাও|লাগাও|দিন|চাই/.test(t)){
+  const m=/অটো|auto/i.test(t)?'auto':/ডার্ক|dark|অন্ধকার|রাত/i.test(t)?'dark':/লাইট|light|সাদা|দিন মোড/i.test(t)?'light':'';
+  const tk=Object.keys(THM).find(k=>THM[k].test(t));
+  if(tk&&/থিম|রং|রঙ/.test(t)){th.t=tk;timg='';try{localStorage.removeItem('timg')}catch{}S('th',th);applyTh();return 'থিম বদলে দিলাম।'}
+  if(m){th.m=m;S('th',th);applyTh();return (m==='dark'?'ডার্ক':m==='light'?'লাইট':'অটো')+' মোড চালু করলাম।'}}
+ /* স্লিপ টাইমার */
+ if(/স্লিপ|টাইমার|ঘুম|মিনিট\s*পর|ঘণ্টা\s*পর/.test(t)&&!/টিভি/.test(t)){
+  let m=/বন্ধ|বাতিল|অফ/.test(t)&&!/মিনিট|ঘণ্টা/.test(t)?0:/আধা|আধ\s|ত্রিশ/.test(t)?30:/ঘণ্টা/.test(t)?60:/পনেরো|পনের/.test(t)?15:n?(n>=45||(/ঘণ্টা/.test(t))?60:n>=23?30:15):30;
+  $('#sl [data-m="'+m+'"]').click();return m?'ঠিক আছে, '+bn(m)+' মিনিট পর গান বন্ধ হয়ে যাবে।':'স্লিপ টাইমার বন্ধ করলাম।'}
+ /* ভলিউম */
+ if(/ভলিউম|আওয়াজ|শব্দ|volume/i.test(t)&&/বাড়া|বেশি|জোরে|কমা|কম|আস্তে|ফুল|সর্বোচ্চ|মিউট|mute|শতাংশ|%/.test(t)){
+  let v=a.volume;if(/ফুল|সর্বোচ্চ/.test(t))v=1;else if(/মিউট|mute/i.test(t))v=0;else if(n&&/শতাংশ|%/.test(t))v=Math.min(1,n/100);else if(/বাড়া|বেশি|জোরে/.test(t))v=Math.min(1,v+.25);else v=Math.max(0,v-.25);
+  a.volume=v;$('#vol').value=v;try{tvv.volume=v;ytp&&ytp.setVolume&&ytp.setVolume(v*100)}catch{}return 'ভলিউম '+bn(Math.round(v*100))+' শতাংশ।'}
+ /* প্লেয়ার কন্ট্রোল */
+ const sh=t.length<=30;
+ if(sh&&(/^(গান\s*|মিউজিক\s*|সব\s*|এটা\s*)?(থামাও|থামান|থামো|পজ|বন্ধ\s*কর)|\bpause\b/i.test(t)||/গান.*(থামাও|পজ|বন্ধ)/.test(t))){pauseAll();stopSay();return 'থামালাম।'}
+ if(sh&&/আবার\s*(চালাও|বাজাও)|রিজিউম|resume|চালিয়ে\s*যাও|গান\s*চালু\s*কর|গানটা\s*চালু/i.test(t)&&cur){try{cur.vid?ytp.playVideo():a.play()}catch{}return 'চালিয়ে দিলাম।'}
+ if(sh&&/পরের\s*গান|পরেরটা|নেক্সট|\bnext\b|স্কিপ|\bskip\b/i.test(t)){if(!q.length)return 'এখন কোনো গানের লাইন নেই।';nx();return 'পরের গানে গেলাম।'}
+ if(sh&&/আগের\s*গান|আগেরটা|\bprevious\b|\bprev\b/i.test(t)){if(!q.length)return 'এখন কোনো গানের লাইন নেই।';pv();return 'আগের গানে গেলাম।'}
+ if(sh&&/শাফল|shuffle/i.test(t)){$('#shf').click();return shuf?'শাফল চালু করলাম।':'শাফল বন্ধ করলাম।'}
+ if(sh&&/লুপ|রিপিট|repeat|বারবার\s*বাজাও/i.test(t)){$('.lp').click();return a.loop?'এই গান বারবার বাজবে।':'রিপিট বন্ধ করলাম।'}
+ if(/ফেভারিট\s*(কর|এ\s*যোগ|যোগ)|পছন্দের\s*তালিকায়|লাইক\s*কর/.test(t)){if(!cur)return 'আগে একটা গান চালাও, তারপর ফেভারিট করব।';const was=isFv(cur);$('#fh').click();return was?'ফেভারিট থেকে সরালাম।':'ফেভারিটে যোগ করলাম।'}
+ if(/লিরিক্স|গানের\s*কথা/.test(t)&&verb||/লিরিক্স\s*(দেখাও|খোলো)/.test(t)){if(!cur)return 'আগে একটা গান চালাও।';$('#full').classList.add('open');lyGet();return 'লিরিক্স খুঁজছি।'}
+ /* গানের ট্যাবের মোড ও লাইব্রেরি */
+ if(verb||sh){
+  const md=[[/পডকাস্ট/,'pod'],[/লাইভ\s*কনসার্ট|কনসার্ট/,'live'],[/পুরনো\s*রেকর্ড/,'rec'],[/অডিওবুক/,'book']].find(([re])=>re.test(t));
+  if(md){goTab('home');$('#modes [data-m='+md[1]+']').click();return 'দেখাচ্ছি।'}
+  if(/আজকের\s*মিক্স|ডেইলি\s*মিক্স/.test(t)){goTab('home');dailyMix();return 'আজকের মিক্স চালু করছি।'}
+  if(/ফেভারিট/.test(t)){goTab('home');$('#bfv').click();return 'তোমার ফেভারিট গানগুলো দেখাচ্ছি।'}
+  if(/প্লেলিস্ট/.test(t)){goTab('home');$('#bpl').click();return 'প্লেলিস্ট খুলছি।'}
+  if(/সম্প্রতি\s*শোনা|আগে\s*শোনা|হিস্ট্রি/.test(t)){goTab('home');view=null;list=RPL.slice();msg(list.length?'সম্প্রতি শোনা গান':'এখনো কিছু শোনা হয়নি');draw();return 'সম্প্রতি শোনা গান দেখাচ্ছি।'}
+  if(/ফোনের\s*গান|ডাউনলোড\s*করা\s*গান|নিজের\s*গান/.test(t)){goTab('home');$('#myph').click();return 'ফোনের গান খুলছি।'}
+  if(/জনপ্রিয়\s*গান|ট্রেন্ডিং/.test(t)){goTab('home');$('#pop').click();return 'এখন যা জনপ্রিয় তা দেখাচ্ছি।'}
+  if(/অ্যাপ\s*ইনস্টল|ইনস্টল\s*কর/.test(t)){$('#inst').click();return 'ইনস্টলের অপশন খুলছি।'}
+ }
+ /* রেডিও */
+ if(/রেডিও|radio|আজকের\s*খবর|পত্রিকা|বিবিসি|প্রথম\s*আলো/i.test(t)&&(verb||sh)){
+  if(/আজকের\s*খবর|পত্রিকা|বিবিসি|প্রথম\s*আলো|bbc/i.test(t)){goTab('rad');$('#rch [data-k=nw]').click();if(/প্রথম\s*আলো/.test(t))$$('#nsrc button')[1].click();else if(/বিবিসি|bbc/i.test(t))$$('#nsrc button')[0].click();return 'আজকের খবর দেখাচ্ছি।'}
+  const nm=cmdName(t),ch=RCH.find(([,re])=>re.test(nm));
+  if(!nm||ch){goTab('rad');if(ch)$('#rch [data-k='+ch[0]+']').click();
+   if(!nm&&/চালাও|শোনাও|বাজাও/.test(t)){const r=await rad('').catch(()=>[]);if(r.length){q=r;play(0);return r[0].n+' চালাচ্ছি।'}}
+   return 'রেডিও খুললাম।'}
+  const r=await rad(nm).catch(()=>[]);
+  if(r.length&&/চালাও|শোনাও|বাজাও|চালু/.test(t)){q=r;play(0);return r[0].n+' চালাচ্ছি।'}
+  goTab('rad');$('#rq').value=nm;$('#rgo').click();return '"'+nm+'" খুঁজে রেখেছি, দেখো।'}
+ /* সিনেমা */
+ if(/সিনেমা|মুভি|নাটক|ফিল্ম|movie/i.test(t)&&(verb||sh)){
+  const mc=MCH.find(([,re])=>re.test(t)),nm=cmdName(t.replace(/বাংলা|হরর|কমেডি|ক্লাসিক|ইংরেজি|অ্যানিমেশন|কার্টুন|হইচই|বঙ্গ|আর্কাইভ|ডাউনলোড|সায়েন্স\s*ফিকশন/g,''));
+  goTab('mov');
+  if(mc){$('#mch [data-k='+mc[0]+']').click();return 'সিনেমা ট্যাবে এটা দেখাচ্ছি।'}
+  if(nm&&nm.length>=2&&/দেখাও|দেখব|দেখতে|খুঁজ|খোঁজ|চালাও/.test(t)){$('#mq').value=nm;$('#mgo').click();return '"'+nm+'" খুঁজছি।'}
+  return 'সিনেমা ও নাটক খুললাম।'}
+ /* ট্যাব খোলা */
+ if(verb||sh){
+  const D=[['tv',/টিভি|\btv\b/i],['prog',/প্রগ্রেস|পরিসংখ্যান|স্ট্যাটাস|ডাটা\s*ব্যবহার/],['set',/সেটিং|সেটিংস|settings/i],['home',/হোম|প্রথম\s*পাতা|গানের\s*ট্যাব|গানের\s*পাতা/]].find(([,re])=>re.test(t));
+  if(D){if(D[0]==='tv'){await waitTv();return 'টিভি খুললাম, কোন চ্যানেল দেখবে বলো।'}goTab(D[0]);return {prog:'প্রগ্রেস দেখাচ্ছি।',set:'সেটিং খুললাম।',home:'গানের পাতায় এলাম।'}[D[0]]}}
+ return ''}
 async function aiTurn(t,my){
  const live=()=>my===turn;
  const hint=YTRX.test(t)?'yt':FRRX.test(t)?'free':null;
  if(pend){const p=pend;pend=null;if(YTRX.test(t))return aiPlay(p,'yt',my);if(FRRX.test(t))return aiPlay(p,'free',my)}
+ let cm='';try{cm=await aiCmd(t)}catch(e){cm=''}
+ if(cm){if(!live())return;ach.push({role:'user',content:t},{role:'assistant',content:cm});bub(cm,0,false);await whenIdle();return}
  const fq=fastQ(t);if(fq){ach.push({role:'user',content:t},{role:'assistant',content:'[[PLAY: '+fq+']]'});return aiPlay(fq,hint,my)}
  if(!AI_URL)return aiPlay(t,hint,my);
  ach.push({role:'user',content:t});
@@ -877,8 +966,8 @@ async function mvYt(c){dt='#mres';view=null;msg('লোড হচ্ছে…');
 function dsSet(v){DS=v;S('ds',v);$$('.dsq').forEach(b=>b.textContent='📶 ডাটা সেভার: '+(v?'চালু':'বন্ধ'));$$('#dsw button').forEach(b=>b.classList.toggle('on',(b.dataset.v==='1')===v))}
 $$('.dsq').forEach(b=>b.onclick=()=>{dsSet(!DS);toast(DS?'ডাটা সেভার চালু':'ডাটা সেভার বন্ধ')});$$('#dsw button').forEach(b=>b.onclick=()=>dsSet(b.dataset.v==='1'));dsSet(DS);
 /* আপডেট পপআপ */
-const APP_VER='2026-11-21-p';
-const CHG=["⚡ সুরানি আরও দ্রুত: গান চালাও বললে সরাসরি খোঁজে, দেরি হলে ১২ সেকেন্ডে বিকল্প পথ","🗣️ সুরানি এখন বারবার একই কথা বলে না; বলার সময় গান আপনাআপনি থেমে থাকে, কথা শেষে গান শুরু","⏹ কথা থামানোর আলাদা বাটন; থামালে আগের গান আবার চলবে","⏳ সুরানি কাজ করার সময়ও নতুন মেসেজ দেওয়া যায় — লাইনে থাকে, ⏳ চাপলে বাদ","📊 প্রোগ্রেস শেয়ার কার্ড নতুন প্রিমিয়াম ডিজাইনে","🎬 ভিডিও ✕ করে অডিও চালালে শুধু অডিও বাজবে; ফুল ভিউতে \"ভিডিওসহ দেখুন\" বাটন","👩 সুরানির নতুন আইকন, আর স্ট্যাটাসে সংক্ষিপ্ত 🟢 G / 🔴 L","✕ মিনি প্লেয়ারে ক্রস বাটন: চাপলে গান থামবে ও প্লেয়ার সরে যাবে","▶️ গানের নাম বললে সুরানি সরাসরি বাজাবে, \"yt\" লিখলেও বুঝবে","❌ ইউটিউব ভিডিওতে ক্রস দিলে এখন শব্দও বন্ধ হবে","💬 সুরানির চ্যাট এখন পুরো স্ক্রিন জুড়ে, নিচে ফাঁকা জায়গা নেই","🤖 সুরানির পাশে দেখা যাবে Gemini চলছে নাকি ছোট মডেল (🟢/🟡)","🛠️ এআই ওয়ার্কারে সমস্যা ধরার সুবিধা যোগ"];
+const APP_VER='2026-11-21-q';
+const CHG=["🎙️ সুরানি এখন অ্যাপ চালাতে পারে: “মাইটিভি চালু করো”, “রেডিও খোলো”, “ডার্ক মোড দাও”, “পরের গান”, “ভলিউম বাড়াও”, “৩০ মিনিট পর বন্ধ করো” ইত্যাদি","⚡ সুরানি আরও দ্রুত: গান চালাও বললে সরাসরি খোঁজে, দেরি হলে ১২ সেকেন্ডে বিকল্প পথ","🗣️ সুরানি এখন বারবার একই কথা বলে না; বলার সময় গান আপনাআপনি থেমে থাকে, কথা শেষে গান শুরু","⏹ কথা থামানোর আলাদা বাটন; থামালে আগের গান আবার চলবে","⏳ সুরানি কাজ করার সময়ও নতুন মেসেজ দেওয়া যায় — লাইনে থাকে, ⏳ চাপলে বাদ","📊 প্রোগ্রেস শেয়ার কার্ড নতুন প্রিমিয়াম ডিজাইনে","🎬 ভিডিও ✕ করে অডিও চালালে শুধু অডিও বাজবে; ফুল ভিউতে \"ভিডিওসহ দেখুন\" বাটন","👩 সুরানির নতুন আইকন, আর স্ট্যাটাসে সংক্ষিপ্ত 🟢 G / 🔴 L","✕ মিনি প্লেয়ারে ক্রস বাটন: চাপলে গান থামবে ও প্লেয়ার সরে যাবে","▶️ গানের নাম বললে সুরানি সরাসরি বাজাবে, \"yt\" লিখলেও বুঝবে","❌ ইউটিউব ভিডিওতে ক্রস দিলে এখন শব্দও বন্ধ হবে","💬 সুরানির চ্যাট এখন পুরো স্ক্রিন জুড়ে, নিচে ফাঁকা জায়গা নেই","🤖 সুরানির পাশে দেখা যাবে Gemini চলছে নাকি ছোট মডেল (🟢/🟡)","🛠️ এআই ওয়ার্কারে সমস্যা ধরার সুবিধা যোগ"];
 function pop(title,lines,btn,fn,cancel){const o=document.createElement('div');o.className='upd';const c=document.createElement('div');const h=document.createElement('h3');h.textContent=title;c.append(h);lines.forEach(l=>{const p=document.createElement('p');p.textContent=l;c.append(p)});
  const r=document.createElement('div');r.className='row';r.style.cssText='margin-top:14px;gap:8px';const b=document.createElement('button');b.className='btn';b.textContent=btn;b.onclick=()=>{o.remove();fn&&fn()};r.append(b);
  if(cancel){const x=document.createElement('button');x.className='btn g';x.textContent='পরে';x.onclick=()=>o.remove();r.append(x)}c.append(r);o.append(c);document.body.append(o)}
