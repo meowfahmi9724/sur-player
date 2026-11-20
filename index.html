@@ -240,6 +240,17 @@ nav button i .sa2{width:30px;height:30px;display:block;border-radius:50%}
 #sgw,.k1{background:#5ac8a8}#sgc,.k2{background:var(--ac)}#sgo,.k3{background:#8f9bb8}
 .du small u{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;text-decoration:none}
 #ptop .tr{background:linear-gradient(90deg,color-mix(in srgb,var(--ac) 24%,transparent) var(--w,0%),transparent var(--w,0%));margin-top:6px}
+
+/* সুরানি চ্যাট: টাইপিং, অপেক্ষার আইকন, থামানো */
+.bb.typ{display:inline-flex;gap:5px;align-items:center;padding:14px 16px}
+.bb.typ i{width:7px;height:7px;border-radius:50%;background:var(--mu);animation:tdot 1s infinite}
+.bb.typ i:nth-child(2){animation-delay:.15s}.bb.typ i:nth-child(3){animation-delay:.3s}
+@keyframes tdot{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-4px)}}
+.bb.u.wait::after{content:"";display:inline-block;width:11px;height:11px;margin-left:9px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:spin .8s linear infinite;vertical-align:-1px;opacity:.8}
+#acs.stop{min-width:64px}
+.bb.u.q{opacity:.65;cursor:pointer}
+.bb.u.q::after{content:"⏳";margin-left:9px;font-size:12px}
+#asp{display:none}#asp.on{display:inline-block}
 </style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="suraAv" viewBox="0 0 64 64"><clipPath id="svc"><circle cx="32" cy="32" r="32"/></clipPath><g clip-path="url(#svc)"><rect width="64" height="64" fill="#f3d9a0"/><circle cx="46" cy="15" r="7" fill="#1b1412"/><g fill="#fff"><circle cx="43" cy="9" r="1.8"/><circle cx="47" cy="8.5" r="1.8"/><circle cx="50.5" cy="11" r="1.8"/><circle cx="51" cy="15.5" r="1.8"/></g><g fill="#e7b416"><circle cx="43" cy="9" r=".6"/><circle cx="47" cy="8.5" r=".6"/><circle cx="50.5" cy="11" r=".6"/><circle cx="51" cy="15.5" r=".6"/></g><path d="M4 64C6 49 19 44 32 44C45 44 58 49 60 64Z" fill="#f8f2e4"/><path d="M13 50Q35 50 56 64L47 64Q33 56 15 54Z" fill="#c8102e"/><path d="M21 45Q18 56 22 64L28 64Q24 55 27 44Z" fill="#c8102e"/><path d="M23.5 46Q32 54 40.5 46L38 44L26 44Z" fill="#7a1f2b"/><path d="M27.5 34h9v9q-4.5 4.5-9 0z" fill="#c98a5e"/><path d="M26.5 40.5Q32 47 37.5 40.5" fill="none" stroke="#e0a82e" stroke-width="1.3" stroke-linecap="round"/><ellipse cx="32" cy="25.5" rx="11" ry="13" fill="#d49a6a"/><circle cx="21" cy="29" r="1.6" fill="#e0a82e"/><circle cx="43" cy="29" r="1.6" fill="#e0a82e"/><path d="M20.5 29C16 6 48 6 43.5 29C42.5 23 38 19.5 32 19.5C26 19.5 21.5 23 20.5 29Z" fill="#1b1412"/><path d="M32 12.5L32 19.6" stroke="#d49a6a" stroke-width="1.1" stroke-linecap="round"/><circle cx="32" cy="22.4" r="1.3" fill="#c8102e"/></g></symbol></defs></svg>
 <header><h1>সুর<span>.</span></h1><span class="hr"><button id="inst" class="ibs" hidden>📲 অ্যাপ ইনস্টল</button><button class="ib" data-t="set" aria-label="সেটিং"><svg viewBox="0 0 24 24"><path d="M19.4 13a7.5 7.5 0 0 0 0-2l2-1.6-2-3.4-2.4 1a7 7 0 0 0-1.7-1L15 3h-4l-.4 3a7 7 0 0 0-1.7 1l-2.4-1-2 3.4L6.6 11a7.5 7.5 0 0 0 0 2l-2 1.6 2 3.4 2.4-1a7 7 0 0 0 1.7 1l.4 3h4l.4-3a7 7 0 0 0 1.7-1l2.4 1 2-3.4zM12 15.500a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z"/></svg></button></span></header>
 
@@ -309,7 +320,7 @@ nav button i .sa2{width:30px;height:30px;display:block;border-radius:50%}
  <small style="display:block;margin:8px 4px">YouTube থেকে চলা ভিডিও ব্যাকগ্রাউন্ডে চলবে না। কেউ এমবেড বন্ধ রাখলে ভিডিও এখানে চলবে না। 🏛️ Archive-এর মুভি ডাউনলোড করা যায়।</small>
  
 </section>
-<section id="ai"><div class="row" style="justify-content:space-between;align-items:center"><div class="hero" style="margin:0"><svg class="sa"><use href="#suraAv"/></svg> সুরানি <small style="font-size:13px;opacity:.7">এআই সহকারী</small></div><div class="row" style="gap:6px"><button class="btn g mini" id="avo">🔇</button><button class="btn g mini" id="alg">বাংলা</button></div></div>
+<section id="ai"><div class="row" style="justify-content:space-between;align-items:center"><div class="hero" style="margin:0"><svg class="sa"><use href="#suraAv"/></svg> সুরানি <small style="font-size:13px;opacity:.7">এআই সহকারী</small></div><div class="row" style="gap:6px"><button class="btn g mini" id="asp" aria-label="কথা থামাও">⏹</button><button class="btn g mini" id="avo">🔇</button><button class="btn g mini" id="alg">বাংলা</button></div></div>
  <div id="acb"></div>
  <div class="sbar" id="aib"><input id="aci" type="search" placeholder="গান বা কথা লিখুন…"><button class="btn g mini" id="amic" aria-label="ভয়েস">🎤</button><button class="btn" id="acs">পাঠান</button></div></section>
 </main>
@@ -440,13 +451,13 @@ $('#lib').onclick=()=>$('#lf').click();
 $('#myph').onclick=async()=>{(await dbx('get')).length?loadLib():$('#lf').click()};
 let shuf=false;$('#shf').onclick=()=>{shuf=!shuf;$('#shf').classList.toggle('on',shuf);toast(shuf?'শাফল চালু':'শাফল বন্ধ');if(shuf&&list.length&&!cur){q=list.slice();play(Math.random()*q.length|0)}};
 /* প্লে + YouTube */
-const ytw=$('#ytw');let ytp,yq;$('#ytx').onclick=()=>{try{ytp&&ytp.pauseVideo&&ytp.pauseVideo()}catch{}ytw.classList.add('hid')};
-function ytPlay(id){yq=id;if(ytp&&ytp.loadVideoById)return ytp.loadVideoById(id);
+const ytw=$('#ytw');let ytp,yq,ytst=0,ytfrom=0;$('#ytx').onclick=()=>{try{ytp&&ytp.pauseVideo&&ytp.pauseVideo()}catch{}ytw.classList.add('hid')};
+function ytPlay(id){yq=id;ytst=ytfrom;ytfrom=0;if(ytp&&ytp.loadVideoById)return ytst?ytp.loadVideoById({videoId:id,startSeconds:ytst}):ytp.loadVideoById(id);
  if(!window.YT){const s=document.createElement('script');s.src='https://www.youtube.com/iframe_api';document.head.appendChild(s);window.onYouTubeIframeAPIReady=mk}else if(!ytp)mk()}
-function mk(){ytp=new YT.Player('ytp',{host:'https://www.youtube-nocookie.com',width:'100%',height:'100%',videoId:yq,playerVars:{playsinline:1,autoplay:1,rel:0},events:{onStateChange:e=>{const s=e.data;if(s===1&&DS){try{ytp.setPlaybackQuality('small')}catch{}}if(s===0)nx();if(s===1||s===2){B.classList.toggle('pl',s===1);$$('.pp').forEach(b=>b.innerHTML=s===1?IC.pause:IC.play)}}}})}
+function mk(){ytp=new YT.Player('ytp',{host:'https://www.youtube-nocookie.com',width:'100%',height:'100%',videoId:yq,playerVars:{playsinline:1,autoplay:1,rel:0,start:ytst|0},events:{onStateChange:e=>{const s=e.data;if(s===1&&DS){try{ytp.setPlaybackQuality('small')}catch{}}if(s===0)nx();if(s===1||s===2){B.classList.toggle('pl',s===1);$$('.pp').forEach(b=>b.innerHTML=s===1?IC.pause:IC.play)}}}})}
 setInterval(()=>{if(!(cur&&cur.vid&&ytp&&ytp.getDuration))return;const d=ytp.getDuration()||1,t=ytp.getCurrentTime();$('#sk').max=d;$('#sk').value=t;rv($('#sk'));$('#mp i').style.width=t/d*100+'%';$('#c').textContent=fm(t);$('#d').textContent=fm(d)},500);
 $$('#gen button').forEach(b=>b.onclick=()=>{$('#q').value=b.textContent;load(b.textContent)});
-function play(n){if(!q[n])return;if((q[n].ia||q[n].pod)&&!q[n].u){const c=q[n];toast('লোড হচ্ছে…');(c.ia?arcTracks(c):podEps(c)).then(t=>{const k=q.indexOf(c);if(k<0)return;if(!t.length){toast('এই আইটেমে চালানোর মতো অডিও পাওয়া যায়নি');q.splice(k,1);if(q.length)play(Math.min(k,q.length-1));return}q.splice(k,1,...t);play(k)}).catch(()=>toast('গান লোড করা গেল না'));return}
+function play(n){if(!q[n])return;dk=0;stopSay();if((q[n].ia||q[n].pod)&&!q[n].u){const c=q[n];toast('লোড হচ্ছে…');(c.ia?arcTracks(c):podEps(c)).then(t=>{const k=q.indexOf(c);if(k<0)return;if(!t.length){toast('এই আইটেমে চালানোর মতো অডিও পাওয়া যায়নি');q.splice(k,1);if(q.length)play(Math.min(k,q.length-1));return}q.splice(k,1,...t);play(k)}).catch(()=>toast('গান লোড করা গেল না'));return}
  i=n;cur=q[n];cur.p=0;B.classList.toggle('yt',!!cur.vid);ytw.classList.remove('hid');
  if(cur.vid){a.pause();a.removeAttribute('src');ytPlay(cur.vid);ytn()}else{$('#ytn').classList.remove('on');ytp&&ytp.pauseVideo&&ytp.pauseVideo();a.src=cur.u;a.play().catch(()=>{})}B.classList.add('has');
  $('#tt').textContent=$('#ft').textContent=cur.n;$('#ta').textContent=$('#fa').textContent=cur.ar;
@@ -632,12 +643,47 @@ $('#tfq').oninput=tvDraw;
 tvv.onplay=()=>{a.pause();ytp&&ytp.pauseVideo&&ytp.pauseVideo();v.pause()};a.addEventListener('play',()=>tvv.pause());
 /* এআই অ্যাসিস্ট্যান্ট (AI_URL দিলে কথোপকথন চালু হয়) */
 let vv=false,pend=null,autoMic=false;
-function aiHi(){bub('হ্যালো! আমি সুরানি 🎶 তোমার গানের বন্ধু।\nগান খুঁজে দিতে পারি, গানের লাইন বা শিল্পী নিয়ে গল্পও করতে পারি। মাইক চেপে বললে আমিও ভয়েসেই উত্তর দেব!')}
+function aiHi(){try{fetch(AI_URL+'/?ping=1',{mode:'no-cors'}).catch(()=>{})}catch{}bub('হ্যালো! আমি সুরানি 🎶 তোমার গানের বন্ধু।\nগান খুঁজে দিতে পারি, গানের লাইন বা শিল্পী নিয়ে গল্পও করতে পারি। মাইক চেপে বললে আমিও ভয়েসেই উত্তর দেব!')}
 const AI_URL='https://sur-ai.customboss08.workers.dev';let aig=0,ach=[];const acb=$('#acb'),aci=$('#aci');
 {const bd=$('#ai .hero small');if(bd)bd.onclick=()=>toast(bd.dataset.err?'কারণ: '+bd.dataset.err:bd.textContent.includes('G')?'Gemini চলছে ✓':'কোনো মেসেজ পাঠালে স্ট্যাটাস দেখা যাবে')}
 function fitChat(){const a=$('#acb'),b=$('#aib');if(!a||!b||!$('#ai').classList.contains('on'))return;const h=b.getBoundingClientRect().top-a.getBoundingClientRect().top-12;a.style.height=Math.max(160,h)+'px';a.scrollTop=a.scrollHeight}
 addEventListener('resize',fitChat);if(window.visualViewport)visualViewport.addEventListener('resize',fitChat);
-function bub(t,u){const e=document.createElement('div');e.className='bb'+(u?' u':'');e.textContent=t;acb.append(e);acb.scrollTop=acb.scrollHeight;if(!u&&(aiVo||vv)&&window.speechSynthesis&&!t.startsWith('খুঁজছি')){const m=new SpeechSynthesisUtterance(t.replace(/[\u2600-\u27BF\uFE0F\u{1F300}-\u{1FAFF}]/gu,''));m.lang=ALG[ali][0];m.onend=()=>{if(autoMic){autoMic=false;listen()}};speechSynthesis.speak(m)}return e}
+
+/* ভয়েস: একসাথে একটাই কথা; কথা শেষ হলে তবেই গান শুরু */
+let spN=0,idleW=[],busy=false,turn=0,silentTurn=-1,ctl=null,ytWarned=false,frNoted=false,dk=0,dkCur=null,rsT=0,lastP={},AQ2=[],pumping=false,cancelCur=null;
+const pick=(a,k)=>{let i;do i=Math.random()*a.length|0;while(a.length>1&&i===lastP[k]);lastP[k]=i;return a[i]};
+const P_YT1=['ইউটিউব থেকে বাজাচ্ছি। তবে স্ক্রিন বন্ধ করলে বা অন্য অ্যাপে গেলে এটা থেমে যাবে।','ইউটিউবে খুঁজছি। মনে রেখো, এটা ব্যাকগ্রাউন্ডে চলে না।'],
+P_YT2=['দেখছি…','ইউটিউবেই দেখছি।','আচ্ছা, খুঁজছি।','এক সেকেন্ড…'],
+P_FR1=['ফ্রি সোর্সে খুঁজছি। এটা ব্যাকগ্রাউন্ডেও চলবে।','ফ্রি সোর্স থেকে বাজাব, স্ক্রিন বন্ধ করলেও চলবে।'],
+P_FOUND=['পেয়েছি, %।','এই যে, %।','%, বাজাচ্ছি।'],
+P_NOREP=['হুম, ঠিক বুঝলাম না। আরেকবার বলবে?','কথাটা ধরতে পারিনি, একটু অন্যভাবে বলবে?'],
+P_SLOW=['সুরানি আজ একটু ধীরে সাড়া দিচ্ছে, আবার পাঠাবে?','এবার উত্তর আসতে দেরি হচ্ছে, আবার চেষ্টা করবে?'],
+P_NET=['নেটওয়ার্কে সমস্যা মনে হচ্ছে, আবার চেষ্টা করবে?','সংযোগ পাচ্ছি না, একটু পরে আবার পাঠাবে?'];
+const SW=new Set('গান গানটা গানটি একটা একটি চালাও চালিয়ে চালান চালা বাজাও বাজিয়ে বাজান বাজা শোনাও শুনাও শোনা শুনব শুনতে চাই দাও দিন দে প্লিজ please play ইউটিউবে ইউটিউব ইউটিউবের youtube yt ফ্রি ফ্রিতে free থেকে সুরানি সোর্স সোর্সে একটু এবার এখন করো করুন চালু জামেন অডিয়াস আর্কাইভ archive audius jamendo'.split(' '));
+const STRONG=/চালাও|চালিয়ে|চালান|বাজাও|বাজিয়ে|বাজান|শোনাও|শুনাও|চালু\s*কর|\bplay\b/i;
+/* পরিষ্কার "গান চালাও" অনুরোধে এআই-এর জন্য অপেক্ষা না করে সরাসরি খোঁজা হয় */
+const fastQ=t=>{if(t.length>70||/[?？]/.test(t)||!STRONG.test(t))return'';const w=t.split(/\s+/).map(x=>x.replace(/^[,।!.“”\"']+|[,।!.“”\"']+$/g,'')).filter(x=>x&&!SW.has(x.toLowerCase()));const r=w.join(' ').trim();return r.length>=2&&w.length<=6?r:''};
+function mpPause(){clearTimeout(rsT);try{if(!cur)return;if(cur.vid){if(ytp&&ytp.getPlayerState&&ytp.getPlayerState()===1){ytp.pauseVideo();dk=1;dkCur=cur}}else if(!a.paused){a.pause();dk=1;dkCur=cur}}catch{}}
+function mpResume(){if(!dk)return;dk=0;if(cur!==dkCur)return;try{if(cur.vid)ytp.playVideo();else a.play().catch(()=>{})}catch{}}
+const AIPH=aci.placeholder;
+const voiceOn=()=>(aiVo||vv)&&window.speechSynthesis;
+const noEmo=t=>t.replace(/[\u2600-\u27BF\uFE0F\u{1F300}-\u{1FAFF}]/gu,'');
+function acsRefresh(){const s=$('#acs');if(!s)return;const sp=spN>0||!!(window.speechSynthesis&&speechSynthesis.speaking),stop=(busy||sp)&&!aci.value.trim();s.textContent=stop?'⏹':'পাঠান';s.classList.toggle('stop',stop);const b=$('#asp');if(b)b.classList.toggle('on',sp);aci.placeholder=busy?'সুরানি কাজ করছে… পরের মেসেজও লিখতে পারো':AIPH}
+function say(t){return new Promise(res=>{
+ t=noEmo(String(t||'')).trim();if(!t||!voiceOn()||silentTurn===turn){res();return}
+ mpPause();
+ const m=new SpeechSynthesisUtterance(t);m.lang=ALG[ali][0];m.rate=1.08;let done=false,tm,ts;
+ const fin=()=>{if(done)return;done=true;clearTimeout(tm);clearTimeout(ts);spN=Math.max(0,spN-1);res();if(!spN){idleW.splice(0).forEach(f=>f());clearTimeout(rsT);rsT=setTimeout(()=>{if(!spN)mpResume()},900);if(autoMic&&!busy){autoMic=false;listen()}}acsRefresh()};
+ m.onstart=()=>{clearTimeout(ts);tm=setTimeout(fin,t.length*300+4000)};
+ ts=setTimeout(()=>{if(!speechSynthesis.speaking)fin()},3000);
+ m.onend=m.onerror=fin;spN++;acsRefresh();speechSynthesis.speak(m)})}
+const whenIdle=()=>spN?new Promise(r=>idleW.push(r)):Promise.resolve();
+function stopSay(){autoMic=false;silentTurn=turn;try{window.speechSynthesis&&speechSynthesis.cancel()}catch{}setTimeout(()=>{if(spN&&!(window.speechSynthesis&&speechSynthesis.speaking)){spN=0;idleW.splice(0).forEach(f=>f());acsRefresh()}},300)}
+let spoken=0;
+function sayFlush(full,fin){if(!voiceOn())return;let end=fin?full.length:Math.max(full.lastIndexOf('।'),full.lastIndexOf('?'),full.lastIndexOf('!'),full.lastIndexOf('\n'))+1;if(!fin&&end<=spoken){const c=Math.max(full.lastIndexOf(','),full.lastIndexOf('—'),full.lastIndexOf('…'))+1;if(c>spoken+25)end=c}if(end>spoken){say(full.slice(spoken,end));spoken=end}}
+
+function bub(t,u,mute){const e=document.createElement('div');e.className='bb'+(u?' u':'');e.textContent=t;acb.append(e);acb.scrollTop=acb.scrollHeight;if(!u&&!mute&&!t.startsWith('খুঁজছি'))say(t);return e}
+function typing(){const e=document.createElement('div');e.className='bb typ';e.innerHTML='<i></i><i></i><i></i>';acb.append(e);acb.scrollTop=acb.scrollHeight;return e}
 function btns(arr){const e=document.createElement('div');e.className='chips';arr.forEach(([l,f])=>{const b=document.createElement('button');b.textContent=l;b.onclick=()=>{e.remove();f()};e.append(b)});acb.append(e);acb.scrollTop=acb.scrollHeight}
 function ask(qs){pend=qs;if(vv)autoMic=true;bub('“'+qs+'” কোথা থেকে শুনবে — ইউটিউব নাকি ফ্রি সোর্স?');btns([['▶️ YouTube',()=>aiFind(qs,'yt')],['🎧 ফ্রি সোর্স (Jamendo, Audius, Archive)',()=>aiFind(qs,'free')]])}
 async function aiFind(qs,src){pend=null;const w=bub('খুঁজছি…');let r=[];
@@ -646,18 +692,98 @@ async function aiFind(qs,src){pend=null;const w=bub('খুঁজছি…');let
  r=r.slice(0,8);bub(src==='yt'?'পেয়েছি! চাপলে বাজবে।\n⚠️ YouTube থেকে বাজালে স্ক্রিন অফ করলে বা অন্য অ্যাপে গেলে গান ব্যাকগ্রাউন্ডে চলবে না।':'পেয়েছি! এগুলো ব্যাকগ্রাউন্ডেও চলবে 🎧');
  const box=document.createElement('div');r.forEach((t,k)=>{const b=document.createElement('button');b.className='tr';b.innerHTML='<img alt=""><div><b></b><small></small></div><em></em>';b.querySelector('img').src=t.im||'icon.svg';b.querySelector('b').textContent=t.n;b.querySelector('small').textContent=t.ar;b.querySelector('em').textContent=t.src;b.dataset.s=t.src;b.onclick=()=>{q=r.slice();play(k)};box.append(b)});acb.append(box);acb.scrollTop=acb.scrollHeight;
  btns([['🔁 অন্য সোর্সে খুঁজি',()=>ask(qs)],['✅ ধন্যবাদ',()=>bub('আনন্দিত! আরেকটা গান চাইলে বলুন 🎶')]])}
-async function aiPlay(qs,src){pend=null;const w=bub('খুঁজছি…');let r=[],used=src||'yt';
+
+/* গান বাজানো: খোঁজার সময়েই সোর্সের কথা বলা হয়, বলা শেষ হলে তবে গান শুরু */
+async function aiPlay(qs,src,my){pend=null;const live=()=>my===undefined||my===turn;
+ let used=src||'yt';const w=bub('খুঁজছি…');
+ const lead=used==='yt'?(ytWarned?pick(P_YT2,'y2'):pick(P_YT1,'y1')):(frNoted?pick(P_YT2,'y2'):pick(P_FR1,'f1'));if(used==='free')frNoted=true;
+ say(lead);
  const fr=async()=>(await Promise.allSettled([jam(qs),aud(qs),arc(qs)])).flatMap(x=>x.status==='fulfilled'?x.value.slice(0,4):[]);
+ let r=[];
  try{if(used==='free'){r=await fr();if(!r.length){used='yt';r=await yt(qs)}}else{r=await yt(qs);if(!r.length){used='free';r=await fr()}}}catch{}
- w.remove();if(!r.length){bub('কিছু পাওয়া গেল না 😕 অন্য নামে চেষ্টা করবেন?');return}
- r=r.slice(0,8);q=r.slice();play(0);
- bub(used==='yt'?'▶️ ইউটিউব থেকে বাজাচ্ছি: '+r[0].n+'\n⚠️ স্ক্রিন অফ করলে থেমে যেতে পারে।':'🎧 ফ্রি সোর্স থেকে বাজাচ্ছি: '+r[0].n+' (ব্যাকগ্রাউন্ডেও চলবে)');
+ if(!live()){w.remove();return}
+ if(!r.length){w.remove();bub('কিছু পাওয়া গেল না 😕 অন্য নামে চেষ্টা করবেন?');return}
+ dk=0;r=r.slice(0,8);const t0=r[0];
+ const warn=used==='yt'?(ytWarned?'':'\n⚠️ স্ক্রিন অফ করলে বা অন্য অ্যাপে গেলে থেমে যেতে পারে।'):'\n(ব্যাকগ্রাউন্ডেও চলবে)';
+ if(used==='yt')ytWarned=true;
+ w.textContent=(used==='yt'?'▶️ ইউটিউব থেকে বাজছে: ':'🎧 ফ্রি সোর্স থেকে বাজছে: ')+t0.n+(t0.ar?' — '+t0.ar:'')+warn;
+ say(pick(P_FOUND,'fd').replace('%',t0.n+(t0.ar?', '+t0.ar:'')));
+ await whenIdle();
+ if(!live())return;
+ q=r.slice();play(0);
  btns([[used==='yt'?'🎧 ফ্রি সোর্সে খুঁজি':'▶️ ইউটিউবে খুঁজি',()=>aiPlay(qs,used==='yt'?'free':'yt')]])}
+
 const fx=t=>{t=String(t||'');if(!/^\s*\{/.test(t))return t;try{return JSON.parse(t).reply||''}catch{const m=t.match(/"reply"\s*:\s*"((?:[^"\\]|\\.)*)/);return m?m[1].replace(/\\n/g,'\n').replace(/\\"/g,'"'):t}};
-async function aiSend(fv){vv=fv===true;const t=aci.value.trim();if(!t)return;aci.value='';bub(t,1);const hint=/ইউটিউব|ইউ টিউব|youtube|\byt\b/i.test(t)?'yt':/ফ্রি|free|জামেন|অডিয়াস|আর্কাইভ|archive|audius|jamendo/i.test(t)?'free':null;if(pend){const p=pend;if(/ইউটিউব|ইউ টিউব|youtube|\byt\b/i.test(t)){pend=null;aiPlay(p,'yt');return}if(/ফ্রি|free|জামেন|অডিয়াস|আর্কাইভ|archive|audius|jamendo/i.test(t)){pend=null;aiPlay(p,'free');return}pend=null}ach.push({role:'user',content:t});
- if(AI_URL){try{const j=await(await fetch(AI_URL,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({messages:ach,now:cur?cur.n+' — '+(cur.ar||''):''})})).json();const bd=$('#ai .hero small');if(bd)bd.textContent=j.via==='gemini'?'🟢 G':j.via==='llama'?'🔴 L':'🔴 !';bd.dataset.err=j.err||'';j.reply=fx(j.reply);ach.push({role:'assistant',content:j.reply||''});if(j.reply)bub(j.reply);if(j.q)aiPlay(j.q,hint);return}catch{bub('এআই সংযোগ পাওয়া যায়নি, সরাসরি খুঁজছি।')}}
- aiPlay(t,hint)}
-$('#acs').onclick=aiSend;aci.onkeydown=e=>e.key==='Enter'&&aiSend();
+const YTRX=/ইউটিউব|ইউ টিউব|youtube|\byt\b/i,FRRX=/ফ্রি|free|জামেন|অডিয়াস|আর্কাইভ|archive|audius|jamendo/i,PLRX=/চালা|বাজা|শোনা|শুনব|শুনতে|play/i;
+function setBadge(via,err){const bd=$('#ai .hero small');if(!bd)return;bd.textContent=via==='gemini'?'🟢 G':via==='llama'?'🔴 L':'🔴 !';bd.dataset.err=err||''}
+
+async function aiSend(fv){
+ const t=aci.value.trim();if(!t)return;
+ aci.value='';
+ const ub=bub(t,1),it={t,fv:fv===true,ub,dead:false};
+ if(busy||pumping){ub.classList.add('q');ub.onclick=()=>{if(!ub.classList.contains('q'))return;it.dead=true;ub.remove();AQ2=AQ2.filter(x=>x!==it);toast('মেসেজটি বাদ দেওয়া হলো')}}
+ AQ2.push(it);acsRefresh();pump()}
+/* মেসেজ লাইনে দাঁড়ায়: ⏳ = অপেক্ষায় (চাপলে বাদ), ঘুরন্ত আইকন = এখন এটার কাজ চলছে */
+async function pump(){
+ if(pumping)return;pumping=true;
+ while(AQ2.length){
+  const it=AQ2.shift();if(it.dead)continue;
+  const ub=it.ub;ub.classList.remove('q');ub.onclick=null;ub.classList.add('wait');
+  vv=it.fv;stopSay();const my=++turn;silentTurn=-1;spoken=0;busy=true;acsRefresh();
+  const cp=new Promise(r=>cancelCur=r);
+  try{await Promise.race([aiTurn(it.t,my),cp])}catch(e){}
+  ub.classList.remove('wait');
+ }
+ busy=false;pumping=false;cancelCur=null;acsRefresh();
+ if(autoMic&&!spN){autoMic=false;listen()}}
+async function aiTurn(t,my){
+ const live=()=>my===turn;
+ const hint=YTRX.test(t)?'yt':FRRX.test(t)?'free':null;
+ if(pend){const p=pend;pend=null;if(YTRX.test(t))return aiPlay(p,'yt',my);if(FRRX.test(t))return aiPlay(p,'free',my)}
+ const fq=fastQ(t);if(fq){ach.push({role:'user',content:t},{role:'assistant',content:'[[PLAY: '+fq+']]'});return aiPlay(fq,hint,my)}
+ if(!AI_URL)return aiPlay(t,hint,my);
+ ach.push({role:'user',content:t});
+ const tp=typing();ctl=new AbortController();const to=setTimeout(()=>ctl.abort(),12000);
+ let reply='',qq='',bb=null,via='',err='',got=false;
+ const show=(txt)=>{txt=txt.replace(/^\s+/,'');if(!txt)return;if(!bb){tp.remove();bb=bub('',0,true)}bb.textContent=txt;acb.scrollTop=acb.scrollHeight};
+ try{
+  const r=await fetch(AI_URL,{method:'POST',headers:{'content-type':'application/json'},signal:ctl.signal,body:JSON.stringify({messages:ach.slice(-8),now:cur?cur.n+' — '+(cur.ar||''):'',stream:true})});
+  const ct=r.headers.get('content-type')||'';
+  if(ct.includes('application/json')){
+   const j=await r.json();clearTimeout(to);reply=fx(j.reply).trim();qq=j.q||'';via=j.via;err=j.err||'';tp.remove();
+   if(reply){bb=bub(reply,0,true);say(reply)}
+  }else{
+   const rd=r.body.getReader(),dec=new TextDecoder();let buf='';
+   for(;;){const {done,value}=await rd.read();if(done)break;got=true;clearTimeout(to);buf+=dec.decode(value,{stream:true});
+    const k=buf.indexOf('\u0001'),txt=k<0?buf:buf.slice(0,k);show(txt);if(k<0)sayFlush(txt.trimStart(),false)}
+   buf+=dec.decode();const k=buf.indexOf('\u0001');reply=(k<0?buf:buf.slice(0,k)).trim();
+   if(k>=0){try{const m=JSON.parse(buf.slice(k+1));qq=m.q||'';via=m.via||'';err=m.err||''}catch{}}
+   show(reply);sayFlush(reply,true)
+  }
+ }catch(e){
+  clearTimeout(to);tp.remove();
+  if(!live()){if(reply||bb){ach.push({role:'assistant',content:(bb?bb.textContent:reply)||'…'})}else ach.pop();return}
+  const slow=e&&e.name==='AbortError';
+  if(bb&&bb.textContent){ach.push({role:'assistant',content:bb.textContent})}else ach.pop();
+  if(PLRX.test(t)){bub('সুরানির সাথে যোগাযোগ হচ্ছে না, সরাসরি খুঁজছি…',0,true);return aiPlay(fastQ(t)||t,hint,my)}
+  bub(slow?pick(P_SLOW,'sl'):pick(P_NET,'nt'),0,true);
+  btns([['🔁 আবার পাঠাও',()=>{aci.value=t;aiSend(vv)}]]);return}
+ clearTimeout(to);tp.remove();setBadge(via,err);
+ if(!live())return;
+ if(!reply&&!qq){bub(pick(P_NOREP,'nr'),0,true);ach.pop();return}
+ ach.push({role:'assistant',content:(reply||'')+(qq?'\n[[PLAY: '+qq+']]':'')});
+ if(qq)await aiPlay(qq,hint,my);
+ else await whenIdle()
+}
+function stopAi(){
+ if(spN>0||(window.speechSynthesis&&speechSynthesis.speaking)){stopSay();acsRefresh();return}   // বলার সময় চাপলে শুধু কথা থামে, কাজ চলতে থাকে
+ turn++;try{ctl&&ctl.abort()}catch{}        // নইলে এই মেসেজের কাজটাই বাতিল, লাইনের পরেরটা শুরু হবে
+ acb.querySelectorAll('.typ').forEach(x=>x.remove());
+ cancelCur&&cancelCur();acsRefresh()}
+$('#asp').onclick=()=>{stopSay();acsRefresh()};
+$('#acs').onclick=()=>{if((busy||spN>0)&&!aci.value.trim())stopAi();else aiSend()};
+aci.oninput=acsRefresh;
+aci.onkeydown=e=>{if(e.key==='Enter')aiSend()};
 /* সম্প্রতি শোনা · লিরিক্স · খবর */
 let RPL=L('rpl',[]),LY=[],lyk=-1;
 function rpAdd(t){if(!t||t.fn)return;RPL=[cl(t),...RPL.filter(x=>x.id!==t.id)].slice(0,25);S('rpl',RPL)}
@@ -720,10 +846,11 @@ $('#mgo').onclick=()=>{const t=$('#mq').value.trim();if(!t)return;$$('#mch butto
 $('#mq').onkeydown=e=>e.key==='Enter'&&$('#mgo').click();
 $$('[data-l]').forEach(b=>b.onclick=()=>window.open(b.dataset.l,'_blank','noopener'));
 $('#edBtn').onclick=()=>$('#edM').classList.add('on');$('#edX').onclick=()=>$('#edM').classList.remove('on');$('#edM').onclick=e=>{if(e.target===$('#edM'))$('#edM').classList.remove('on')};
-/* রিফ্রেশের পর গান আবার চালু */
+/* রিফ্রেশের পর: আগে চালু থাকলেই আবার চালু হবে; থামানো থাকলে কিছুই শুরু হবে না */
 function npSave(){if(!cur||cur.fn)return;const y=cur.vid&&ytp&&ytp.getCurrentTime;S('np',{t:cl(cur),s:(y?ytp.getCurrentTime():a.currentTime)||0,p:cur.vid?!!(ytp&&ytp.getPlayerState&&ytp.getPlayerState()===1):!a.paused})}
 setInterval(npSave,3000);addEventListener('pagehide',npSave);document.addEventListener('visibilitychange',()=>{if(document.hidden)npSave()});
-{const n=L('np',null);if(n&&n.t&&!n.t.fn)setTimeout(()=>{if(cur)return;q=[n.t];play(0);if(!n.t.vid&&n.s>3&&!/radio|রেডিও/i.test(n.t.src||''))a.addEventListener('loadedmetadata',()=>{try{a.currentTime=n.s}catch{}},{once:true});if(!n.p)setTimeout(()=>{a.pause();ytp&&ytp.pauseVideo&&ytp.pauseVideo();ytw.classList.add('hid');B.classList.remove('has','pl','yt')},700)},900)}
+{const n=L('np',null);if(n&&n.t&&!n.t.fn&&n.p)setTimeout(()=>{if(cur)return;q=[n.t];ytfrom=n.t.vid&&n.s>3?n.s:0;play(0);if(!n.t.vid&&n.s>3&&!/radio|রেডিও/i.test(n.t.src||''))a.addEventListener('loadedmetadata',()=>{try{a.currentTime=n.s}catch{}},{once:true})},900)}
+
 /* ইউটিউব সিনেমা/নাটক ও ডাটা সেভার */
 const YT2='https://sur-yt2.customboss08.workers.dev';let DS=L('ds',false);
 const vwB=n=>!n?'':(n>=1e7?bn(+(n/1e7).toFixed(1))+' কোটি':n>=1e5?bn(+(n/1e5).toFixed(1))+' লাখ':n>=1e3?bn(+(n/1e3).toFixed(1))+' হাজার':bn(n))+' ভিউ';
@@ -750,8 +877,8 @@ async function mvYt(c){dt='#mres';view=null;msg('লোড হচ্ছে…');
 function dsSet(v){DS=v;S('ds',v);$$('.dsq').forEach(b=>b.textContent='📶 ডাটা সেভার: '+(v?'চালু':'বন্ধ'));$$('#dsw button').forEach(b=>b.classList.toggle('on',(b.dataset.v==='1')===v))}
 $$('.dsq').forEach(b=>b.onclick=()=>{dsSet(!DS);toast(DS?'ডাটা সেভার চালু':'ডাটা সেভার বন্ধ')});$$('#dsw button').forEach(b=>b.onclick=()=>dsSet(b.dataset.v==='1'));dsSet(DS);
 /* আপডেট পপআপ */
-const APP_VER='2026-11-21-o';
-const CHG=["📊 প্রোগ্রেস শেয়ার কার্ড নতুন প্রিমিয়াম ডিজাইনে","🎬 ভিডিও ✕ করে অডিও চালালে শুধু অডিও বাজবে; ফুল ভিউতে \"ভিডিওসহ দেখুন\" বাটন","👩 সুরানির নতুন আইকন, আর স্ট্যাটাসে সংক্ষিপ্ত 🟢 G / 🔴 L","✕ মিনি প্লেয়ারে ক্রস বাটন: চাপলে গান থামবে ও প্লেয়ার সরে যাবে","▶️ গানের নাম বললে সুরানি সরাসরি বাজাবে, \"yt\" লিখলেও বুঝবে","❌ ইউটিউব ভিডিওতে ক্রস দিলে এখন শব্দও বন্ধ হবে","💬 সুরানির চ্যাট এখন পুরো স্ক্রিন জুড়ে, নিচে ফাঁকা জায়গা নেই","🤖 সুরানির পাশে দেখা যাবে Gemini চলছে নাকি ছোট মডেল (🟢/🟡)","🛠️ এআই ওয়ার্কারে সমস্যা ধরার সুবিধা যোগ"];
+const APP_VER='2026-11-21-p';
+const CHG=["⚡ সুরানি আরও দ্রুত: গান চালাও বললে সরাসরি খোঁজে, দেরি হলে ১২ সেকেন্ডে বিকল্প পথ","🗣️ সুরানি এখন বারবার একই কথা বলে না; বলার সময় গান আপনাআপনি থেমে থাকে, কথা শেষে গান শুরু","⏹ কথা থামানোর আলাদা বাটন; থামালে আগের গান আবার চলবে","⏳ সুরানি কাজ করার সময়ও নতুন মেসেজ দেওয়া যায় — লাইনে থাকে, ⏳ চাপলে বাদ","📊 প্রোগ্রেস শেয়ার কার্ড নতুন প্রিমিয়াম ডিজাইনে","🎬 ভিডিও ✕ করে অডিও চালালে শুধু অডিও বাজবে; ফুল ভিউতে \"ভিডিওসহ দেখুন\" বাটন","👩 সুরানির নতুন আইকন, আর স্ট্যাটাসে সংক্ষিপ্ত 🟢 G / 🔴 L","✕ মিনি প্লেয়ারে ক্রস বাটন: চাপলে গান থামবে ও প্লেয়ার সরে যাবে","▶️ গানের নাম বললে সুরানি সরাসরি বাজাবে, \"yt\" লিখলেও বুঝবে","❌ ইউটিউব ভিডিওতে ক্রস দিলে এখন শব্দও বন্ধ হবে","💬 সুরানির চ্যাট এখন পুরো স্ক্রিন জুড়ে, নিচে ফাঁকা জায়গা নেই","🤖 সুরানির পাশে দেখা যাবে Gemini চলছে নাকি ছোট মডেল (🟢/🟡)","🛠️ এআই ওয়ার্কারে সমস্যা ধরার সুবিধা যোগ"];
 function pop(title,lines,btn,fn,cancel){const o=document.createElement('div');o.className='upd';const c=document.createElement('div');const h=document.createElement('h3');h.textContent=title;c.append(h);lines.forEach(l=>{const p=document.createElement('p');p.textContent=l;c.append(p)});
  const r=document.createElement('div');r.className='row';r.style.cssText='margin-top:14px;gap:8px';const b=document.createElement('button');b.className='btn';b.textContent=btn;b.onclick=()=>{o.remove();fn&&fn()};r.append(b);
  if(cancel){const x=document.createElement('button');x.className='btn g';x.textContent='পরে';x.onclick=()=>o.remove();r.append(x)}c.append(r);o.append(c);document.body.append(o)}
