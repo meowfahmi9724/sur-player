@@ -175,7 +175,14 @@ main{padding-bottom:250px}
 .bb.u{margin-left:auto;background:var(--ac);color:var(--on);border:0;border-radius:18px 18px 6px 18px}
 #aib{position:sticky;bottom:calc(86px + env(safe-area-inset-bottom));margin-top:14px;background:var(--bg)}.has #aib{bottom:calc(168px + env(safe-area-inset-bottom))}
 nav button{font-size:11px}
-</style></head><body>
+
+body[data-tab=ai] #mini{display:none!important}
+#acb{height:calc(100dvh - 360px);min-height:180px;overflow-y:auto;padding:6px 2px;margin-top:8px}
+#aib,.has #aib{position:fixed;left:12px;right:12px;bottom:calc(80px + env(safe-area-inset-bottom));z-index:5;margin:0}
+.upd{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.5);display:flex;align-items:flex-end;justify-content:center}
+.upd>div{width:100%;max-width:520px;border-radius:26px 26px 0 0;padding:22px 20px calc(22px + env(safe-area-inset-bottom));background:var(--bg);color:var(--tx);border:1px solid var(--ln)}
+.upd h3{margin:0 0 10px;font-size:19px}.upd p{margin:7px 0;line-height:1.5}
+#mvv{width:100%;max-height:60vh;background:#000;border-radius:16px}#mmsg{color:var(--mu);padding:8px 4px}#mch{flex-wrap:nowrap;overflow-x:auto;margin:12px -14px 6px;padding:0 14px;scrollbar-width:none}#mch button{flex:none;background:var(--pn)}#mch button.on{background:var(--ac)}.mhi{display:block;width:100%;text-align:left;padding:10px 12px;margin:6px 0;border-radius:14px;background:var(--pn);border:1px solid var(--ln)}.mhi i{display:block;height:4px;border-radius:4px;background:var(--ac);margin-top:6px}</style></head><body>
 <header><h1>সুর<span>.</span></h1><span class="hr"><button id="inst" class="ibs" hidden>📲 অ্যাপ ইনস্টল</button><button class="ib" data-t="set" aria-label="সেটিং"><svg viewBox="0 0 24 24"><path d="M19.4 13a7.5 7.5 0 0 0 0-2l2-1.6-2-3.4-2.4 1a7 7 0 0 0-1.7-1L15 3h-4l-.4 3a7 7 0 0 0-1.7 1l-2.4-1-2 3.4L6.6 11a7.5 7.5 0 0 0 0 2l-2 1.6 2 3.4 2.4-1a7 7 0 0 0 1.7 1l.4 3h4l.4-3a7 7 0 0 0 1.7-1l2.4 1 2-3.4zM12 15.500a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z"/></svg></button></span></header>
 
 <main>
@@ -183,7 +190,7 @@ nav button{font-size:11px}
  <h2 class="hero">আজ কী শুনবেন?</h2>
  <div class="sbar"><svg viewBox="0 0 24 24"><path d="M10 4a6 6 0 1 0 3.700 10.700l4.800 4.800 1.400-1.400-4.800-4.800A6 6 0 0 0 10 4zm0 2a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/></svg><input id="q" type="search" placeholder="গান বা শিল্পীর নাম"><button class="btn" id="go">খুঁজুন</button></div>
  <div id="sg"></div>
- <div class="quick"><button class="tile" id="pop"><i>🔥</i><div><b>জনপ্রিয়</b><small>এখন যা চলছে</small></div></button><button class="tile b" id="myph"><i>📱</i><div><b>নিজের ফোন</b><small>ডাউনলোড করা গান</small></div></button><input id="lf" type="file" accept=".mp3,.m4a,.aac,.wav,.ogg,.opus,.flac,.wma" multiple hidden></div>
+ <div class="quick"><button class="tile" id="pop"><i>🔥</i><div><b>জনপ্রিয়</b><small>এখন যা চলছে</small></div></button><button class="tile b" id="myph"><i>📱</i><div><b>নিজের ফোন</b><small>ডাউনলোড করা গান</small></div></button><input id="lf" type="file" accept="audio/*" multiple hidden></div>
  <div class="flt"><button id="fm">🎵 সব গান ▾</button><button id="fg">🎼 জনরা ▾</button><button id="fl">❤️ লাইব্রেরি ▾</button></div>
  <div class="chips" id="mylib"><button id="bfv">❤️ ফেভারিট</button><button id="bpl">🎼 প্লেলিস্ট</button></div>
  <div class="chips" id="modes"><button data-m="all" class="on">🎵 সব গান</button><button data-m="radio">📻 রেডিও</button><button data-m="pod">🎙️ পডকাস্ট</button><button data-m="live">🎤 লাইভ কনসার্ট</button><button data-m="rec">📀 পুরনো রেকর্ড</button><button data-m="book">📚 অডিওবুক</button></div>
@@ -194,7 +201,7 @@ nav button{font-size:11px}
 <section id="tv"><div class="hero">টিভি ও খবর</div>
  <div id="tvw" hidden><video id="tvv" controls playsinline></video><div class="row" style="justify-content:space-between;margin:6px 4px"><b id="tvn"></b><button class="btn g mini" id="tvx">✕ বন্ধ</button></div></div>
  <div class="sbar"><input id="tfq" type="search" placeholder="চ্যানেল খুঁজুন"></div>
- <div class="chips" id="tcat"><button data-c="news" class="on">📰 খবর</button><button data-c="all">সব চ্যানেল</button></div>
+ <div class="chips" id="tcat"><button data-c="news" class="on">📰 খবর</button><button data-c="ent">🎭 বিনোদন</button><button data-c="mus">🎵 গান</button><button data-c="mov">🎬 সিনেমা</button><button data-c="all">সব</button></div>
  <small style="display:block;margin:6px 4px">ফ্রি পাবলিক লাইভ স্ট্রিম। কিছু চ্যানেল মাঝে মাঝে বন্ধ থাকতে পারে।</small>
  <div id="tvg" class="tvg"></div>
  <div class="card"><h3>📁 নিজের ভিডিও ফাইল</h3>
@@ -230,10 +237,18 @@ nav button{font-size:11px}
   <div class="lbl"><span>ছবির উপর পর্দা</span></div><input id="dim" type="range" min="0" max="85" value="55"></div>
 </section>
 </main>
-<nav><button data-t="home" class="on"><i>🎵</i>গান</button><button data-t="rad"><i>📻</i>রেডিও</button><button data-t="tv"><i>📺</i>টিভি</button><button data-t="ai"><i>🤖</i>এআই</button><button data-t="prog"><i>📊</i>প্রগ্রেস</button></nav>
-<section id="ai"><div class="hero">🤖 সুর এআই</div><div id="acb"></div>
- <div class="row" style="margin:6px 2px"><button class="btn g mini" id="avo">🔇 উত্তর শোনা বন্ধ</button><button class="btn g mini" id="alg">ভাষা: বাংলা</button></div>
- <div class="sbar" id="aib"><input id="aci" type="search" placeholder="যেকোনো গানের নাম বলুন…"><button class="btn g mini" id="amic" aria-label="ভয়েস">🎤</button><button class="btn" id="acs">পাঠান</button></div></section>
+<nav><button data-t="home" class="on"><i>🎵</i>গান</button><button data-t="rad"><i>📻</i>রেডিও</button><button data-t="tv"><i>📺</i>টিভি</button><button data-t="mov"><i>🎬</i>সিনেমা</button><button data-t="ai"><i>🤖</i>সুরানি</button><button data-t="prog"><i>📊</i>প্রগ্রেস</button></nav>
+<section id="mov"><div class="hero">🎬 সিনেমা ও নাটক</div>
+ <div id="mvw" hidden><video id="mvv" controls playsinline></video><div class="row" style="justify-content:space-between;margin:6px 4px"><b id="mvn"></b><button class="btn g mini" id="mvx">✕ বন্ধ</button></div><div class="row" id="mvd" style="flex-wrap:wrap;gap:6px;margin-bottom:8px"></div></div>
+ <div class="sbar"><input id="mq" type="search" placeholder="মুভির নাম (Internet Archive)"><button class="btn" id="mgo">খুঁজুন</button></div>
+ <div class="chips" id="mch"><button data-k="bengali" class="on">বাংলা</button><button data-k="classic">ক্লাসিক</button><button data-k="scifi">সায়েন্স ফিকশন</button><button data-k="horror">হরর</button><button data-k="comedy">কমেডি</button><button data-k="animation">অ্যানিমেশন</button><button data-k="yt1">▶️ বাংলা ফুল মুভি</button><button data-k="yt2">▶️ বাংলা নাটক</button></div>
+ <div id="mh"></div><div id="mmsg"></div><div id="mres"></div><div id="mg" class="tvg"></div>
+ <small style="display:block;margin:8px 4px">Internet Archive-এর ফ্রি/পাবলিক ডোমেইন মুভি সরাসরি চলে এবং ডাউনলোড করা যায়। ▶️ চিহ্নিত চিপগুলো YouTube থেকে চলে (ব্যাকগ্রাউন্ডে চলবে না)।</small>
+ <div class="card"><h3>🔗 স্ট্রিমিং প্ল্যাটফর্মের ফ্রি অংশ</h3><small>এগুলো অফিসিয়াল সাইটে খোলে, দেশভেদে কিছু কন্টেন্ট চলে না-ও পারে।</small><div class="chips" style="margin-top:8px"><button data-l="https://www.bongobd.com">বঙ্গ</button><button data-l="https://www.hoichoi.tv">হইচই</button><button data-l="https://www.mxplayer.in">MX Player</button><button data-l="https://tubitv.com">Tubi</button></div></div>
+</section>
+<section id="ai"><div class="row" style="justify-content:space-between;align-items:center"><div class="hero" style="margin:0">🤖 সুরানি <small style="font-size:13px;opacity:.7">এআই সহকারী</small></div><div class="row" style="gap:6px"><button class="btn g mini" id="avo">🔇</button><button class="btn g mini" id="alg">বাংলা</button></div></div>
+ <div id="acb"></div>
+ <div class="sbar" id="aib"><input id="aci" type="search" placeholder="গান বা কথা লিখুন…"><button class="btn g mini" id="amic" aria-label="ভয়েস">🎤</button><button class="btn" id="acs">পাঠান</button></div></section>
 <div id="mini"><div class="row"><img class="cov" alt=""><div class="inf"><b id="tt"></b><small id="ta"></small></div><div class="eqb"><i></i><i></i><i></i></div>
  <button class="cb pv"></button><button class="pp"></button><button class="cb nx"></button></div><div id="mp"><i></i></div></div>
 <div id="full"><div id="fbg"></div><div class="fin">
@@ -295,7 +310,7 @@ let ytt;const ytn=()=>{const e=$('#ytn');e.classList.add('on');clearTimeout(ytt)
 let tt_;const toast=t=>{const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(tt_);tt_=setTimeout(()=>e.classList.remove('on'),2500)};
 const rv=r=>r.style.setProperty('--v',(r.value-r.min)/(r.max-r.min)*100+'%');
 $$('input[type=range]').forEach(r=>{r.addEventListener('input',()=>rv(r));rv(r)});
-function show(t){if(t==='home')dt='#res';if(t==='rad'){dt='#rres';if(!rl){rl=1;radGo('news');newsGo($('#nsrc .on').dataset.u)}}if(t==='tv'&&!tvl){tvl=1;tvLoad()}if(t==='ai'&&!aig){aig=1;bub('হ্যালো! আমি সুর এআই 🎶\nযেকোনো গানের নাম বলুন, আমি খুঁজে দেব।')}$$('section').forEach(s=>s.classList.toggle('on',s.id===t));$$('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t===t));if(t==='prog')prog()}
+function show(t){document.body.dataset.tab=t;if(t==='home')dt='#res';if(t==='rad'){dt='#rres';if(!rl){rl=1;radGo('news');newsGo($('#nsrc .on').dataset.u)}}if(t==='mov'&&!mvl){mvl=1;mvGo('bengali');mvHist()}if(t==='tv'&&!tvl){tvl=1;tvLoad()}if(t==='ai'&&!aig){aig=1;aiHi()}$$('section').forEach(s=>s.classList.toggle('on',s.id===t));$$('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t===t));if(t==='prog')prog()}
 $$('[data-t]').forEach(b=>b.onclick=()=>show(b.dataset.t));
 /* সার্চ: Jamendo + Audius + Internet Archive + YouTube */
 async function jam(s){if(cid.startsWith('YOUR'))throw 0;const j=await(await fetch(`https://api.jamendo.com/v3.0/tracks/?client_id=${cid}&format=json&limit=40&audioformat=mp32&imagesize=300&`+(s?`search=${encodeURIComponent(s)}`:'order=popularity_week'))).json();
@@ -352,7 +367,7 @@ const DB=new Promise(r=>{try{const o=indexedDB.open('sur',1);o.onupgradeneeded=(
 const dbx=async(m,v)=>{const d=await DB;if(!d)return[];return new Promise(r=>{const s=d.transaction('f',m==='get'?'readonly':'readwrite').objectStore('f'),o=m==='get'?s.getAll():m==='put'?s.put(v):s.delete(v);o.onsuccess=()=>r(o.result||[]);o.onerror=()=>r([])})};
 async function loadLib(){view=null;const r=(await dbx('get')).sort((x,y)=>y.t-x.t);
  list=r.map(f=>({id:'l'+f.name,fn:f.name,n:f.name.replace(/\.[^.]+$/,''),ar:'নিজের ফোন',im:'',u:URL.createObjectURL(f.file),src:'ফোন'}));
- msg(list.length?'গান মুছতে চেপে ধরে রাখুন':'এখনো গান নেই। “গান যোগ” চেপে ডাউনলোড ফোল্ডার থেকে গান বাছুন।');draw()}
+ msg(list.length?'গান মুছতে চেপে ধরে রাখুন':'এখনো গান নেই। “গান যোগ” চেপে “অডিও” ক্যাটাগরি থেকে সব গান বেছে নিন (একসাথে সিলেক্ট অল করা যায়)।');draw()}
 $('#lf').onchange=async e=>{const fs=[...e.target.files];for(const f of fs)await dbx('put',{name:f.name,file:f,t:f.lastModified});e.target.value='';await loadLib();toast(bn(fs.length)+'টি গান লাইব্রেরিতে যোগ হলো ✓')};
 $('#lib').onclick=()=>$('#lf').click();
 $('#myph').onclick=async()=>{(await dbx('get')).length?loadLib():$('#lf').click()};
@@ -504,8 +519,9 @@ async function tvLoad(){$('#tvg').textContent='লোড হচ্ছে…';con
  const seen=new Set();tvA=r.filter(c=>{const k=c.n.toLowerCase();if(seen.has(k))return 0;seen.add(k);return 1});
  if(!tvA.length)$('#tvg').textContent='চ্যানেল তালিকা আনা গেল না। ইন্টারনেট দেখে আবার ট্যাবে আসুন।';else tvDraw()}
 const NW=/news|jamuna|24|ekattor|somoy|dbc|independent|desh|republic|ananda|ghanta|tv9|ntv|khobor/i;
+function tvOk(c,f){if(f||tvC==='all')return 1;const g=c.g;return tvC==='news'?/news/i.test(g)||NW.test(c.n):tvC==='ent'?/entertainment|general|series|comedy|kids|lifestyle/i.test(g):tvC==='mus'?/music/i.test(g):/movie|classic/i.test(g)}
 function tvDraw(){const f=$('#tfq').value.trim().toLowerCase(),e=$('#tvg');e.innerHTML='';
- tvA.filter(c=>(!f||c.n.toLowerCase().includes(f))&&(tvC==='all'||f||/news/i.test(c.g)||NW.test(c.n))).forEach(c=>{const b=document.createElement('button');b.className='tvc'+(c.bad?' bad':'');b.innerHTML='<img alt=""><span></span>';b.querySelector('img').src=c.lg||'icon.svg';b.querySelector('img').onerror=function(){this.src='icon.svg'};b.lastChild.textContent=c.n;b.onclick=()=>tvPlay(c,b);e.append(b)});
+ tvA.filter(c=>(!f||c.n.toLowerCase().includes(f))&&tvOk(c,f)).forEach(c=>{const b=document.createElement('button');b.className='tvc'+(c.bad?' bad':'');b.innerHTML='<img alt=""><span></span>';b.querySelector('img').src=c.lg||'icon.svg';b.querySelector('img').onerror=function(){this.src='icon.svg'};b.lastChild.textContent=c.n;b.onclick=()=>tvPlay(c,b);e.append(b)});
  if(!e.children.length)e.textContent='কিছু পাওয়া যায়নি।'}
 function tvPlay(c,b){a.pause();ytp&&ytp.pauseVideo&&ytp.pauseVideo();v.pause();hls&&hls.destroy();hls=null;$('#tvw').hidden=false;$('#tvn').textContent=c.n;$('#tvw').scrollIntoView({behavior:'smooth'});
  const bad=()=>{c.bad=1;b&&b.classList.add('bad');toast('এই চ্যানেল এখন চলছে না, অন্যটি চেষ্টা করুন')};
@@ -516,17 +532,19 @@ $$('#tcat button').forEach(b=>b.onclick=()=>{tvC=b.dataset.c;$$('#tcat button').
 $('#tfq').oninput=tvDraw;
 tvv.onplay=()=>{a.pause();ytp&&ytp.pauseVideo&&ytp.pauseVideo();v.pause()};a.addEventListener('play',()=>tvv.pause());
 /* এআই অ্যাসিস্ট্যান্ট (AI_URL দিলে কথোপকথন চালু হয়) */
+let vv=false,pend=null,autoMic=false;
+function aiHi(){bub('হ্যালো! আমি সুরানি 🎶 তোমার গানের বন্ধু।\nগান খুঁজে দিতে পারি, গানের লাইন বা শিল্পী নিয়ে গল্পও করতে পারি। মাইক চেপে বললে আমিও ভয়েসেই উত্তর দেব!')}
 const AI_URL='https://sur-ai.customboss08.workers.dev';let aig=0,ach=[];const acb=$('#acb'),aci=$('#aci');
-function bub(t,u){const e=document.createElement('div');e.className='bb'+(u?' u':'');e.textContent=t;acb.append(e);e.scrollIntoView({block:'center'});if(!u&&aiVo&&window.speechSynthesis&&!t.startsWith('খুঁজছি')){speechSynthesis.cancel();const m=new SpeechSynthesisUtterance(t.replace(/[⚠️🎧🎶😕✅🔁▶️]/gu,''));m.lang=ALG[ali][0];speechSynthesis.speak(m)}return e}
-function btns(arr){const e=document.createElement('div');e.className='chips';arr.forEach(([l,f])=>{const b=document.createElement('button');b.textContent=l;b.onclick=()=>{e.remove();f()};e.append(b)});acb.append(e);e.scrollIntoView({block:'center'})}
-function ask(qs){bub('“'+qs+'” কোথা থেকে শুনতে চান?');btns([['▶️ YouTube',()=>aiFind(qs,'yt')],['🎧 ফ্রি সোর্স (Jamendo, Audius, Archive)',()=>aiFind(qs,'free')]])}
-async function aiFind(qs,src){const w=bub('খুঁজছি…');let r=[];
+function bub(t,u){const e=document.createElement('div');e.className='bb'+(u?' u':'');e.textContent=t;acb.append(e);acb.scrollTop=acb.scrollHeight;if(!u&&(aiVo||vv)&&window.speechSynthesis&&!t.startsWith('খুঁজছি')){const m=new SpeechSynthesisUtterance(t.replace(/[\u2600-\u27BF\uFE0F\u{1F300}-\u{1FAFF}]/gu,''));m.lang=ALG[ali][0];m.onend=()=>{if(autoMic){autoMic=false;listen()}};speechSynthesis.speak(m)}return e}
+function btns(arr){const e=document.createElement('div');e.className='chips';arr.forEach(([l,f])=>{const b=document.createElement('button');b.textContent=l;b.onclick=()=>{e.remove();f()};e.append(b)});acb.append(e);acb.scrollTop=acb.scrollHeight}
+function ask(qs){pend=qs;if(vv)autoMic=true;bub('“'+qs+'” কোথা থেকে শুনবে — ইউটিউব নাকি ফ্রি সোর্স?');btns([['▶️ YouTube',()=>aiFind(qs,'yt')],['🎧 ফ্রি সোর্স (Jamendo, Audius, Archive)',()=>aiFind(qs,'free')]])}
+async function aiFind(qs,src){pend=null;const w=bub('খুঁজছি…');let r=[];
  try{r=src==='yt'?await yt(qs):(await Promise.allSettled([jam(qs),aud(qs),arc(qs)])).flatMap(x=>x.status==='fulfilled'?x.value.slice(0,4):[])}catch{}
  w.remove();if(!r.length){bub('কিছু পাওয়া গেল না 😕 অন্য নামে বা অন্য সোর্সে চেষ্টা করবেন?');btns([['🔁 অন্য সোর্সে',()=>ask(qs)]]);return}
  r=r.slice(0,8);bub(src==='yt'?'পেয়েছি! চাপলে বাজবে।\n⚠️ YouTube থেকে বাজালে স্ক্রিন অফ করলে বা অন্য অ্যাপে গেলে গান ব্যাকগ্রাউন্ডে চলবে না।':'পেয়েছি! এগুলো ব্যাকগ্রাউন্ডেও চলবে 🎧');
- const box=document.createElement('div');r.forEach((t,k)=>{const b=document.createElement('button');b.className='tr';b.innerHTML='<img alt=""><div><b></b><small></small></div><em></em>';b.querySelector('img').src=t.im||'icon.svg';b.querySelector('b').textContent=t.n;b.querySelector('small').textContent=t.ar;b.querySelector('em').textContent=t.src;b.dataset.s=t.src;b.onclick=()=>{q=r.slice();play(k)};box.append(b)});acb.append(box);
+ const box=document.createElement('div');r.forEach((t,k)=>{const b=document.createElement('button');b.className='tr';b.innerHTML='<img alt=""><div><b></b><small></small></div><em></em>';b.querySelector('img').src=t.im||'icon.svg';b.querySelector('b').textContent=t.n;b.querySelector('small').textContent=t.ar;b.querySelector('em').textContent=t.src;b.dataset.s=t.src;b.onclick=()=>{q=r.slice();play(k)};box.append(b)});acb.append(box);acb.scrollTop=acb.scrollHeight;
  btns([['🔁 অন্য সোর্সে খুঁজি',()=>ask(qs)],['✅ ধন্যবাদ',()=>bub('আনন্দিত! আরেকটা গান চাইলে বলুন 🎶')]])}
-async function aiSend(){const t=aci.value.trim();if(!t)return;aci.value='';bub(t,1);ach.push({role:'user',content:t});
+async function aiSend(fv){vv=fv===true;const t=aci.value.trim();if(!t)return;aci.value='';bub(t,1);if(pend){const p=pend;if(/ইউটিউব|ইউ টিউব|youtube/i.test(t)){pend=null;aiFind(p,'yt');return}if(/ফ্রি|free|জামেন|অডিয়াস|আর্কাইভ|archive|audius|jamendo/i.test(t)){pend=null;aiFind(p,'free');return}pend=null}ach.push({role:'user',content:t});
  if(AI_URL){try{const j=await(await fetch(AI_URL,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({messages:ach})})).json();ach.push({role:'assistant',content:j.reply||''});if(j.reply)bub(j.reply);if(j.q)ask(j.q);return}catch{bub('এআই সংযোগ পাওয়া যায়নি, সরাসরি খুঁজছি।')}}
  ask(t)}
 $('#acs').onclick=aiSend;aci.onkeydown=e=>e.key==='Enter'&&aiSend();
@@ -555,11 +573,53 @@ function dailyMix(){const pool=[...FV,...RPL],seen=new Set(),m=pool.filter(t=>t.
  for(let k=m.length-1;k>0;k--){const j=Math.floor(rd()*(k+1));[m[k],m[j]]=[m[j],m[k]]}
  show('home');view=null;list=m.slice(0,25);msg('✨ আজকের মিক্স');draw();q=list.slice();play(0)}
 const SR=window.SpeechRecognition||window.webkitSpeechRecognition,ALG=[['bn-BD','বাংলা'],['en-US','English'],['hi-IN','হিন্দি']];let aiVo=false,ali=0;
-$('#avo').onclick=()=>{aiVo=!aiVo;$('#avo').textContent=aiVo?'🔊 উত্তর শোনা চালু':'🔇 উত্তর শোনা বন্ধ';if(!aiVo&&window.speechSynthesis)speechSynthesis.cancel()};
-$('#alg').onclick=()=>{ali=(ali+1)%ALG.length;$('#alg').textContent='ভাষা: '+ALG[ali][1]};
-$('#amic').onclick=()=>{if(!SR){toast('এই ব্রাউজারে ভয়েস ইনপুট নেই, Chrome ব্যবহার করুন');return}
+$('#avo').onclick=()=>{aiVo=!aiVo;$('#avo').textContent=aiVo?'🔊':'🔇';if(!aiVo&&window.speechSynthesis)speechSynthesis.cancel()};
+$('#alg').onclick=()=>{ali=(ali+1)%ALG.length;$('#alg').textContent=ALG[ali][1]};
+function listen(){if(!SR){toast('এই ব্রাউজারে ভয়েস ইনপুট নেই, Chrome ব্যবহার করুন');return}
  const r=new SR();r.lang=ALG[ali][0];r.interimResults=false;$('#amic').textContent='🔴';
- r.onresult=e=>{aci.value=e.results[0][0].transcript;aiSend()};r.onerror=()=>toast('শোনা গেল না, আবার চেষ্টা করুন');r.onend=()=>$('#amic').textContent='🎤';
- try{r.start()}catch{}};
+ r.onresult=e=>{aci.value=e.results[0][0].transcript;aiSend(true)};r.onerror=()=>toast('শোনা গেল না, আবার চেষ্টা করুন');r.onend=()=>$('#amic').textContent='🎤';
+ try{r.start()}catch{}}
+$('#amic').onclick=listen;
+/* সিনেমা (Internet Archive · ওয়াচ হিস্ট্রি) */
+let mvl=0,MH=L('wh',{}),mvCur=null,mvK=-1;const mvv=$('#mvv'),AQ={bengali:'mediatype:movies AND (language:Bengali OR bengali OR bangla)',classic:'collection:feature_films',scifi:'collection:feature_films AND subject:(science fiction)',horror:'collection:feature_films AND subject:(horror)',comedy:'collection:feature_films AND subject:(comedy)',animation:'mediatype:movies AND subject:(animation OR cartoon)'};
+async function mvSearch(q){$('#mres').innerHTML='';const g=$('#mg');g.innerHTML='';$('#mmsg').textContent='লোড হচ্ছে…';
+ try{const u='https://archive.org/advancedsearch.php?q='+encodeURIComponent(q)+'&fl[]=identifier&fl[]=title&fl[]=year&rows=45&output=json&sort[]=downloads+desc',d=(await(await fetch(u)).json()).response.docs;
+  $('#mmsg').textContent=d.length?'':'কিছু পাওয়া যায়নি।';
+  d.forEach(x=>{const b=document.createElement('button');b.className='tvc';b.innerHTML='<img alt="" style="width:100%;height:110px;object-fit:cover"><span></span>';b.querySelector('img').src='https://archive.org/services/img/'+x.identifier;b.lastChild.textContent=(x.title||x.identifier)+(x.year?' ('+x.year+')':'');b.onclick=()=>mvOpen(x.identifier,x.title||x.identifier);g.append(b)})}
+ catch{$('#mmsg').textContent='মুভির তালিকা আনা গেল না। ইন্টারনেট দেখুন।'}}
+function mvGo(k){if(k==='yt1'||k==='yt2'){$('#mg').innerHTML='';loadSec('#mres',()=>[yt(k==='yt1'?'বাংলা ফুল মুভি':'বাংলা নাটক ফুল')]);return}mvSearch(AQ[k])}
+async function mvOpen(id,title){pauseAll();$('#mvw').hidden=false;$('#mvn').textContent=title;$('#mvd').textContent='লোড হচ্ছে…';$('#mvw').scrollIntoView({behavior:'smooth'});
+ try{const m=await(await fetch('https://archive.org/metadata/'+id)).json(),f=(m.files||[]).filter(x=>/\.(mp4|m4v)$/i.test(x.name)&&+x.size>5e6).sort((x,y)=>x.size-y.size);
+  if(!f.length){$('#mvd').innerHTML='';const l=document.createElement('a');l.href='https://archive.org/details/'+id;l.target='_blank';l.textContent='এই মুভি এখানে চলবে না, Archive-এ খুলুন ↗';$('#mvd').append(l);return}
+  mvCur={id,n:title};$('#mvd').innerHTML='';
+  f.slice(-4).forEach((x,k,arr)=>{const mb=Math.round(x.size/1e6),url='https://archive.org/download/'+id+'/'+encodeURIComponent(x.name);
+   const b=document.createElement('button');b.className='btn g mini';b.textContent='▶ '+(k===0&&arr.length>1?'ছোট':k===arr.length-1&&arr.length>1?'বড় (ভালো কোয়ালিটি)':'মাঝারি')+' · '+mb+'MB';b.onclick=()=>mvPlay(url);$('#mvd').append(b);
+   const d=document.createElement('a');d.className='btn g mini';d.href=url;d.target='_blank';d.setAttribute('download','');d.textContent='⬇ '+mb+'MB';$('#mvd').append(d);if(k===Math.min(1,arr.length-1))b.click()})}
+ catch{$('#mvd').textContent='মুভি লোড করা গেল না।'}}
+function mvPlay(u){const h=MH[mvCur.id];mvv.src=u;mvv.onloadedmetadata=()=>{if(h&&h.t>10&&h.t<mvv.duration-30){mvv.currentTime=h.t;toast('যেখানে ছেড়েছিলেন সেখান থেকে চলছে')}};mvv.play().catch(()=>{})}
+function pauseAll(){a.pause();ytp&&ytp.pauseVideo&&ytp.pauseVideo();v.pause();tvv.pause()}
+mvv.ontimeupdate=()=>{if(!mvCur||!mvv.duration)return;const k=Math.floor(mvv.currentTime/5);if(k===mvK)return;mvK=k;MH[mvCur.id]={n:mvCur.n,t:mvv.currentTime,d:mvv.duration,ts:Date.now()};S('wh',MH)};
+mvv.onended=()=>{if(mvCur){delete MH[mvCur.id];S('wh',MH);mvHist()}};
+mvv.onplay=pauseOthers;function pauseOthers(){a.pause();ytp&&ytp.pauseVideo&&ytp.pauseVideo();v.pause();tvv.pause()}
+a.addEventListener('play',()=>mvv.pause());tvv.addEventListener('play',()=>mvv.pause());
+function mvHist(){const e=$('#mh'),r=Object.entries(MH).sort((x,y)=>y[1].ts-x[1].ts).slice(0,8);e.innerHTML='';if(!r.length)return;const h=document.createElement('b');h.textContent='▶ চালিয়ে যান';h.style.cssText='display:block;margin:10px 4px 2px';e.append(h);
+ r.forEach(([id,x])=>{const b=document.createElement('button');b.className='mhi';const m=Math.floor(x.t/60),pc=Math.min(100,Math.round(x.t/x.d*100));b.innerHTML='<span></span><small></small><i></i>';b.firstChild.textContent=x.n;b.children[1].textContent=' · '+bn(m)+' মিনিট পর্যন্ত দেখা ('+bn(pc)+'%)';b.lastChild.style.width=pc+'%';b.onclick=()=>mvOpen(id,x.n);e.append(b)})}
+$('#mvx').onclick=()=>{mvv.pause();mvv.removeAttribute('src');$('#mvw').hidden=true;mvHist()};
+$$('#mch button').forEach(b=>b.onclick=()=>{$$('#mch button').forEach(x=>x.classList.toggle('on',x===b));$('#mq').value='';mvGo(b.dataset.k)});
+$('#mgo').onclick=()=>{const t=$('#mq').value.trim();if(!t)return;$$('#mch button').forEach(x=>x.classList.remove('on'));mvSearch('mediatype:movies AND ('+t.replace(/[()\[\]:"]/g,' ')+')')};
+$('#mq').onkeydown=e=>e.key==='Enter'&&$('#mgo').click();
+$$('[data-l]').forEach(b=>b.onclick=()=>window.open(b.dataset.l,'_blank','noopener'));
+/* আপডেট পপআপ */
+const APP_VER='2026-11-21-b';
+const CHG=["🎬 নতুন সিনেমা ট্যাব: Internet Archive-এর ফ্রি মুভি দেখা ও ডাউনলোড (বিভিন্ন সাইজে)","⏱️ ওয়াচ হিস্ট্রি: যেখানে ছেড়েছিলেন সেখান থেকে আবার চলে","🔗 বঙ্গ, হইচই, MX Player ও Tubi-র ফ্রি অংশের লিংক","▶️ বাংলা ফুল মুভি ও নাটক YouTube থেকে"];
+function pop(title,lines,btn,fn,cancel){const o=document.createElement('div');o.className='upd';const c=document.createElement('div');const h=document.createElement('h3');h.textContent=title;c.append(h);lines.forEach(l=>{const p=document.createElement('p');p.textContent=l;c.append(p)});
+ const r=document.createElement('div');r.className='row';r.style.cssText='margin-top:14px;gap:8px';const b=document.createElement('button');b.className='btn';b.textContent=btn;b.onclick=()=>{o.remove();fn&&fn()};r.append(b);
+ if(cancel){const x=document.createElement('button');x.className='btn g';x.textContent='পরে';x.onclick=()=>o.remove();r.append(x)}c.append(r);o.append(c);document.body.append(o)}
+let updShown=0;
+async function chkUp(){if(updShown)return;try{const t=await(await fetch(location.pathname+'?_='+Date.now(),{cache:'no-store'})).text(),v=(t.match(/APP_VER='([^']+)'/)||[])[1];
+ if(v&&v!==APP_VER){updShown=1;let c=[];try{c=JSON.parse(t.match(/CHG=(\[[^\n]*\]);/)[1])}catch{}pop('🎉 নতুন আপডেট এসেছে',c,'আপডেট করুন',doUp,1)}}catch{}}
+async function doUp(){try{(await navigator.serviceWorker.getRegistrations()).forEach(r=>r.unregister());(await caches.keys()).forEach(k=>caches.delete(k))}catch{}location.reload()}
+{const sv=L('ver','');if(sv&&sv!==APP_VER)setTimeout(()=>pop('✨ কী কী নতুন',CHG,'ঠিক আছে'),800);S('ver',APP_VER)}
+setTimeout(chkUp,4000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)chkUp()});
 dbx('get').then(r=>r.length?loadLib():load(''));
 </script></body></html>
