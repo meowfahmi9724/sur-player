@@ -406,10 +406,10 @@ $('#lib').onclick=()=>$('#lf').click();
 $('#myph').onclick=async()=>{(await dbx('get')).length?loadLib():$('#lf').click()};
 let shuf=false;$('#shf').onclick=()=>{shuf=!shuf;$('#shf').classList.toggle('on',shuf);toast(shuf?'শাফল চালু':'শাফল বন্ধ');if(shuf&&list.length&&!cur){q=list.slice();play(Math.random()*q.length|0)}};
 /* প্লে + YouTube */
-const ytw=$('#ytw');let ytp,yq;$('#ytx').onclick=()=>ytw.classList.add('hid');
+const ytw=$('#ytw');let ytp,yq;$('#ytx').onclick=()=>{try{ytp&&ytp.pauseVideo&&ytp.pauseVideo()}catch{}ytw.classList.add('hid')};
 function ytPlay(id){yq=id;if(ytp&&ytp.loadVideoById)return ytp.loadVideoById(id);
  if(!window.YT){const s=document.createElement('script');s.src='https://www.youtube.com/iframe_api';document.head.appendChild(s);window.onYouTubeIframeAPIReady=mk}else if(!ytp)mk()}
-function mk(){ytp=new YT.Player('ytp',{width:'100%',height:'100%',videoId:yq,playerVars:{playsinline:1,autoplay:1,rel:0},events:{onStateChange:e=>{const s=e.data;if(s===1&&DS){try{ytp.setPlaybackQuality('small')}catch{}}if(s===0)nx();if(s===1||s===2){B.classList.toggle('pl',s===1);$$('.pp').forEach(b=>b.innerHTML=s===1?IC.pause:IC.play)}}}})}
+function mk(){ytp=new YT.Player('ytp',{host:'https://www.youtube-nocookie.com',width:'100%',height:'100%',videoId:yq,playerVars:{playsinline:1,autoplay:1,rel:0},events:{onStateChange:e=>{const s=e.data;if(s===1&&DS){try{ytp.setPlaybackQuality('small')}catch{}}if(s===0)nx();if(s===1||s===2){B.classList.toggle('pl',s===1);$$('.pp').forEach(b=>b.innerHTML=s===1?IC.pause:IC.play)}}}})}
 setInterval(()=>{if(!(cur&&cur.vid&&ytp&&ytp.getDuration))return;const d=ytp.getDuration()||1,t=ytp.getCurrentTime();$('#sk').max=d;$('#sk').value=t;rv($('#sk'));$('#mp i').style.width=t/d*100+'%';$('#c').textContent=fm(t);$('#d').textContent=fm(d)},500);
 $$('#gen button').forEach(b=>b.onclick=()=>{$('#q').value=b.textContent;load(b.textContent)});
 function play(n){if(!q[n])return;if((q[n].ia||q[n].pod)&&!q[n].u){const c=q[n];toast('লোড হচ্ছে…');(c.ia?arcTracks(c):podEps(c)).then(t=>{const k=q.indexOf(c);if(k<0)return;if(!t.length){toast('এই আইটেমে চালানোর মতো অডিও পাওয়া যায়নি');q.splice(k,1);if(q.length)play(Math.min(k,q.length-1));return}q.splice(k,1,...t);play(k)}).catch(()=>toast('গান লোড করা গেল না'));return}
@@ -419,7 +419,7 @@ function play(n){if(!q[n])return;if((q[n].ia||q[n].pod)&&!q[n].u){const c=q[n];t
  $$('.cov').forEach(x=>x.src=cur.im||'icon.svg');$('#fbg').style.backgroundImage=cur.im?`url("${cur.im}")`:'none';hrt();rq();lyReset();rpAdd(cur);$$('.tr').forEach(b=>b.classList.toggle('cur',!!cur&&b.dataset.id===cur.id));
  if('mediaSession' in navigator)navigator.mediaSession.metadata=new MediaMetadata({title:cur.n,artist:cur.ar,artwork:cur.im?[{src:cur.im,sizes:'300x300'}]:[]})}
 const rnd=()=>{if(q.length<2)return 0;let k;do k=Math.random()*q.length|0;while(k===i);return k},nx=()=>q.length&&play(shuf?rnd():(i+1)%q.length),pv=()=>a.currentTime>3?a.currentTime=0:q.length&&play((i-1+q.length)%q.length);
-$$('.pp').forEach(b=>b.onclick=()=>cur&&cur.vid?(ytp.getPlayerState()===1?ytp.pauseVideo():ytp.playVideo()):a.paused?a.play():a.pause());$$('.nx').forEach(b=>b.onclick=nx);$$('.pv').forEach(b=>b.onclick=pv);
+$$('.pp').forEach(b=>b.onclick=()=>cur&&cur.vid?(ytw.classList.remove('hid'),ytp.getPlayerState()===1?ytp.pauseVideo():ytp.playVideo()):a.paused?a.play():a.pause());$$('.nx').forEach(b=>b.onclick=nx);$$('.pv').forEach(b=>b.onclick=pv);
 $$('.lp').forEach(b=>b.onclick=()=>{a.loop=!a.loop;$$('.lp').forEach(x=>x.style.opacity=a.loop?1:.5)});
 const ms=s=>{if('mediaSession' in navigator)navigator.mediaSession.playbackState=s};
 a.onplay=()=>{B.classList.add('pl');$$('.pp').forEach(b=>b.innerHTML=IC.pause);ms('playing')};
@@ -579,9 +579,17 @@ async function aiFind(qs,src){pend=null;const w=bub('খুঁজছি…');let
  r=r.slice(0,8);bub(src==='yt'?'পেয়েছি! চাপলে বাজবে।\n⚠️ YouTube থেকে বাজালে স্ক্রিন অফ করলে বা অন্য অ্যাপে গেলে গান ব্যাকগ্রাউন্ডে চলবে না।':'পেয়েছি! এগুলো ব্যাকগ্রাউন্ডেও চলবে 🎧');
  const box=document.createElement('div');r.forEach((t,k)=>{const b=document.createElement('button');b.className='tr';b.innerHTML='<img alt=""><div><b></b><small></small></div><em></em>';b.querySelector('img').src=t.im||'icon.svg';b.querySelector('b').textContent=t.n;b.querySelector('small').textContent=t.ar;b.querySelector('em').textContent=t.src;b.dataset.s=t.src;b.onclick=()=>{q=r.slice();play(k)};box.append(b)});acb.append(box);acb.scrollTop=acb.scrollHeight;
  btns([['🔁 অন্য সোর্সে খুঁজি',()=>ask(qs)],['✅ ধন্যবাদ',()=>bub('আনন্দিত! আরেকটা গান চাইলে বলুন 🎶')]])}
-async function aiSend(fv){vv=fv===true;const t=aci.value.trim();if(!t)return;aci.value='';bub(t,1);if(pend){const p=pend;if(/ইউটিউব|ইউ টিউব|youtube/i.test(t)){pend=null;aiFind(p,'yt');return}if(/ফ্রি|free|জামেন|অডিয়াস|আর্কাইভ|archive|audius|jamendo/i.test(t)){pend=null;aiFind(p,'free');return}pend=null}ach.push({role:'user',content:t});
- if(AI_URL){try{const j=await(await fetch(AI_URL,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({messages:ach,now:cur?cur.n+' — '+(cur.ar||''):''})})).json();const bd=$('#ai .hero small');if(bd)bd.textContent=j.via==='gemini'?'🟢 Gemini চলছে':j.via==='llama'?'🟡 ছোট মডেল'+(j.err?' ('+String(j.err).slice(0,60)+')':''):'এআই সহকারী';ach.push({role:'assistant',content:j.reply||''});if(j.reply)bub(j.reply);if(j.q)ask(j.q);return}catch{bub('এআই সংযোগ পাওয়া যায়নি, সরাসরি খুঁজছি।')}}
- ask(t)}
+async function aiPlay(qs,src){pend=null;const w=bub('খুঁজছি…');let r=[],used=src||'yt';
+ const fr=async()=>(await Promise.allSettled([jam(qs),aud(qs),arc(qs)])).flatMap(x=>x.status==='fulfilled'?x.value.slice(0,4):[]);
+ try{if(used==='free'){r=await fr();if(!r.length){used='yt';r=await yt(qs)}}else{r=await yt(qs);if(!r.length){used='free';r=await fr()}}}catch{}
+ w.remove();if(!r.length){bub('কিছু পাওয়া গেল না 😕 অন্য নামে চেষ্টা করবেন?');return}
+ r=r.slice(0,8);q=r.slice();play(0);
+ bub(used==='yt'?'▶️ ইউটিউব থেকে বাজাচ্ছি: '+r[0].n+'\n⚠️ স্ক্রিন অফ করলে থেমে যেতে পারে।':'🎧 ফ্রি সোর্স থেকে বাজাচ্ছি: '+r[0].n+' (ব্যাকগ্রাউন্ডেও চলবে)');
+ btns([[used==='yt'?'🎧 ফ্রি সোর্সে খুঁজি':'▶️ ইউটিউবে খুঁজি',()=>aiPlay(qs,used==='yt'?'free':'yt')]])}
+const fx=t=>{t=String(t||'');if(!/^\s*\{/.test(t))return t;try{return JSON.parse(t).reply||''}catch{const m=t.match(/"reply"\s*:\s*"((?:[^"\\]|\\.)*)/);return m?m[1].replace(/\\n/g,'\n').replace(/\\"/g,'"'):t}};
+async function aiSend(fv){vv=fv===true;const t=aci.value.trim();if(!t)return;aci.value='';bub(t,1);const hint=/ইউটিউব|ইউ টিউব|youtube|\byt\b/i.test(t)?'yt':/ফ্রি|free|জামেন|অডিয়াস|আর্কাইভ|archive|audius|jamendo/i.test(t)?'free':null;if(pend){const p=pend;if(/ইউটিউব|ইউ টিউব|youtube|\byt\b/i.test(t)){pend=null;aiPlay(p,'yt');return}if(/ফ্রি|free|জামেন|অডিয়াস|আর্কাইভ|archive|audius|jamendo/i.test(t)){pend=null;aiPlay(p,'free');return}pend=null}ach.push({role:'user',content:t});
+ if(AI_URL){try{const j=await(await fetch(AI_URL,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({messages:ach,now:cur?cur.n+' — '+(cur.ar||''):''})})).json();const bd=$('#ai .hero small');if(bd)bd.textContent=j.via==='gemini'?'🟢 Gemini চলছে':j.via==='llama'?'🟡 ছোট মডেল'+(j.err?' ('+String(j.err).slice(0,60)+')':''):'এআই সহকারী';j.reply=fx(j.reply);ach.push({role:'assistant',content:j.reply||''});if(j.reply)bub(j.reply);if(j.q)aiPlay(j.q,hint);return}catch{bub('এআই সংযোগ পাওয়া যায়নি, সরাসরি খুঁজছি।')}}
+ aiPlay(t,hint)}
 $('#acs').onclick=aiSend;aci.onkeydown=e=>e.key==='Enter'&&aiSend();
 /* সম্প্রতি শোনা · লিরিক্স · খবর */
 let RPL=L('rpl',[]),LY=[],lyk=-1;
@@ -675,8 +683,8 @@ async function mvYt(c){dt='#mres';view=null;msg('লোড হচ্ছে…');
 function dsSet(v){DS=v;S('ds',v);$$('.dsq').forEach(b=>b.textContent='📶 ডাটা সেভার: '+(v?'চালু':'বন্ধ'));$$('#dsw button').forEach(b=>b.classList.toggle('on',(b.dataset.v==='1')===v))}
 $$('.dsq').forEach(b=>b.onclick=()=>{dsSet(!DS);toast(DS?'ডাটা সেভার চালু':'ডাটা সেভার বন্ধ')});$$('#dsw button').forEach(b=>b.onclick=()=>dsSet(b.dataset.v==='1'));dsSet(DS);
 /* আপডেট পপআপ */
-const APP_VER='2026-11-21-h';
-const CHG=["💬 সুরানির চ্যাট এখন পুরো স্ক্রিন জুড়ে, নিচে ফাঁকা জায়গা নেই","🤖 সুরানির পাশে দেখা যাবে Gemini চলছে নাকি ছোট মডেল (🟢/🟡)","🛠️ এআই ওয়ার্কারে সমস্যা ধরার সুবিধা যোগ"];
+const APP_VER='2026-11-21-j';
+const CHG=["▶️ গানের নাম বললে সুরানি সরাসরি বাজাবে, \"yt\" লিখলেও বুঝবে","❌ ইউটিউব ভিডিওতে ক্রস দিলে এখন শব্দও বন্ধ হবে","💬 সুরানির চ্যাট এখন পুরো স্ক্রিন জুড়ে, নিচে ফাঁকা জায়গা নেই","🤖 সুরানির পাশে দেখা যাবে Gemini চলছে নাকি ছোট মডেল (🟢/🟡)","🛠️ এআই ওয়ার্কারে সমস্যা ধরার সুবিধা যোগ"];
 function pop(title,lines,btn,fn,cancel){const o=document.createElement('div');o.className='upd';const c=document.createElement('div');const h=document.createElement('h3');h.textContent=title;c.append(h);lines.forEach(l=>{const p=document.createElement('p');p.textContent=l;c.append(p)});
  const r=document.createElement('div');r.className='row';r.style.cssText='margin-top:14px;gap:8px';const b=document.createElement('button');b.className='btn';b.textContent=btn;b.onclick=()=>{o.remove();fn&&fn()};r.append(b);
  if(cancel){const x=document.createElement('button');x.className='btn g';x.textContent='পরে';x.onclick=()=>o.remove();r.append(x)}c.append(r);o.append(c);document.body.append(o)}
